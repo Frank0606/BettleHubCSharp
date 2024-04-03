@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BettleHubCsharp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c80aa256aa2bb998a5ba8b8cddf42fb93e860e1e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d668ee0c38c26f6e7882fa0d91822444de23af64")]
 [assembly: System.Reflection.AssemblyProductAttribute("BettleHubCsharp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BettleHubCsharp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
