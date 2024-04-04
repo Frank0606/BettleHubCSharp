@@ -1,1 +1,38 @@
 GET https://localhost:7083/api/biologo
+
+###
+
+GET https://localhost:7083/api/biologo/Nombre/Nombre1
+
+###
+
+GET https://localhost:7083/api/biologo/Id/4
+
+###
+
+POST https://localhost:7083/api/biologo
+Content-Type: application/json
+
+{
+    "correo_biologo": "Antonio@hotmail.com",
+    "nombre_biologo": "Antonio",
+    "edad_biologo": "22",
+    "telefono_biologo": "2288563129",
+    "contrasena_biologo": "antoniopassword",
+    "usuario_biologo": "manzano1717"
+}
+
+###
+
+PUT https://localhost:7083/api/biologo/6
+Content-Type: application/json
+
+{
+    "id_biologo": 6,
+    "correo_biologo": "pruebaPUT@pruebas.com",
+    "nombre_biologo": "Nombre_PruebaPUT",
+    "edad_biologo": "27",
+    "telefono_biologo": "2721847177",
+    "contrasena_biologo": "passwordPUT",
+    "usuario_biologo": "user001PUT"
+}

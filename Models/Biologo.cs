@@ -8,8 +8,8 @@ public class Biologo{
     public int Id_biologo { get; set; }
     public required string Correo_biologo { get; set; }
     public required string Nombre_biologo { get; set; }
-    public int Edad_biologo { get; set; } = 0;
-    public int Telefono_biologo { get; set; } = 0;
+    public int? Edad_biologo { get; set; } = 0;
+    public long? Telefono_biologo { get; set; } = 0;
     public required string Contrasena_biologo { get; set; }
     public required string Usuario_biologo { get; set; }
     public bool Protegida { get; set; } = false;
