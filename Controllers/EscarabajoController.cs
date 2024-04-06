@@ -28,15 +28,25 @@ public class EscarabajoController : Controller
 
     //Este metodo es para recuperar un solo biologo por medio de su nombre
     [HttpGet("Nombre/{nombreComun}")]
-    public async Task<ActionResult<Escarabajo>> GetEscarabajoNombreComun()
-    {
-        return NoContent();
-    }
+ public async Task<ActionResult<Escarabajo>> GetEscarabajoNombreComun(string nombreComun)
+ {
+     var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Nombre_comun_escarabajo == nombreComun); //Esto es para buscar otro atributo que no sea la llave
+     if (escarabajo == null)
+     {
+         return NotFound();
+     }
+     return escarabajo;
+ }
 
     [HttpGet("Especie/{especie}")]
-    public async Task<ActionResult<Escarabajo>> GetEscarabajoEspecie()
+    public async Task<ActionResult<Escarabajo>> GetEscarabajoEspecie(string especie)
     {
-        return NoContent();
+       var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie_escarabajo == especie); //Esto es para buscar otro atributo que no sea la llave
+  if (escarabajo == null)
+  {
+      return NotFound();
+  }
+  return escarabajo;
     }
 
     //Este metodo es para insertar un biologo
