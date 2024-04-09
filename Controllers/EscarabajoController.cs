@@ -28,15 +28,25 @@ public class EscarabajoController : Controller
 
     //Este metodo es para recuperar un solo biologo por medio de su nombre
     [HttpGet("Nombre/{nombreComun}")]
-    public async Task<ActionResult<Escarabajo>> GetEscarabajoNombreComun()
+    public async Task<ActionResult<Escarabajo>> GetEscarabajoNombreComun(string nombreComun)
     {
-        return NoContent();
+        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Nombre_comun_escarabajo == nombreComun); //Esto es para buscar otro atributo que no sea la llave
+        if (escarabajo == null)
+        {
+            return NotFound();
+        }
+        return escarabajo;
     }
 
     [HttpGet("Especie/{especie}")]
-    public async Task<ActionResult<Escarabajo>> GetEscarabajoEspecie()
+    public async Task<ActionResult<Escarabajo>> GetEscarabajoEspecie(string especie)
     {
-        return NoContent();
+        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie_escarabajo == especie); //Esto es para buscar otro atributo que no sea la llave
+        if (escarabajo == null)
+        {
+            return NotFound();
+        }
+        return escarabajo;
     }
 
     //Este metodo es para insertar un biologo
@@ -48,15 +58,49 @@ public class EscarabajoController : Controller
 
     //Este es el metodo para editar un biologo
     [HttpPut("{especie}")]
-    public async Task<IActionResult> PutEscarabajo()
+    public async Task<IActionResult> PutEscarabajo(int especie, EscarabajoDTO escarabajoDTO)
     {
+        var escarabajo = await _context.Escarabajo.FindAsync(especie);
+        if(escarabajo == null)
+        {
+            return NotFound();
+        } 
+
+        escarabajo.Especie_escarabajo = escarabajoDTO.Especie_escarabajo;
+        escarabajo.Familia_escarabajo = escarabajoDTO.Familia_escarabajo;
+        escarabajo.Genero_escarabajo = escarabajoDTO.Genero_escarabajo;
+        escarabajo.Patas_escarabajo = escarabajoDTO.Patas_escarabajo;
+        escarabajo.Torax_escarabajo = escarabajoDTO.Torax_escarabajo;
+        escarabajo.Ciclo_vida_escarabajo = escarabajoDTO.Ciclo_vida_escarabajo;
+        escarabajo.Nombre_comun_escarabajo = escarabajoDTO.Nombre_comun_escarabajo;
+        escarabajo.Antena_escarabajo = escarabajoDTO.Antena_escarabajo;
+        escarabajo.Ojos_escarabajos = escarabajoDTO.Ojos_escarabajos;
+        escarabajo.Mandibula_escarabajo = escarabajoDTO.Mandibula_escarabajo;
+        escarabajo.Alas_escarabajo = escarabajoDTO.Alas_escarabajo;
+        escarabajo.Elitros_escarabajo = escarabajoDTO.Elitros_escarabajo;
+
+        await _context.SaveChangesAsync();
         return NoContent();
     }
 
     //Este es el metodo para eliminar un biologo por ID
     [HttpDelete("{especie}")]
-    public async Task<IActionResult> DeleteEscarabajo()
+    public async Task<IActionResult> DeleteEscarabajo(string especie)
     {
+        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie_escarabajo == especie);
+        if (escarabajo == null)
+        {
+            return NotFound();
+        }
+
+        if (escarabajo.Protegida)
+        {
+            return BadRequest();
+        }
+
+        _context.Escarabajo.Remove(escarabajo);
+        await _context.SaveChangesAsync();
+
         return NoContent();
     }
 }

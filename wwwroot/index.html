@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente Web API</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+
+<body>
+    <h1>Cliente Web API Biologos</h1>
+    <h2>Agregar</h2>
+    <form id="formAgregarBiologo" method="post">
+        <input type="text" id="nombreBiologo" placeholder="Nombre">
+        <input type="text" id="correoBiologo" placeholder="Correo">
+        <input type="text" id="edadBiologo" placeholder="Edad">
+        <input type="text" id="telefonoBiologo" placeholder="Telefono">
+        <input type="text" id="usuarioBiologo" placeholder="Usuario">
+        <input type="text" id="contrasenaBiologo" placeholder="Contraseña">
+
+        <input type="submit" value="Agregar">
+    </form>
+
+    <div>
+        <h2>Mostrar</h2>
+        <table>
+            <tr>
+                <th></th>
+            </tr>
+            <tbody id="mostrarBiologos"></tbody>
+        </table>
+    </div>
+
+    <script src="js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        obtenerBiologos();
+    </script>
+</body>
+
+</html>
