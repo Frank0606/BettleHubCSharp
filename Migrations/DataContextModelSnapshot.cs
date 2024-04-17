@@ -148,7 +148,7 @@ namespace BettleHubCsharp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Ojos_escarabajos")
+                    b.Property<string>("Ojos_escarabajo")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -180,7 +180,7 @@ namespace BettleHubCsharp.Migrations
                             Imagenes_escarabajo = "[]",
                             Mandibula_escarabajo = "mandibula1",
                             Nombre_comun_escarabajo = "nombre_comun1",
-                            Ojos_escarabajos = "ojos1",
+                            Ojos_escarabajo = "ojos1",
                             Patas_escarabajo = 1,
                             Protegida = true,
                             Torax_escarabajo = "torax1"
@@ -198,7 +198,7 @@ namespace BettleHubCsharp.Migrations
                             Imagenes_escarabajo = "[]",
                             Mandibula_escarabajo = "mandibula2",
                             Nombre_comun_escarabajo = "nombre_comun2",
-                            Ojos_escarabajos = "ojos2",
+                            Ojos_escarabajo = "ojos2",
                             Patas_escarabajo = 2,
                             Protegida = true,
                             Torax_escarabajo = "torax2"
@@ -216,7 +216,7 @@ namespace BettleHubCsharp.Migrations
                             Imagenes_escarabajo = "[]",
                             Mandibula_escarabajo = "mandibula3",
                             Nombre_comun_escarabajo = "nombre_comun3",
-                            Ojos_escarabajos = "ojos3",
+                            Ojos_escarabajo = "ojos3",
                             Patas_escarabajo = 3,
                             Protegida = true,
                             Torax_escarabajo = "torax3"
@@ -234,7 +234,7 @@ namespace BettleHubCsharp.Migrations
                             Imagenes_escarabajo = "[]",
                             Mandibula_escarabajo = "mandibula4",
                             Nombre_comun_escarabajo = "nombre_comun4",
-                            Ojos_escarabajos = "ojos4",
+                            Ojos_escarabajo = "ojos4",
                             Patas_escarabajo = 4,
                             Protegida = true,
                             Torax_escarabajo = "torax4"

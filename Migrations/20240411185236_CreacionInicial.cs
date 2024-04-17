@@ -58,7 +58,7 @@ namespace BettleHubCsharp.Migrations
                     Nombre_comun_escarabajo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Antena_escarabajo = table.Column<int>(type: "int", nullable: false),
-                    Ojos_escarabajos = table.Column<string>(type: "longtext", nullable: false)
+                    Ojos_escarabajo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Mandibula_escarabajo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -117,7 +117,7 @@ namespace BettleHubCsharp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Escarabajo",
-                columns: new[] { "Especie_escarabajo", "Alas_escarabajo", "Antena_escarabajo", "Audios_escarabajo", "Ciclo_vida_escarabajo", "Elitros_escarabajo", "Familia_escarabajo", "Genero_escarabajo", "Imagenes_escarabajo", "Mandibula_escarabajo", "Nombre_comun_escarabajo", "Ojos_escarabajos", "Patas_escarabajo", "Protegida", "Torax_escarabajo" },
+                columns: new[] { "Especie_escarabajo", "Alas_escarabajo", "Antena_escarabajo", "Audios_escarabajo", "Ciclo_vida_escarabajo", "Elitros_escarabajo", "Familia_escarabajo", "Genero_escarabajo", "Imagenes_escarabajo", "Mandibula_escarabajo", "Nombre_comun_escarabajo", "Ojos_escarabajo", "Patas_escarabajo", "Protegida", "Torax_escarabajo" },
                 values: new object[,]
                 {
                     { "especie1", "alas1", 1, "[]", "ciclo_vida1", "elitros1", "familia1", "genero1", "[]", "mandibula1", "nombre_comun1", "ojos1", 1, true, "torax1" },

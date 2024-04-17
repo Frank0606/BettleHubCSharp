@@ -9,7 +9,7 @@ public class EscarabajoDTO{
     public required string Ciclo_vida_escarabajo { get; set; }
     public required string Nombre_comun_escarabajo { get; set; }
     public required int Antena_escarabajo { get; set; }
-    public required string Ojos_escarabajos { get; set; }
+    public required string Ojos_escarabajo { get; set; }
     public required string Mandibula_escarabajo { get; set; }
     public required string Alas_escarabajo { get; set; }
     public required string Elitros_escarabajo { get; set; }
