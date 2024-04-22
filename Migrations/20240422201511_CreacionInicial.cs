@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -20,8 +19,8 @@ namespace BettleHubCsharp.Migrations
                 name: "Biologo",
                 columns: table => new
                 {
-                    Id_biologo = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Id_biologo = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Correo_biologo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Nombre_biologo = table.Column<string>(type: "longtext", nullable: false)
@@ -82,7 +81,8 @@ namespace BettleHubCsharp.Migrations
                 name: "BiologoEscarabajo",
                 columns: table => new
                 {
-                    BiologosId_biologo = table.Column<int>(type: "int", nullable: false),
+                    BiologosId_biologo = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     EscarabajosEspecie_escarabajo = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -109,10 +109,10 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "Id_biologo", "Contrasena_biologo", "Correo_biologo", "Edad_biologo", "Nombre_biologo", "Protegida", "Telefono_biologo", "Usuario_biologo" },
                 values: new object[,]
                 {
-                    { 1, "1234", "Correo1", 19, "Nombre1", true, 9999999999L, "Usuario1" },
-                    { 2, "1234", "Correo2", 20, "Nombre2", true, 9999999999L, "Usuario2" },
-                    { 3, "1234", "Correo3", 18, "Nombre3", true, 9999999999L, "Usuario3" },
-                    { 4, "1234", "Correo4", 23, "Nombre4", true, 9999999999L, "Usuario4" }
+                    { "0df49966-9452-4788-be7a-8fcd67411465", "AQAAAAIAAYagAAAAEBnAMi36rvaJRZMSgTj/J8duC8IbhIZWam9ETNIvkguUkT6rPr50lzIQ0QzWB0tomg==", "Correo3", 18, "Nombre3", true, 9999999999L, "Usuario3" },
+                    { "130afd9e-02a8-426a-9ca9-b4418efd2e8a", "AQAAAAIAAYagAAAAELM54IFK8W+Lhku+PKvP/fIciAwCqFJarlKxuE/fyf2IQI2uJ3zBUQIx3Bgiwdv0UQ==", "Correo4", 23, "Nombre4", true, 9999999999L, "Usuario4" },
+                    { "1fece346-b2ad-4b6f-8b5a-6f3b645c7384", "AQAAAAIAAYagAAAAEFn+s6a2hCRH19SMaf9RBjP8a+RQGF+j4b+8A3pkNpAYfuuquc/ewEQbNxYd+CBOnQ==", "Correo1", 19, "Nombre1", true, 9999999999L, "Usuario1" },
+                    { "fe287cc7-b450-48a9-8d30-059141b35f38", "AQAAAAIAAYagAAAAEIfCSlIItVqdjx+F1Z2iA3FwxICICKxulJnScLMtWF9w7JXox8aHnpZnDa6YQx5Qlw==", "Correo2", 20, "Nombre2", true, 9999999999L, "Usuario2" }
                 });
 
             migrationBuilder.InsertData(

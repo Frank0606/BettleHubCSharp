@@ -200,7 +200,7 @@ function agregarEscarabajo() {
         },
         body: JSON.stringify(escarabajo)
     })
-        .then(response => response .json())
+        .then(response => response.json())
         .then(() => {
             obtenerEscarabajos()
             especie.value = ''

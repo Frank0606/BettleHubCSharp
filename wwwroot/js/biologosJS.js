@@ -74,12 +74,12 @@ function _mostrarBiologos(data) {
         let btnEditar = boton.cloneNode(false)
         btnEditar.innerHTML = 'Editar'
         btnEditar.classList.add('button', 'is-small', 'is-warning', 'is-outlined', 'has-text-weight-bold');
-        btnEditar.setAttribute('onClick', `mostrarFormEditar(${item.id_biologo})`)
+        btnEditar.setAttribute('onClick', `mostrarFormEditar("${item.id_biologo}")`)
 
         let btnEliminar = boton.cloneNode(false)
         btnEliminar.innerHTML = 'Eliminar'
         btnEliminar.classList.add('button', 'is-small', 'is-danger', 'is-outlined', 'has-text-weight-bold');
-        btnEliminar.setAttribute('onClick', `eliminarBiologo(${item.id_biologo})`)
+        btnEliminar.setAttribute('onClick', `eliminarBiologo("${item.id_biologo}")`)
 
         let tr = tBody.insertRow()
 
@@ -184,7 +184,7 @@ function mostrarFormEditar(id) {
 }
 
 function actualizarBiologo() {
-    const idbiologo = parseInt(document.getElementById('editarId').value.trim(), 10)
+    const idbiologo = document.getElementById('editarId').value.trim()
     
     const biologo = {
         Id_biologo: idbiologo,
@@ -206,7 +206,7 @@ function actualizarBiologo() {
     })
         .then(() => obtenerBiologos())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
-        .then(() => window.location.reload())
+        //.then(() => window.location.reload())
         .catch(error => console.error('No se ha podido editar el biologo. ', error))
         
     

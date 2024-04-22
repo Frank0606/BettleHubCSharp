@@ -24,11 +24,8 @@ namespace BettleHubCsharp.Migrations
 
             modelBuilder.Entity("BettleHubCsharp.Models.Biologo", b =>
                 {
-                    b.Property<int>("Id_biologo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id_biologo"));
+                    b.Property<string>("Id_biologo")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Contrasena_biologo")
                         .IsRequired()
@@ -62,8 +59,8 @@ namespace BettleHubCsharp.Migrations
                     b.HasData(
                         new
                         {
-                            Id_biologo = 1,
-                            Contrasena_biologo = "1234",
+                            Id_biologo = "1fece346-b2ad-4b6f-8b5a-6f3b645c7384",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAEFn+s6a2hCRH19SMaf9RBjP8a+RQGF+j4b+8A3pkNpAYfuuquc/ewEQbNxYd+CBOnQ==",
                             Correo_biologo = "Correo1",
                             Edad_biologo = 19,
                             Nombre_biologo = "Nombre1",
@@ -73,8 +70,8 @@ namespace BettleHubCsharp.Migrations
                         },
                         new
                         {
-                            Id_biologo = 2,
-                            Contrasena_biologo = "1234",
+                            Id_biologo = "fe287cc7-b450-48a9-8d30-059141b35f38",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAEIfCSlIItVqdjx+F1Z2iA3FwxICICKxulJnScLMtWF9w7JXox8aHnpZnDa6YQx5Qlw==",
                             Correo_biologo = "Correo2",
                             Edad_biologo = 20,
                             Nombre_biologo = "Nombre2",
@@ -84,8 +81,8 @@ namespace BettleHubCsharp.Migrations
                         },
                         new
                         {
-                            Id_biologo = 3,
-                            Contrasena_biologo = "1234",
+                            Id_biologo = "0df49966-9452-4788-be7a-8fcd67411465",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAEBnAMi36rvaJRZMSgTj/J8duC8IbhIZWam9ETNIvkguUkT6rPr50lzIQ0QzWB0tomg==",
                             Correo_biologo = "Correo3",
                             Edad_biologo = 18,
                             Nombre_biologo = "Nombre3",
@@ -95,8 +92,8 @@ namespace BettleHubCsharp.Migrations
                         },
                         new
                         {
-                            Id_biologo = 4,
-                            Contrasena_biologo = "1234",
+                            Id_biologo = "130afd9e-02a8-426a-9ca9-b4418efd2e8a",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAELM54IFK8W+Lhku+PKvP/fIciAwCqFJarlKxuE/fyf2IQI2uJ3zBUQIx3Bgiwdv0UQ==",
                             Correo_biologo = "Correo4",
                             Edad_biologo = 23,
                             Nombre_biologo = "Nombre4",
@@ -243,8 +240,8 @@ namespace BettleHubCsharp.Migrations
 
             modelBuilder.Entity("BiologoEscarabajo", b =>
                 {
-                    b.Property<int>("BiologosId_biologo")
-                        .HasColumnType("int");
+                    b.Property<string>("BiologosId_biologo")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("EscarabajosEspecie_escarabajo")
                         .HasColumnType("varchar(255)");

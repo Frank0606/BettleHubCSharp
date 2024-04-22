@@ -39,7 +39,7 @@ public class BiologoController : Controller
     }
 
     [HttpGet("Id/{id}")]
-    public async Task<ActionResult<Biologo>> GetBiologoId(int id)
+    public async Task<ActionResult<Biologo>> GetBiologoId(string id)
     {
         var biologo = await _context.Biologo.FindAsync(id); //Esto es exclusivo para ID o llaves primarias
         if (biologo == null)
@@ -53,8 +53,10 @@ public class BiologoController : Controller
     [HttpPost]
     public async Task<ActionResult<Biologo>> PostBiologo(BiologoDTO biologoDTO)
     {
+        var idBiologo = Guid.NewGuid().ToString();
         Biologo biologo = new()
         {
+            Id_biologo = idBiologo,
             Correo_biologo = biologoDTO.Correo_biologo,
             Nombre_biologo = biologoDTO.Nombre_biologo,
             Edad_biologo = biologoDTO.Edad_biologo,
@@ -71,13 +73,8 @@ public class BiologoController : Controller
 
     //Este es el metodo para editar un biologo
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutBiologo(int id, BiologoDTO biologoDTO)
+    public async Task<IActionResult> PutBiologo(string id, BiologoDTO biologoDTO)
     {
-        if (id != biologoDTO.Id_biologo)
-        {
-            return BadRequest();
-        }
-
         var biologo = await _context.Biologo.FindAsync(id);
         if (biologo == null)
         {
@@ -107,7 +104,7 @@ public class BiologoController : Controller
 
     //Este es el metodo para eliminar un biologo por ID
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBiologo(int id)
+    public async Task<IActionResult> DeleteBiologo(string id)
     {
         var biologo = await _context.Biologo.FindAsync(id);
         if (biologo == null)
