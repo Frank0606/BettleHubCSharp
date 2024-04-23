@@ -59,8 +59,8 @@ namespace BettleHubCsharp.Migrations
                     b.HasData(
                         new
                         {
-                            Id_biologo = "1fece346-b2ad-4b6f-8b5a-6f3b645c7384",
-                            Contrasena_biologo = "AQAAAAIAAYagAAAAEFn+s6a2hCRH19SMaf9RBjP8a+RQGF+j4b+8A3pkNpAYfuuquc/ewEQbNxYd+CBOnQ==",
+                            Id_biologo = "a4e53e4a-9e37-4dec-8d7f-b260b4750564",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAED3fJ1cEbDnVZ9DhMLXzw2DFTH7I7vvtTP7AkMzfP0uhglKerCwm+Sz480fZxYmO/A==",
                             Correo_biologo = "Correo1",
                             Edad_biologo = 19,
                             Nombre_biologo = "Nombre1",
@@ -70,8 +70,8 @@ namespace BettleHubCsharp.Migrations
                         },
                         new
                         {
-                            Id_biologo = "fe287cc7-b450-48a9-8d30-059141b35f38",
-                            Contrasena_biologo = "AQAAAAIAAYagAAAAEIfCSlIItVqdjx+F1Z2iA3FwxICICKxulJnScLMtWF9w7JXox8aHnpZnDa6YQx5Qlw==",
+                            Id_biologo = "b48b3d52-8d99-4639-835a-f5ec62cb3193",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAEPN1cHMhzNuuPMzSXXXUuFIwEIp5jw3kGWMxsPCusev6ohH+dMxHNhRuiLR/lfO2PA==",
                             Correo_biologo = "Correo2",
                             Edad_biologo = 20,
                             Nombre_biologo = "Nombre2",
@@ -81,8 +81,8 @@ namespace BettleHubCsharp.Migrations
                         },
                         new
                         {
-                            Id_biologo = "0df49966-9452-4788-be7a-8fcd67411465",
-                            Contrasena_biologo = "AQAAAAIAAYagAAAAEBnAMi36rvaJRZMSgTj/J8duC8IbhIZWam9ETNIvkguUkT6rPr50lzIQ0QzWB0tomg==",
+                            Id_biologo = "3658f92f-ec58-4bfc-882d-ea8c16fdcc47",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAEG9SYhK5OAHT86y21JYcr/ydbUXLmNP8MFiqHJJ0HwFU/fx7+m7Gqf8qH5vmYFY3DA==",
                             Correo_biologo = "Correo3",
                             Edad_biologo = 18,
                             Nombre_biologo = "Nombre3",
@@ -92,14 +92,80 @@ namespace BettleHubCsharp.Migrations
                         },
                         new
                         {
-                            Id_biologo = "130afd9e-02a8-426a-9ca9-b4418efd2e8a",
-                            Contrasena_biologo = "AQAAAAIAAYagAAAAELM54IFK8W+Lhku+PKvP/fIciAwCqFJarlKxuE/fyf2IQI2uJ3zBUQIx3Bgiwdv0UQ==",
+                            Id_biologo = "0c443a98-143d-414e-89d3-41987ee947bf",
+                            Contrasena_biologo = "AQAAAAIAAYagAAAAEKdZyBTxdZQZ5TErXDyVVNnqnVFraSfdhkk704DYbuT9tA6N0qaYWtOO0A1g/50WuA==",
                             Correo_biologo = "Correo4",
                             Edad_biologo = 23,
                             Nombre_biologo = "Nombre4",
                             Protegida = true,
                             Telefono_biologo = 9999999999L,
                             Usuario_biologo = "Usuario4"
+                        });
+                });
+
+            modelBuilder.Entity("BettleHubCsharp.Models.DatoCurioso", b =>
+                {
+                    b.Property<string>("Id_Dato")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Descripcion_Dato")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id_Dato");
+
+                    b.ToTable("DatoCurioso");
+
+                    b.HasData(
+                        new
+                        {
+                            Id_Dato = "a35c6048-65f3-4989-89be-a6e79a1741f9",
+                            Descripcion_Dato = "Los Pasalidos son conocidos por su capacidad para producir sonidos, un comportamiento conocido como estridulación."
+                        },
+                        new
+                        {
+                            Id_Dato = "e421942e-bb1a-4495-849d-7a3ebfbb4a6b",
+                            Descripcion_Dato = "El comportamiento social de los Pasalidos es vivir en grupos familiares donde cooperan en el cuidado de las larvas y el mantenimiento de su hogar."
+                        },
+                        new
+                        {
+                            Id_Dato = "b22d8fe1-666c-4864-9ae5-238e1b551315",
+                            Descripcion_Dato = "Estos escarabajos son uno de los pocos grupos de coleópteros que exhiben cuidado parental extenso."
+                        },
+                        new
+                        {
+                            Id_Dato = "a935a75f-e60a-4793-85de-18866035308a",
+                            Descripcion_Dato = "Los Pasalidos ayudan en el ciclo de nutrientes en los ecosistemas forestales."
+                        },
+                        new
+                        {
+                            Id_Dato = "d1fa8356-72b2-4050-acc5-a2ec0ccdda3c",
+                            Descripcion_Dato = "Aunque principalmente habitan en bosques húmedos y tropicales, tambien habitan bosques templados y áreas montañosas."
+                        },
+                        new
+                        {
+                            Id_Dato = "4e5b7d6d-e065-4a13-bf97-26dd146b53fd",
+                            Descripcion_Dato = "Los escarabajos de esta familia son xilófagos, lo que significa que se alimentan principalmente de madera."
+                        },
+                        new
+                        {
+                            Id_Dato = "e7ccc3e9-0f8c-4516-a9a9-928aed484d18",
+                            Descripcion_Dato = "Tienen cuerpos alargados y robustos, cabezas grandes y cuernos que utilizan en sus rituales de apareamiento y en la lucha por territorio o parejas."
+                        },
+                        new
+                        {
+                            Id_Dato = "b6135ba9-0a41-48b3-8a1d-1c0beb166f35",
+                            Descripcion_Dato = "Estos escarabajos pueden tener ciclos de vida relativamente largos en comparación con otros insectos."
+                        },
+                        new
+                        {
+                            Id_Dato = "4b981b0c-e03c-480c-bc6c-e92dbf0478aa",
+                            Descripcion_Dato = "Los Pasalidos se encuentran principalmente en las regiones tropicales de América, Asia y África. En América, su distribución va desde México hasta Argentina."
+                        },
+                        new
+                        {
+                            Id_Dato = "c6b1a1b0-a817-4bac-82c1-20d2ab1aad85",
+                            Descripcion_Dato = "Los Pasalidos son objeto de estudio en áreas como ecología del comportamiento, biología de la conservación y entomología forestal."
                         });
                 });
 
@@ -235,6 +301,56 @@ namespace BettleHubCsharp.Migrations
                             Patas_escarabajo = 4,
                             Protegida = true,
                             Torax_escarabajo = "torax4"
+                        });
+                });
+
+            modelBuilder.Entity("BettleHubCsharp.Models.Pregunta", b =>
+                {
+                    b.Property<string>("Id_pregunta")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Pregunta_pregunta")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Respuesta_pregunta")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id_pregunta");
+
+                    b.ToTable("Pregunta");
+
+                    b.HasData(
+                        new
+                        {
+                            Id_pregunta = "45e2fb4d-0136-47ca-bd67-fb1154567874",
+                            Pregunta_pregunta = "¿Quiénes fueron los desarrolladores?",
+                            Respuesta_pregunta = "Somos un grupo de estudiantes de la carrera Lic. Tecnologías Computacionales de la Universidad Veracruzana. Nuestro proyecto Beetle-Finder es un ejemplo sobre nuestro trabajo como desarrolladores, enfocandonos en una comunidad cientifica."
+                        },
+                        new
+                        {
+                            Id_pregunta = "c628adb5-756e-45d3-a74d-30afff6ec504",
+                            Pregunta_pregunta = "¿Quién es el Dr Edwin Eriza?",
+                            Respuesta_pregunta = "Un doctor"
+                        },
+                        new
+                        {
+                            Id_pregunta = "d298a8a0-6247-4a2a-9145-6bb93ac8ef31",
+                            Pregunta_pregunta = "¿Qué son los Pasalidos?",
+                            Respuesta_pregunta = "Los pasálidos son una familia de escarabajos conocidos por su comportamiento social y ecológico, especializados en la descomposición de madera en bosques húmedos y tropicales."
+                        },
+                        new
+                        {
+                            Id_pregunta = "ad75e339-d9ce-4344-a845-6b98e8da56f9",
+                            Pregunta_pregunta = "¿Quiéres conocer mas sobre otras familias de escarabajos?",
+                            Respuesta_pregunta = "Te recomendamos las siguiente paginas para saber mas sobre otras familias. "
+                        },
+                        new
+                        {
+                            Id_pregunta = "a87dfb29-16a2-41cc-99ca-01355675fe4a",
+                            Pregunta_pregunta = "¿Que hace Bettle-Finder?",
+                            Respuesta_pregunta = "Es un paginas web sobre los escarabajos de la familia Passalidae, con la funcion unica de poder clasificar sus sonidos por especie."
                         });
                 });
 

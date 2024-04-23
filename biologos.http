@@ -40,3 +40,6 @@ Content-Type: application/json
 ###
 
 DELETE https://localhost:7083/api/biologo/1
+
+###
+GET https://localhost:5001/api/pregunta

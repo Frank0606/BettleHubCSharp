@@ -1,0 +1,41 @@
+input::placeholder{
+    color: black !important;
+}
+
+#carrousel {
+    width: 90%;
+    background-color: white;
+    overflow: hidden;
+}
+#carrousel #grande {
+    width: 200%;
+    background-color: aqua;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2em;
+    padding-left: 0;
+}
+#carrousel #img {
+    width: 100%;
+    background-color: aquamarine;
+    margin-left: 3em
+}
+#carrousel #puntos {
+    width: 100%;
+    background-color: brown;
+    padding: 0.4em;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+#carrousel #punto {
+    width: 2em;
+    height: 2em;
+    background-color: blueviolet;
+    margin: 0.2em;
+}

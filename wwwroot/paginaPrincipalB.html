@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pagina Principal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body class="has-background-black">
     <!-- contenedor completo -->
@@ -15,11 +16,14 @@
             <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation" aria-label="main navigation">
                 <!-- Contenedor de cada uno de los elementos del navbar -->
                 <div class="navbar-brand">
+                    <a class="navbar-item">
+                        <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.PNG" alt="Bettle-finder">
+                    </a>
                     <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light" onclick="window.location.reload()">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="crudBiologos.html">Especies</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="crudEscarabajos.html">Clasificador</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="crudEscarabajos.html">Recursos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="crudEscarabajos.html">Ayuda</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaEspecies.html">Especies</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaClasificador.html">Clasificador</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaRecursos.html">Recursos</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaAyuda.html">Ayuda</a>
                     <!-- Conjunto de elementos al final de la barra de navegacion -->
                     <div class="navbar-end">
                         <div class="navbar-item p-0">
@@ -40,7 +44,7 @@
                 </div>
                 <div class="field has-addons has-addons-centered mt-6">
                     <div class="control">
-                        <input placeholder="Buscar especie" class="input is-large" type="text">
+                        <input placeholder="Buscar especie" class="input is-large has-background-white has-text-black" type="text">
                     </div>
                     <div class="control">
                         <button class="button has-background-primary-soft is-large">Buscar</button>
@@ -50,7 +54,7 @@
             <!-- contenedor del lado derecho, informacion secundaria, datos extras, acciones -->
             <div class="column has-background-black is-two-thirds m-0 p-0">
                 <figure class="image" style="height: 100%;">
-                    <img src="./css/resources/images/escarabajo1.jpg" alt="Especie" class="is-fullwidth" style="height: 100%; object-fit: cover;">
+                    <img src="./css/resources/images/paginaPrincipal_1.jpg" alt="Especie" class="is-fullwidth" style="height: 100%; object-fit: cover;">
                 </figure>
                 <div>
                     <button class="button has-background-primary-soft is-normal">Escuchar</button>
@@ -58,18 +62,28 @@
             </div>
         </div>
 
-        <div class="columns has-background-white m-0">
+        <div class="columns has-background-grey-lighter m-0" id="divDatos">
             <div class="column is-flex is-justify-content-center py-6" style="height: 10rem;">
                 <label class="label has-text-black is-size-2">¿Como suenan los escarabajos?</label>
             </div>
         </div>
 
-        <div class="columns has-background-white m-0">
-            <div class="column is-flex is-justify-content-center py-6">
-                <label class="label has-text-black">¿Pregunta?</label>
+        <div class="has-background-white m-0 is-fullwidth">
+            <div id="carrousel">
+                <div class="" id="grande">
+                    <!-- column is-flex is-justify-content-center py-6 has-background-primary-soft -->
+                    <div class="" id="img">
+                        <label class="label has-text-white is-size-5">¿Pregunta?</label>
+                    </div>
+                    <!-- column is-flex is-justify-content-center py-6 -->
+                    <div class="" id="img">
+                        <p class="label has-text-black is-size-5">Pequeño texto descriptivo</p>
+                    </div>
             </div>
-            <div class="column is-flex is-justify-content-center py-6">
-                <p class="has-text-black">Pequeño texto descriptivo</p>
+            <ul id="puntos">
+                <li id="punto"></li>
+                <li id="punto"></li>
+            </ul>
             </div>
         </div>
         <!-- Columnas del footer -->
@@ -79,6 +93,7 @@
                 <p class="has-text-light">Sobre nosotros</p>
             </div>
         </div>
-    </div>    
+    </div>
+    <script src="js/preguntasYdatos.js" asp-append-version="true"></script>
 </body>
 </html>
