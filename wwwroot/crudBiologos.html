@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cliente Web API</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
 </head>
+
 <body class="has-background-black">
     <div class="bulma-container">
         <!-- Columna del encabezado y barra de navegacion -->
         <div class="columns is-flex is-full m-0">
             <!-- contenedor de encabezado y barra de navegacion navbar-->
-            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation" aria-label="main navigation">
+            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
+                aria-label="main navigation">
                 <!-- Contenedor de cada uno de los elementos del navbar -->
                 <div class="navbar-brand">
-                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light" href="paginaPrincipal.html">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="crudBiologos.html">Biologos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="crudEscarabajos.html">Escarabajos</a>
+                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
+                        href="paginaPrincipalA.html">Bettle-finder</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="crudBiologos.html">Biologos</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="crudEscarabajos.html">Escarabajos</a>
                     <!-- Conjunto de elementos al final de la barra de navegacion -->
                     <div class="navbar-end">
                         <div class="navbar-item p-0">
                             <div class="buttons m-0">
-                                <label class="has-text-light has-text-weight-bold mr-4 is-size-5 is-underlined">Administrador</label>
-                                <a href="inicioSesion.html" class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar Sesión</a>
+                                <label
+                                    class="has-text-light has-text-weight-bold mr-4 is-size-5 is-underlined">Administrador</label>
+                                <a href="inicioSesion.html"
+                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
+                                    Sesión</a>
                             </div>
                         </div>
                     </div>
@@ -36,14 +45,14 @@
         <!-- Breadcrumbs para llamar alos 2 metodos del CRUD -->
         <nav class="breadcrumb is-centered has-bullet-separator is-size-5" aria-label="breadcrumbs">
             <ul>
-              <li id="breadcrumbMostrar" class="is-active"><a onclick=openModalMostrar()>Mostrar</a></li>
-              <li id="breadcrumbAgregar"><a onclick=openModalAgregar()>Agregar</a></li>
+                <li id="breadcrumbMostrar" class="is-active"><a onclick=openModalMostrar()>Mostrar</a></li>
+                <li id="breadcrumbAgregar"><a onclick=openModalAgregar()>Agregar</a></li>
             </ul>
         </nav>
         <!-- Columna del CRUD biologo -->
         <div class="columns is-centered">
             <!-- Tabla de mostrar a los biologos -->
-            <div class="column p-6 mx-6" style="overflow-x: scroll;">
+            <div class="column p-6 mx-6" style="overflow-x: hidden;">
                 <div class="has-text-centered">
                     <h2 class="subtitle has-text-weight-bold has-text-white is-size-4">Mostrar</h2>
                 </div>
@@ -57,7 +66,7 @@
                         <th class="has-text-centered">Edad</th>
                         <th class="has-text-centered">Telefono</th>
                         <th class="has-text-centered">Usuario</th>
-                        <th class="has-text-centered">Contraseña</th>
+                        <th class="has-text-centered">Administrador</th>
                         <th class="has-text-centered">Editar</th>
                         <th class="has-text-centered">Eliminar</th>
                     </tr>
@@ -107,7 +116,8 @@
                             <div class="field">
                                 <label class="label">Contraseña</label>
                                 <div class="control">
-                                    <input type="password" id="contrasenaBiologo" placeholder="Contraseña" class="input">
+                                    <input type="password" id="contrasenaBiologo" placeholder="Contraseña"
+                                        class="input">
                                 </div>
                             </div>
                         </form>
@@ -115,10 +125,12 @@
                     <footer class="modal-card-foot">
                         <div class="field is-grouped is-grouped-centered">
                             <p class="control">
-                                <input type="submit" value="Agregar" class="button is-primary is-outlined" form="formAgregarBiologo">
+                                <input type="submit" value="Agregar" class="button is-primary is-outlined"
+                                    form="formAgregarBiologo">
                             </p>
                             <p class="control">
-                                <input type="button" value="Borrar" class="button is-light is-outlined" id="btnBorrarFormAgregar">
+                                <input type="button" value="Borrar" class="button is-light is-outlined"
+                                    id="btnBorrarFormAgregar">
                             </p>
                         </div>
                     </footer>
@@ -152,17 +164,20 @@
                                 <div class="control">
                                     <input type="text" id="editarEdad" class="input" placeholder="Edad">
                                 </div>
-                            </div><div class="field">
+                            </div>
+                            <div class="field">
                                 <label class="label">Telefono</label>
                                 <div class="control">
                                     <input type="text" id="editarTelefono" class="input" placeholder="Telefono">
                                 </div>
-                            </div><div class="field">
+                            </div>
+                            <div class="field">
                                 <label class="label">Usuario</label>
                                 <div class="control">
                                     <input type="text" id="editarUsuario" class="input" placeholder="Usuario">
                                 </div>
-                            </div><div class="field">
+                            </div>
+                            <div class="field">
                                 <label class="label">Contraseña</label>
                                 <div class="control">
                                     <input type="password" id="editarContrasena" class="input" placeholder="Contraseña">
@@ -173,15 +188,33 @@
                     <footer class="modal-card-foot">
                         <div class="field is-grouped">
                             <p class="control">
-                                <input type="submit" value="Guardar" class="button is-primary is-outlined has-text-weight-bold" form="formEditar">
+                                <input type="submit" value="Guardar"
+                                    class="button is-primary is-outlined has-text-weight-bold" form="formEditar">
                             </p>
                         </div>
                     </footer>
                 </div>
             </div>
         </div>
+        <!-- Columnas del footer -->
+        <div class="columns m-0 p-0">
+            <!-- contenedor de sobre nosotros en parte inferior -->
+            <div class="has-background-primary-soft p-4 is-full column is-justify-content-center has-text-centered">
+                <p class="has-text-light has-text-weight-bold is-size-4">Sobre nosotros</p>
+                <a href="https://www.facebook.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-facebook-circle' style="font-size: 36px;"></i>
+                </a>
+                <a href="https://github.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-github' style="font-size: 36px;"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-instagram' style="font-size: 36px;"></i>
+                </a>
+            </div>
+        </div>
     </div>
     <script src="js/biologosJS.js" asp-append-version="true"></script>
     <script type="text/javascript">obtenerBiologos()</script>
 </body>
+
 </html>

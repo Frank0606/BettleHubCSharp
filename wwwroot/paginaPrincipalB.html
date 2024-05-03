@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pagina Principal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body class="has-background-black">
+
+<body class="has-background-light">
     <!-- contenedor completo -->
     <div class="bulma-container">
         <!-- Columnas del navbar -->
         <div class="columns is-flex is-full m-0">
             <!-- contenedor de encabezado y barra de navegacion navbar-->
-            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation" aria-label="main navigation">
+            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
+                aria-label="main navigation">
                 <!-- Contenedor de cada uno de los elementos del navbar -->
                 <div class="navbar-brand">
                     <a class="navbar-item">
-                        <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.PNG" alt="Bettle-finder">
+                        <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.PNG"
+                            alt="Bettle-finder">
                     </a>
-                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light" onclick="window.location.reload()">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaEspecies.html">Especies</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaClasificador.html">Clasificador</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaRecursos.html">Recursos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaAyuda.html">Ayuda</a>
+                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
+                        href="paginaPrincipalB.html">Bettle-finder</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="galeriaEscarabajos.html">Especies</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="paginaClasificador.html">Clasificador</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="paginaRecursos.html">Recursos</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="paginaAyuda.html">Ayuda</a>
                     <!-- Conjunto de elementos al final de la barra de navegacion -->
                     <div class="navbar-end">
                         <div class="navbar-item p-0">
                             <div class="buttons m-0">
-                                <a href="inicioSesion.html" class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar Sesión</a>
+                                <a href="inicioSesion.html"
+                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
+                                    Sesión</a>
                             </div>
                         </div>
                     </div>
@@ -38,13 +49,16 @@
         <!-- Columnas del contenido principal -->
         <div class="columns m-0 has-background-white">
             <!-- contenedor principal de informacion -->
-            <div class="column is-one-third is-responsive" style="height: 40rem; padding-top: 10rem; padding-bottom: 10rem;">
+            <div class="column is-one-third is-responsive"
+                style="height: 40rem; padding-top: 10rem; padding-bottom: 10rem;">
                 <div class="label">
-                    <p class="has-text-black px-6 is-size-3">Puedes buscar entre todas las especies que tenemos registradas hasta hoy en nuestra pagina.</p>
+                    <p class="has-text-black px-6 is-size-3">Puedes buscar entre todas las especies que tenemos
+                        registradas hasta hoy en nuestra pagina.</p>
                 </div>
-                <div class="field has-addons has-addons-centered mt-6">
+                <div class="field has-addons has-addons-centered mt-6 busqueda">
                     <div class="control">
-                        <input placeholder="Buscar especie" class="input is-large has-background-white has-text-black" type="text">
+                        <input placeholder="Buscar especie" class="input is-large has-background-white has-text-black"
+                            type="text">
                     </div>
                     <div class="control">
                         <button class="button has-background-primary-soft is-large">Buscar</button>
@@ -54,7 +68,8 @@
             <!-- contenedor del lado derecho, informacion secundaria, datos extras, acciones -->
             <div class="column has-background-black is-two-thirds m-0 p-0">
                 <figure class="image" style="height: 100%;">
-                    <img src="./css/resources/images/paginaPrincipal_1.jpg" alt="Especie" class="is-fullwidth" style="height: 100%; object-fit: cover;">
+                    <img src="./css/resources/images/paginaPrincipal_1.jpg" alt="Especie" class="is-fullwidth"
+                        style="height: 100%; object-fit: cover;">
                 </figure>
                 <div>
                     <button class="button has-background-primary-soft is-normal">Escuchar</button>
@@ -68,32 +83,34 @@
             </div>
         </div>
 
-        <div class="has-background-white m-0 is-fullwidth">
-            <div id="carrousel">
-                <div class="" id="grande">
-                    <!-- column is-flex is-justify-content-center py-6 has-background-primary-soft -->
-                    <div class="" id="img">
-                        <label class="label has-text-white is-size-5">¿Pregunta?</label>
-                    </div>
-                    <!-- column is-flex is-justify-content-center py-6 -->
-                    <div class="" id="img">
-                        <p class="label has-text-black is-size-5">Pequeño texto descriptivo</p>
-                    </div>
-            </div>
-            <ul id="puntos">
-                <li id="punto"></li>
-                <li id="punto"></li>
-            </ul>
-            </div>
+        <div id="slider" class="mb-6 mt-6">
+
         </div>
+
         <!-- Columnas del footer -->
-        <div class="columns m-0">
+        <div class="columns m-0 p-0">
             <!-- contenedor de sobre nosotros en parte inferior -->
-            <div class="has-background-primary p-4 is-flll column">
-                <p class="has-text-light">Sobre nosotros</p>
+            <div class="has-background-primary-soft p-4 is-full column is-justify-content-center has-text-centered">
+                <p class="has-text-light has-text-weight-bold is-size-4">Sobre nosotros</p>
+                <a href="https://www.facebook.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-facebook-circle' style="font-size: 36px;"></i>
+                </a>
+                <a href="https://github.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-github' style="font-size: 36px;"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-instagram' style="font-size: 36px;"></i>
+                </a>
             </div>
         </div>
-    </div>
-    <script src="js/preguntasYdatos.js" asp-append-version="true"></script>
+        <script defer src="js/preguntasYdatos.js" asp-append-version="true"></script>
+        <script>
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = './css/style.css';
+
+            document.head.appendChild(cssLink);
+        </script>
 </body>
+
 </html>

@@ -12,8 +12,8 @@ function iniciarSesion() {
     const contrasena = document.getElementById("contrasenaLogin").value.trim()
 
     const usuarioLogin = {
-        Usuario_biologo: usuario,
-        Contrasena_biologo: contrasena
+        Nombre: usuario,
+        Contrasena: contrasena
     }
 
     fetch(uri, {
@@ -24,8 +24,17 @@ function iniciarSesion() {
         },
         body: JSON.stringify(usuarioLogin)
     })
-        .then(response => console.log(response.json()))
-        .then(() => window.location.href = "paginaPrincipalB.html")
+        .then(async response => {
+            if (response.ok) {
+                const result = await response.json();
+                const userCookie = "userToken=" + result["accessToken"] + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; samesite=strict";
+                document.cookie = userCookie;
+                window.location.href = "paginaPrincipalB.html";
+            } else if (response.status === 401) {
+                console.error('Credenciales incorrectas.');
+            } else {
+                console.error('Error desconocido al iniciar sesión.');
+            }
+        })
         .catch(error => console.error('No se pudo iniciar sesion. ', error))
-        // document.cookie = "expires=Mon, 29 Apr 2024 12:00:00 UTC; path=/; user=" + JSON.stringify(response.json())
 }

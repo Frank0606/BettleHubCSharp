@@ -1,70 +1,68 @@
-using System.Data.Common;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
-using BettleHubCsharp.Data;
 using BettleHubCsharp.Models;
+using BettleHubCsharp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
-namespace BettleHubCsharp.Controllers;
-
-[Route("api/[controller]")]
-[ApiController]
-
-public class CuentaController : Controller
+namespace BettleHubCsharp.Controllers
 {
-    private readonly DataContext _context;
-    private readonly IConfiguration _configuration;
-
-    public CuentaController(DataContext context, IConfiguration configuration)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CuentaController : Controller
     {
-        _context = context;
-        _configuration = configuration;
-    }
+        private readonly UserManager<Biologo> _userManager;
+        private readonly JwtTokenService _jwtTokenService;
 
-    [HttpPost]
-    public async Task<ActionResult<Cuenta>> IniciarSesion(Cuenta cuenta){
-
-        var usuario =  await _context.Biologo.AsNoTracking().FirstOrDefaultAsync(u => u.Usuario_biologo == cuenta.Usuario_biologo);
-
-        if(usuario != null){
-            var hasher = new PasswordHasher<IdentityBiologo>();
-            var result = hasher.VerifyHashedPassword(null, usuario.Contrasena_biologo, cuenta.Contrasena_biologo);
-
-            if(result == PasswordVerificationResult.Success){
-
-                var claims = new List<Claim> {
-                    new Claim(ClaimTypes.Sid, usuario.Id_biologo),
-                    new Claim(ClaimTypes.Name, usuario.Usuario_biologo),
-                    new Claim(ClaimTypes.Email, usuario.Correo_biologo),
-                    new Claim(ClaimTypes.GivenName, usuario.Nombre_biologo)
-                };
-
-                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-                var tokenDescriptor = new JwtSecurityToken(
-                    issuer: _configuration["Jwt:Issuer"],
-                    audience: _configuration["Jwt:Audience"],
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(60),
-                    signingCredentials: credentials
-                );
-
-                var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-
-                return Ok(new {
-                    usuario.Id_biologo,
-                    usuario.Correo_biologo,
-                    usuario.Nombre_biologo,
-                    AccessToken = jwt
-                });
-
-            }
+        // Constructor que inyecta el administrador de usuarios y el servicio de token JWT
+        public CuentaController(UserManager<Biologo> userManager, JwtTokenService jwtTokenService)
+        {
+            _userManager = userManager;
+            _jwtTokenService = jwtTokenService;
         }
 
-        return Unauthorized();
+        // Método para iniciar sesión
+        [HttpPost]
+        public async Task<IActionResult> IniciarSesion([FromBody] Cuenta cuenta)
+        {
+            // Busca el usuario por su nombre
+            var usuario = await _userManager.FindByNameAsync(cuenta.Nombre);
+
+            if (usuario is null)
+            {
+                // Si el usuario no existe, devuelve un error de usuario incorrecto
+                return Unauthorized(new { mensaje = "Usuario incorrecto." });
+            }
+
+            // Obtiene los roles del usuario
+            var roles = await _userManager.GetRolesAsync(usuario);
+
+            // Verifica la contraseña
+            var hasher = new PasswordHasher<Biologo>();
+            var result = hasher.VerifyHashedPassword(new Biologo(), usuario.PasswordHash!, cuenta.Contrasena);
+
+            if (result == PasswordVerificationResult.Success)
+            {
+                // Si la contraseña es correcta, genera el token JWT con los claims necesarios
+                var claims = new List<Claim> {
+                    new(ClaimTypes.Sid, usuario.Id!),
+                    new(ClaimTypes.Name, usuario.UserName!),
+                    new(ClaimTypes.Role, roles.First()) // Tomamos solo el primer rol del usuario
+                };
+
+                var jwt = _jwtTokenService.GeneraToken(claims);
+
+                // Devuelve información básica del usuario junto con el token JWT
+                return Ok(new
+                {
+                    usuario.Id,
+                    usuario.Email,
+                    usuario.UserName,
+                    AccessToken = jwt
+                });
+            }
+
+            // Si la contraseña es incorrecta, devuelve un error de contraseña incorrecta
+            return Unauthorized(new { mensaje = "Contraseña incorrecta." });
+        }
     }
 }

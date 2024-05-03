@@ -1,11 +1,10 @@
 namespace BettleHubCsharp.Models;
 
-public class BiologoDTO{
-    public string? Id_biologo { get; set; }
-    public required string Correo_biologo { get; set; }
-    public required string Nombre_biologo { get; set; }
-    public required int? Edad_biologo { get; set; }
-    public required long? Telefono_biologo { get; set; }
-    public required string Contrasena_biologo { get; set; }
-    public required string Usuario_biologo { get; set; }
+public class BiologoDTO {
+    public required string Correo { get; set; }
+    public required string Contrasena { get; set; }
+    public required string Nombre { get; set; }
+    public required int? Edad { get; set; }
+    public required long? Telefono { get; set; }
+    public required string Rol { get; set; } = "Biologo";
 }

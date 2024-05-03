@@ -5,20 +5,23 @@ namespace BettleHubCsharp.Models;
 
 public class Escarabajo{
     [Key]
-    public string? Especie_escarabajo { get; set; }
-    public required string Familia_escarabajo { get; set; }
-    public required string Genero_escarabajo { get; set; }
-    public required int Patas_escarabajo { get; set; }
-    public required string Torax_escarabajo { get; set; }
-    public required string Ciclo_vida_escarabajo { get; set; }
-    public required string Nombre_comun_escarabajo { get; set; }
-    public required int Antena_escarabajo { get; set; }
-    public required string Ojos_escarabajo { get; set; }
-    public required string Mandibula_escarabajo { get; set; }
-    public required string Alas_escarabajo { get; set; }
-    public required string Elitros_escarabajo { get; set; }
-    public string[]? Audios_escarabajo { get; set; }
-    public string[]? Imagenes_escarabajo { get; set; }  
+    public string? Especie { get; set; }
+    public required string Familia { get; set; }
+    public required string Genero { get; set; }
+    public required int Patas { get; set; }
+    public required string Torax { get; set; }
+    public required string Ciclo_vida { get; set; }
+    public required string Nombre_comun { get; set; }
+    public required int Antena { get; set; }
+    public required string Ojos { get; set; }
+    public required string Mandibula { get; set; }
+    public required string Alas { get; set; }
+    public required string Elitros { get; set; }
+    public required string Descripcion { get; set; }
+    public required bool Estado_investigacion { get; set; }
+    public string[]? Audios { get; set; }
+    public string[]? Imagenes { get; set; }  
+    public string[]? Coordenadas { get; set; }
     public bool Protegida { get; set; } = false;
 
     [JsonIgnore]

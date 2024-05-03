@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de especies</title>
+</head>
+
+<body>
+    <!-- Columnas del navbar -->
+    <div class="columns is-flex is-full m-0">
+        <!-- contenedor de encabezado y barra de navegacion navbar-->
+        <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
+            aria-label="main navigation">
+            <!-- Contenedor de cada uno de los elementos del navbar -->
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.PNG"
+                        alt="Bettle-finder">
+                </a>
+                <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
+                    href="paginaPrincipalB.html">Bettle-finder</a>
+                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                    href="galeriaEscarabajos.html">Especies</a>
+                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                    href="paginaClasificador.html">Clasificador</a>
+                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                    href="paginaRecursos.html">Recursos</a>
+                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaAyuda.html">Ayuda</a>
+                <!-- Conjunto de elementos al final de la barra de navegacion -->
+                <div class="navbar-end">
+                    <div class="navbar-item p-0">
+                        <div class="buttons m-0">
+                            <a href="inicioSesion.html"
+                                class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
+                                Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contenido -->
+    <div id="div_gallery" class="columns is-multiline is-mobile is-centered m-0"></div>
+    <!-- Modal -->
+    <div id="modal" class="modal p-0 m-0">
+
+        <div class="modal-background has-background-black"></div>
+
+        <div class="modal-content" style="width: 90%; height: 100%; overflow-x:hidden;">
+
+            <div id="columna_imagen" class="columns">
+
+                <div id="columna_fotos" class="column is-one-third">
+                    <p class="is-size-3 has-text-white has-text-centered mb-5 has-text-weight-bold">Especie</p>
+                </div>
+
+                <div id="columna_info" class="column is-one-third">
+                    <p class="has-text-white is-size-3 has-text-centered mb-5 has-text-weight-bold">Información</p>
+                    <div id="div-info">
+
+                    </div>
+                    <div id="div_btn_descargar" class="is-flex is-justify-content-center is-align-items-center">
+                        <button class="button is-success">Descargar</button>
+                    </div>
+                </div>
+
+                <div id="columna_mapa" class="column is-one-third">
+                    <p class="has-text-white is-size-3 has-text-centered mb-5 has-text-weight-bold">Mapa</p>
+                    <div id="map" style="height: 300px;">
+                    </div>
+                    <div id="div-investigacion" class="" style="width: 80%; margin: 0 auto;">
+                        <p id="titulo_nivel_investigacion"
+                            class="has-text-white has-text-centered has-text-weight-bold is-size-5 mb-4">Nivel de
+                            investigación</p>
+                        <progress id="id_barra_investigacion" class="progress is-success is-medium mb-4" value="15"
+                            max="100">15%</progress>
+                        <div class="columns">
+                            <div class="column">
+                                <p class="has-text-white is-inline-block is-pulled-left">No aprobado</p>
+                            </div>
+                            <div class="column">
+                                <p class="has-text-white is-inline-block is-pulled-right">Aprobado</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+    </div>
+    <!-- Columnas del footer -->
+    <div class="columns m-0 p-0">
+        <!-- contenedor de sobre nosotros en parte inferior -->
+        <div class="has-background-primary-soft p-4 is-full column is-justify-content-center has-text-centered">
+            <p class="has-text-light has-text-weight-bold is-size-4">Sobre nosotros</p>
+            <a href="https://www.facebook.com" target="_blank" class="icon is-large has-text-light">
+                <i class='bx bxl-facebook-circle' style="font-size: 36px;"></i>
+            </a>
+            <a href="https://github.com" target="_blank" class="icon is-large has-text-light">
+                <i class='bx bxl-github' style="font-size: 36px;"></i>
+            </a>
+            <a href="https://www.instagram.com" target="_blank" class="icon is-large has-text-light">
+                <i class='bx bxl-instagram' style="font-size: 36px;"></i>
+            </a>
+        </div>
+    </div>
+</body>
+
+<script src="./js/galeriaEscarabajos.js"></script>
+
+</html>

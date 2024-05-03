@@ -6,7 +6,10 @@ let escarabajos
 
 async function fetchEscarabajos() {
     try {
-        const response = await fetch(uri)
+        const response = await fetch(uri, {
+            method: 'GET',
+            Authorization: document.cookie[1]
+        })
         const data = await response.json()
         escarabajos = data
     } catch (error) {
@@ -82,69 +85,69 @@ function _mostrarEscarabajos(data) {
         let btnEditar = boton.cloneNode(false)
         btnEditar.innerHTML = 'Editar'
         btnEditar.classList.add('button', 'is-small', 'is-warning', 'is-outlined', 'has-text-weight-bold');
-        btnEditar.setAttribute('onClick', `mostrarFormEditar("${item.especie_escarabajo}")`)
+        btnEditar.setAttribute('onClick', `mostrarFormEditar("${item.especie}")`)
 
         let btnEliminar = boton.cloneNode(false)
         btnEliminar.innerHTML = 'Eliminar'
         btnEliminar.classList.add('button', 'is-small', 'is-danger', 'is-outlined', 'has-text-weight-bold');
-        btnEliminar.setAttribute('onClick', `eliminarEscarabajo("${item.especie_escarabajo}")`)
+        btnEliminar.setAttribute('onClick', `eliminarEscarabajo("${item.especie}")`)
 
         let tr = tBody.insertRow()
 
         let td1 = tr.insertCell(0)
-        let textNode = document.createTextNode(item.especie_escarabajo)
+        let textNode = document.createTextNode(item.especie)
         td1.appendChild(textNode)
 
         let td2 = tr.insertCell(1)
-        let textNode1 = document.createTextNode(item.familia_escarabajo)
+        let textNode1 = document.createTextNode(item.familia)
         td2.appendChild(textNode1)
 
         let td3 = tr.insertCell(2)
-        let textNode2 = document.createTextNode(item.genero_escarabajo)
+        let textNode2 = document.createTextNode(item.genero)
         td3.appendChild(textNode2)
 
         let td4 = tr.insertCell(3)
-        let textNode3 = document.createTextNode(item.patas_escarabajo)
+        let textNode3 = document.createTextNode(item.patas)
         td4.appendChild(textNode3)
 
         let td5 = tr.insertCell(4)
-        let textNode4 = document.createTextNode(item.torax_escarabajo)
+        let textNode4 = document.createTextNode(item.torax)
         td5.appendChild(textNode4)
 
         let td6 = tr.insertCell(5)
-        let textNode5 = document.createTextNode(item.ciclo_vida_escarabajo)
+        let textNode5 = document.createTextNode(item.ciclo_vida)
         td6.appendChild(textNode5)
 
         let td7 = tr.insertCell(6)
-        let textNode6 = document.createTextNode(item.nombre_comun_escarabajo)
+        let textNode6 = document.createTextNode(item.nombre_comun)
         td7.appendChild(textNode6)
 
         let td8 = tr.insertCell(7)
-        let textNode7 = document.createTextNode(item.antena_escarabajo)
+        let textNode7 = document.createTextNode(item.antena)
         td8.appendChild(textNode7)
 
         let td9 = tr.insertCell(8)
-        let textNode8 = document.createTextNode(item.ojos_escarabajo)
+        let textNode8 = document.createTextNode(item.ojos)
         td9.appendChild(textNode8)
 
         let td10 = tr.insertCell(9)
-        let textNode9 = document.createTextNode(item.mandibula_escarabajo)
+        let textNode9 = document.createTextNode(item.mandibula)
          td10.appendChild(textNode9)
 
         let td11 = tr.insertCell(10)
-        let textNode10 = document.createTextNode(item.alas_escarabajo)
+        let textNode10 = document.createTextNode(item.alas)
         td11.appendChild(textNode10)
 
         let td12 = tr.insertCell(11)
-        let textNode11 = document.createTextNode(item.elitros_escarabajo)
+        let textNode11 = document.createTextNode(item.elitros)
         td12.appendChild(textNode11)
 
         let td13 = tr.insertCell(12)
-        let textNode12 = document.createTextNode(item.audios_escarabajos)
+        let textNode12 = document.createTextNode(item.audioss)
         td13.appendChild(textNode12)   
 
         let td14 = tr.insertCell(13)
-        let textNode13 = document.createTextNode(item.imagenes_escarabajos)
+        let textNode13 = document.createTextNode(item.imageness)
         td14.appendChild(textNode13)
 
         let td15 = tr.insertCell(14)
@@ -172,24 +175,26 @@ function agregarEscarabajo() {
     const mandibula = document.getElementById('mandibulaEscarabajo')
     const alas = document.getElementById('alasEscarabajo')
     const elitros = document.getElementById('elitrosEscarabajo')
+    const descripcion = document.getElementById('descripcionEscarabajo')
     const audios = document.getElementById('audiosEscarabajo')
     const imagenes = document.getElementById('imagenesEscarabajo')
 
     const escarabajo = {
-        Especie_escarabajo: especie.value.trim(),
-        Familia_escarabajo: familia.value.trim(),
-        Genero_escarabajo: genero.value.trim(),
-        Patas_escarabajo: parseInt(patas.value.trim(), 10),
-        Torax_escarabajo: torax.value.trim(),
-        Ciclo_vida_escarabajo: ciclo_vida.value.trim(),
-        Nombre_comun_escarabajo: nombre_comun.value.trim(),
-        Antena_escarabajo: parseInt(antena.value.trim(), 10),
-        Ojos_escarabajo: ojos.value.trim(),
-        Mandibula_escarabajo: mandibula.value.trim(),
-        Alas_escarabajo: alas.value.trim(),
-        Elitros_escarabajo: elitros.value.trim(),
-        Audios_escarabajo: JSON.parse("[" + audios.value.trim() + "]"),
-        Imagenes_escarabajo: JSON.parse("[" + imagenes.value.trim() + "]")
+        Especie: especie.value.trim(),
+        Familia: familia.value.trim(),
+        Genero: genero.value.trim(),
+        Patas: parseInt(patas.value.trim(), 10),
+        Torax: torax.value.trim(),
+        Ciclo_vida: ciclo_vida.value.trim(),
+        Nombre_comun: nombre_comun.value.trim(),
+        Antena: parseInt(antena.value.trim(), 10),
+        Ojos: ojos.value.trim(),
+        Mandibula: mandibula.value.trim(),
+        Alas: alas.value.trim(),
+        Elitros: elitros.value.trim(),
+        Descripcion: descripcion.value.trim(),
+        Audios: JSON.parse("[" + audios.value.trim() + "]"),
+        Imagenes: JSON.parse("[" + imagenes.value.trim() + "]")
     }
 
     fetch(uri, {
@@ -235,22 +240,22 @@ function eliminarEscarabajo(id) {
 //          Editar o UPDATE
 var especieEditar
 function mostrarFormEditar(especie) {
-    const escarabajo = escarabajos.find(escarabajo => escarabajo.especie_escarabajo === especie);
+    const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie);
 
-    document.getElementById("editarEspecie").value = escarabajo.especie_escarabajo;
-    document.getElementById("editarFamilia").value = escarabajo.familia_escarabajo;
-    document.getElementById("editarGenero").value = escarabajo.genero_escarabajo;
-    document.getElementById("editarPatas").value = escarabajo.patas_escarabajo;
-    document.getElementById("editarTorax").value = escarabajo.torax_escarabajo;
-    document.getElementById("editarCiclo_vida").value = escarabajo.ciclo_vida_escarabajo;
-    document.getElementById("editarNombre_comun").value = escarabajo.nombre_comun_escarabajo;
-    document.getElementById("editarAntena").value = escarabajo.antena_escarabajo;
-    document.getElementById("editarOjos").value = escarabajo.ojos_escarabajo;
-    document.getElementById("editarMandibula").value = escarabajo.mandibula_escarabajo;
-    document.getElementById("editarAlas").value = escarabajo.alas_escarabajo;
-    document.getElementById("editarElitros").value = escarabajo.elitros_escarabajo;
-    document.getElementById("editarAudios").value = escarabajo.audios_escarabajos;
-    document.getElementById("editarImagenes").value = escarabajo.imagenes_escarabajos;
+    document.getElementById("editarEspecie").value = escarabajo.especie;
+    document.getElementById("editarFamilia").value = escarabajo.familia;
+    document.getElementById("editarGenero").value = escarabajo.genero;
+    document.getElementById("editarPatas").value = escarabajo.patas;
+    document.getElementById("editarTorax").value = escarabajo.torax;
+    document.getElementById("editarCiclo_vida").value = escarabajo.ciclo_vida;
+    document.getElementById("editarNombre_comun").value = escarabajo.nombre_comun;
+    document.getElementById("editarAntena").value = escarabajo.antena;
+    document.getElementById("editarOjos").value = escarabajo.ojos;
+    document.getElementById("editarMandibula").value = escarabajo.mandibula;
+    document.getElementById("editarAlas").value = escarabajo.alas;
+    document.getElementById("editarElitros").value = escarabajo.elitros;
+    document.getElementById("editarAudios").value = escarabajo.audioss;
+    document.getElementById("editarImagenes").value = escarabajo.imageness;
     document.getElementById('editarForm').classList.add('is-active')
 
     especieEditar = especie
@@ -266,20 +271,20 @@ function actualizarEscarabajo() {
     imagenes.push(document.getElementById('editarImagenes').value.trim())
 
     const escarabajo = {
-        Especie_escarabajo: idEscarabajo,
-        Familia_escarabajo: document.getElementById('editarFamilia').value.trim(),
-        Genero_escarabajo: document.getElementById('editarGenero').value.trim(),
-        Patas_escarabajo: parseInt(document.getElementById('editarPatas').value.trim(), 10),
-        Torax_escarabajo: document.getElementById('editarTorax').value.trim(),
-        Ciclo_vida_escarabajo: document.getElementById('editarCiclo_vida').value.trim(),
-        Nombre_comun_escarabajo: document.getElementById('editarNombre_comun').value.trim(),
-        Antena_escarabajo: parseInt(document.getElementById('editarAntena').value.trim(), 10),
-        Ojos_escarabajo: document.getElementById('editarOjos').value.trim(),
-        Mandibula_escarabajo: document.getElementById('editarMandibula').value.trim(),
-        Alas_escarabajo: document.getElementById('editarAlas').value.trim(),
-        Elitros_escarabajo: document.getElementById('editarElitros').value.trim(),
-        Audios_escarabajos: audios,
-        Imagenes_escarabajos: imagenes
+        Especie: idEscarabajo,
+        Familia: document.getElementById('editarFamilia').value.trim(),
+        Genero: document.getElementById('editarGenero').value.trim(),
+        Patas: parseInt(document.getElementById('editarPatas').value.trim(), 10),
+        Torax: document.getElementById('editarTorax').value.trim(),
+        Ciclo_vida: document.getElementById('editarCiclo_vida').value.trim(),
+        Nombre_comun: document.getElementById('editarNombre_comun').value.trim(),
+        Antena: parseInt(document.getElementById('editarAntena').value.trim(), 10),
+        Ojos: document.getElementById('editarOjos').value.trim(),
+        Mandibula: document.getElementById('editarMandibula').value.trim(),
+        Alas: document.getElementById('editarAlas').value.trim(),
+        Elitros: document.getElementById('editarElitros').value.trim(),
+        Audioss: audios,
+        Imageness: imagenes
     }
 
     fetch(`${uri}/put/${especieEditar}`, {

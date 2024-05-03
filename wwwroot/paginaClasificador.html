@@ -15,22 +15,31 @@
         <!-- Columna del encabezado y barra de navegacion -->
         <div class="columns is-flex is-full m-0">
             <!-- contenedor de encabezado y barra de navegacion navbar-->
-            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation" aria-label="main navigation">
+            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
+                aria-label="main navigation">
                 <!-- Contenedor de cada uno de los elementos del navbar -->
                 <div class="navbar-brand">
                     <a class="navbar-item">
-                        <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.PNG" alt="Bettle-finder">
+                        <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.PNG"
+                            alt="Bettle-finder">
                     </a>
-                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light" onclick="window.location.reload()">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaEspecies.html">Especies</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaClasificador.html">Clasificador</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaRecursos.html">Recursos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaAyuda.html">Ayuda</a>
+                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
+                        href="paginaPrincipalB.html">Bettle-finder</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="galeriaEscarabajos.html">Especies</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="paginaClasificador.html">Clasificador</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="paginaRecursos.html">Recursos</a>
+                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
+                        href="paginaAyuda.html">Ayuda</a>
                     <!-- Conjunto de elementos al final de la barra de navegacion -->
                     <div class="navbar-end">
                         <div class="navbar-item p-0">
                             <div class="buttons m-0">
-                                <a href="inicioSesion.html" class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar Sesión</a>
+                                <a href="inicioSesion.html"
+                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
+                                    Sesión</a>
                             </div>
                         </div>
                     </div>
@@ -42,71 +51,90 @@
             <h1 class="column has-text-centered title m-4">Clasificador de Audios de Escarabajos</h1>
         </div>
         <!-- Breadcrumbs para llamar alos 2 metodos del CRUD -->
-       
-            <div class="section">
-                <div class="container">
 
-                    <div class="columns">
-                        <div class="column is-one-third">
-                            
-                            <div class="file has-name has-text-centered is-fullwidth">
-                                <label class="file-label is-size-3 has-text-weight-bold has-text-white">Cargar audio</label>
-                            </div>
+        <div class="section">
+            <div class="container">
 
-                            <div class="file has-name is-fullwidth">
-                                <label class="file-label">
-                                    <input type="file" class="file-input" name="audio">
-                                    <span class="file-cta has-background-primary-soft">
-                                        <span class="file-icon">
-                                            <i class="fas fa-upload"></i>
-                                        </span>
-                                        <span class="file-label">Subir audio</span>
-                                    </span>
-                                    <span class="file-name">Texto de prueba</span>
-                                </label>
-                            </div>
+                <div class="columns">
+                    <div class="column is-one-third has-text-centered">
 
-                            <div class="audio-preview" id="audio-preview" style="display: none;">
-                                <audio controls></audio>
-                            </div>
-
-                            <div class="field">
-                                <button class="button is-normal has-background-primary-soft" id="btn-clasificar">Clasificar</button>
-                            </div>
+                        <div class="file has-name is-fullwidth">
+                            <label class="file-label is-size-3 has-text-weight-bold has-text-white">Cargar audio</label>
                         </div>
 
-                        <div class="column is-two-thirds">
-                            <div class="results-container">
-                                <h2 class="subtitle is-size-3 has-text-white has-text-weight-bold">Resultados</h2>
-                                <img src="imagen.jpg" alt="Imagen de escarabajo" id="imagen-resultado">
-                                <p id="porcentaje">Porcentaje de certeza:</p>
-                                <p id="tipo-escarabajo">Tipo de escarabajo:</p>
-                                <div class="buttons">
-                                    <button class="button is-normal has-background-primary-soft" id="btn-guardar">Guardar</button>
-                                  
-                                </div>
+                        <div class="file has-name is-fullwidth">
+                            <label class="file-label">
+                                <input type="file" class="file-input" name="audio">
+                                <span class="file-cta has-background-primary-soft">
+                                    <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </span>
+                                    <span class="file-label has-text-centered">Subir audio</span>
+                                </span>
+                                <span class="file-name"></span>
+                            </label>
+                        </div>
+
+                        <div class="audio-preview" id="audio-preview" style="display: none;">
+                            <audio controls></audio>
+                        </div>
+
+                        <div class="field">
+                            <button class="button is-normal has-background-primary-soft"
+                                id="btn-clasificar">Clasificar</button>
+                        </div>
+                    </div>
+
+                    <div class="column is-two-thirds">
+                        <div class="results-container">
+                            <h2 class="subtitle is-size-3 has-text-white has-text-weight-bold">Resultados</h2>
+                            <img src="imagen.jpg" alt="Imagen de escarabajo" id="imagen-resultado">
+                            <p id="porcentaje">Porcentaje de certeza:</p>
+                            <p id="tipo-escarabajo">Tipo de escarabajo:</p>
+                            <div class="buttons">
+                                <button class="button is-normal has-background-primary-soft"
+                                    id="btn-guardar">Guardar</button>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            const audioInput = document.getElementById('audio-input');
-            const audioPreview = document.getElementById('audio-preview');
+        <!-- Columnas del footer -->
+        <div class="columns m-0 p-0">
+            <!-- contenedor de sobre nosotros en parte inferior -->
+            <div class="has-background-primary-soft p-4 is-full column is-justify-content-center has-text-centered">
+                <p class="has-text-light has-text-weight-bold is-size-4">Sobre nosotros</p>
+                <a href="https://www.facebook.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-facebook-circle' style="font-size: 36px;"></i>
+                </a>
+                <a href="https://github.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-github' style="font-size: 36px;"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="icon is-large has-text-light">
+                    <i class='bx bxl-instagram' style="font-size: 36px;"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const audioInput = document.getElementById('audio-input');
+        const audioPreview = document.getElementById('audio-preview');
 
-            audioInput.addEventListener('change', function () {
-                if (this.files && this.files[0]) {
-                    audioPreview.style.display = 'block';
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        audioPreview.querySelector('audio').src = e.target.result;
-                    };
-                    reader.readAsDataURL(this.files[0]);
-                } else {
-                    audioPreview.style.display = 'none';
-                }
-            });
-        </script>
+        audioInput.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                audioPreview.style.display = 'block';
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    audioPreview.querySelector('audio').src = e.target.result;
+                };
+                reader.readAsDataURL(this.files[0]);
+            } else {
+                audioPreview.style.display = 'none';
+            }
+        });
+    </script>
 </body>
+
 </html>

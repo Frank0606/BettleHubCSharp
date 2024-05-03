@@ -1,13 +1,8 @@
-using System.Data.Common;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using BettleHubCsharp.Data;
 using BettleHubCsharp.Models;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace BettleHubCsharp.Controllers;
 
@@ -16,15 +11,16 @@ namespace BettleHubCsharp.Controllers;
 
 public class PreguntaController : Controller
 {
-    private readonly DataContext _context;
+    private readonly IdentityContext _context;
     private readonly IConfiguration _configuration;
 
-    public PreguntaController(DataContext context, IConfiguration configuration)
+    public PreguntaController(IdentityContext context, IConfiguration configuration)
     {
         _context = context;
         _configuration = configuration;
     }
 
+    // [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Pregunta>>> GetPreguntas(){
         return await _context.Pregunta.AsNoTracking().ToListAsync();

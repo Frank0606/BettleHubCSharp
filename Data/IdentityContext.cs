@@ -1,13 +1,11 @@
 using BettleHubCsharp.Data.Seed;
 using BettleHubCsharp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BettleHubCsharp.Data;
 
-public class DataContext : DbContext{
-    public DataContext(DbContextOptions<DataContext> options) : base(options){
-
-    }
+public class IdentityContext(DbContextOptions<IdentityContext> options) : IdentityDbContext<Biologo>(options){
 
     public DbSet<Biologo> Biologo { get; set; }
     public DbSet<Escarabajo> Escarabajo { get; set; }
@@ -16,9 +14,11 @@ public class DataContext : DbContext{
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new SeedBiologo());
         modelBuilder.ApplyConfiguration(new SeedEscarabajo());
         modelBuilder.ApplyConfiguration(new SeedPreguntas());
         modelBuilder.ApplyConfiguration(new SeedDatosCuriosos());
+        modelBuilder.SeedUserIdentityData();
+
+        base.OnModelCreating(modelBuilder);
     }
 }
