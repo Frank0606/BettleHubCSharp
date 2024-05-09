@@ -29,9 +29,9 @@
                             <div class="buttons m-0">
                                 <label
                                     class="has-text-light has-text-weight-bold mr-4 is-size-5 is-underlined">Administrador</label>
-                                <a href="inicioSesion.html"
-                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
-                                    Sesión</a>
+                                    <a id="cerrarSesion"
+                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
+                                    onclick="cerrarSesion()">Cerrar Sesión</a>
                             </div>
                         </div>
                     </div>
@@ -213,8 +213,8 @@
             </div>
         </div>
     </div>
-    <script src="js/biologosJS.js" asp-append-version="true"></script>
-    <script type="text/javascript">obtenerBiologos()</script>
 </body>
-
+<script src="js/biologosJS.js" asp-append-version="true"></script>
+<script type="text/javascript">obtenerBiologos()</script>
+<script src="./js/cerrarSesion.js"></script>
 </html>

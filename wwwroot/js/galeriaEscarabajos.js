@@ -5,6 +5,14 @@ let escarabajos
 const uri = 'api/escarabajo'
 
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // const userTokenValue = document.cookie.split('; ')
+    // .find(row => row.startsWith('userToken='))
+    // ?.split('=')[1];
+
+    // console.log(document.cookie.split('=')[1])
+    // console.log(userTokenValue)
+
     fetch(uri, {
         method: 'GET',
         Authorization: `Bearer ${document.cookie.split('=')[1]}`
@@ -55,7 +63,7 @@ function cargarMetodoImagenesModal() {
     galleryImages.forEach(image => {
         image.addEventListener('click', () => {
             // Abre el modal
-            openModal(image.getAttribute("src"))
+            openModal()
         })
     })
 }
@@ -65,27 +73,47 @@ function mostrarDescripcion(especie) {
         if (escarabajo.especie === especie) {
             let divInfo = document.getElementById('div-info')
             divInfo.innerHTML = ''
+
             let parrafo = document.createElement('p')
             parrafo.textContent = escarabajo.descripcion
-            parrafo.classList.add('mb-6', 'has-text-justified')
+            parrafo.classList.add('mb-2', 'has-text-justified')
             divInfo.appendChild(parrafo)
+
+            for (let i = 0; i < Object.keys(escarabajo).length-6; i++) {
+                const atributo = Object.values(escarabajo)[i];
+                let labelAtributo = document.createElement('label')
+                labelAtributo.classList.add('has-text-weight-bold')
+                labelAtributo.textContent = Object.keys(escarabajo)[i]
+                let pArtributo = parrafo.cloneNode(false)
+                pArtributo.textContent = atributo
+                divInfo.appendChild(labelAtributo)
+                divInfo.appendChild(pArtributo)
+            }
+
             mostrarCoordenadas(escarabajo.especie)
             mostrarImagenes(escarabajo.especie)
+            mostrarGradoInvestigacion(escarabajo.especie)
+            agregarBtnDescargar(escarabajo.especie)
         }
     })
 }
 
 function mostrarImagenes(especie) {
     const img = document.createElement('img')
+    const p = document.createElement('p')
     escarabajos.forEach(escarabajo => {
         if (escarabajo.especie === especie) {
             const divFotos = document.getElementById('columna_fotos')
             escarabajo.imagenes.forEach(imagen => {
                 divFotos.innerHTML = ''
+                let pInner = p.cloneNode(false)
+                pInner.classList.add("is-size-3", "has-text-white", "has-text-centered", "mb-5", "has-text-weight-bold")
+                pInner.textContent = `${escarabajo.especie}`
                 let imagenImg = img.cloneNode(false)
                 imagenImg.setAttribute('src', `${imagen}`)
                 imagenImg.setAttribute('id', 'modal-image')
                 imagenImg.style.width = "100%"
+                divFotos.appendChild(pInner)
                 divFotos.appendChild(imagenImg)
             })
         }
@@ -99,6 +127,7 @@ function mostrarCoordenadas(especie) {
             var scriptElement = divMap.querySelector('script_map');
             if (scriptElement) {
                 divMap.removeChild(scriptElement);
+                
             }
             let coordenadasArray = escarabajo.coordenadas[0].split(',')
             let x = parseFloat(coordenadasArray[0])
@@ -107,6 +136,7 @@ function mostrarCoordenadas(especie) {
             const script = document.createElement('script')
             script.classList.add('script_map')
             script.textContent = `
+                if(map != undefined) {map.remove();}
                 var map = L.map('map').setView([${x}, ${y}], ${z})
 
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -116,13 +146,126 @@ function mostrarCoordenadas(especie) {
 
                 L.marker([${x}, ${y}]).addTo(map)
             `
+
+            // if(map != undefined) {map.remove();}
+            //     var map = L.map('map').setView([${x}, ${y}], ${z})
+                
+
+            //     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //         maxZoom: 19,
+            //         attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            //     }).addTo(map)
+
+            //     L.marker([${x}, ${y}]).addTo(map)
+
             divMap.appendChild(script)
         }
     })
 }
 
+function mostrarGradoInvestigacion(especie) {
+    escarabajos.forEach(escarabajo => {
+        if(escarabajo.especie === especie) {
+            const barraProgress = document.getElementById("id_barra_investigacion")
+            barraProgress.innerText = ''
+            if(escarabajo.Estado_investigacion) {
+                barraProgress.setAttribute("value", "100")
+                barraProgress.innerText = '100%'
+            } else {
+                barraProgress.setAttribute("value", "0")
+                barraProgress.innerText = '0%'
+            }
+        }
+    })
+}
+
+function agregarBtnDescargar(especie) {
+    escarabajos.forEach(escarabajo => {
+        if(escarabajo.especie === especie) {
+            const btnDescargar = document.getElementById("btnDescargarEspecie")
+            btnDescargar.addEventListener('click', () => {
+                const modal = document.getElementById('downloadModal');
+                modal.classList.add('is-active');
+                const btn = document.getElementById("downloadButton")
+                btn.setAttribute("onclick", `descargarRecursos("${escarabajo.especie}")`)
+            })
+        }
+    })
+}
+
+function descargarRecursos(especie) {
+    const archivosSeleccionados = [];
+    const audioCheckbox = document.getElementById("audioCheckbox")
+    const spectrogramCheckbox = document.getElementById("spectrogramCheckbox")
+    const imagesCheckbox = document.getElementById("imagesCheckbox")
+    const techSheetCheckbox = document.getElementById("techSheetCheckbox")
+
+    escarabajos.forEach(escarabajo => {
+        if(escarabajo.especie === especie) {
+            if (audioCheckbox.checked) {
+                escarabajo.audios.forEach(audio => {
+                    archivosSeleccionados.push({ ruta: audio, carpeta: "audios" })
+                })
+            }
+            // if (spectrogramCheckbox.checked) {
+            //     escarabajo.espectogramas.forEach(espectograma => {
+            //         archivosSeleccionados.push({ ruta: espectograma, carpeta: "espectrogramas" })
+            //     })
+            // }
+            if (imagesCheckbox.checked) {
+                escarabajo.imagenes.forEach(imagen => {
+                    archivosSeleccionados.push({ ruta: imagen, carpeta: "imagenes" })
+                })
+            }
+            // if (techSheetCheckbox.checked) {
+                
+            //     archivosSeleccionados.push({ ruta: "resources/ficha_tecnica.txt", carpeta: "fichas_tecnicas" })
+            // }
+            // Uso la libreria de JSZIP para pasar de json a archivos zip
+            const zip = new JSZip()
+            const promesas = []
+
+            // Entra a cada uno de los datos que se quieren descargar
+            archivosSeleccionados.forEach(archivo => {
+                // Se guardan los dos argumentos json en una constante ruta y otra carpeta
+                const { ruta, carpeta } = archivo
+                // Se obtiene el nombre dle archivo a partir de la ruta
+                const nombreArchivo = ruta.split("/").pop()
+                // Se crea el folder de cada una de los recursos
+                const folder = zip.folder(carpeta)
+        
+                
+                const promise = fetch(ruta)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        // Agregar el archivo a la carpeta correspondiente dentro del ZIP
+                        folder.file(nombreArchivo, blob)
+                    })
+                
+                promesas.push(promise)
+            })
+
+            Promise.all(promesas)
+                .then(() => {
+                    zip.generateAsync({ type: "blob" })
+                        .then(blob => {
+                            const link = document.createElement("a")
+                            link.href = URL.createObjectURL(blob)
+                            link.download = `${especie}Recursos.zip`
+                            link.click()
+                        });
+                })
+                .catch(error => {
+                    console.error("Error al cargar los archivos:", error)
+                })
+        }
+
+        closeModalDescargas()
+    })
+}
+
 // Función para abrir el modal
-function openModal(clickedImage) {
+function openModal() {
     // Obtener el modal por su id
     const modal = document.getElementById('modal')
 
@@ -136,5 +279,21 @@ function closeModal() {
     const modal = document.getElementById('modal')
 
     // Remover la clase 'is-active' del modal para ocultarlo
+    modal.classList.remove('is-active')
+}
+
+function closeModalDescargas() {
+
+    const modal = document.getElementById('downloadModal')
+    const audioCheckbox = document.getElementById("audioCheckbox")
+    const spectrogramCheckbox = document.getElementById("spectrogramCheckbox")
+    const imagesCheckbox = document.getElementById("imagesCheckbox")
+    const techSheetCheckbox = document.getElementById("techSheetCheckbox")
+
+    audioCheckbox.checked = false
+    spectrogramCheckbox.checked = false
+    imagesCheckbox.checked = false
+    techSheetCheckbox.checked = false
+
     modal.classList.remove('is-active')
 }

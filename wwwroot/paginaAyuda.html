@@ -36,43 +36,17 @@
                     <div class="navbar-end">
                         <div class="navbar-item p-0">
                             <div class="buttons m-0">
-                                <a href="inicioSesion.html"
-                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
-                                    Sesión</a>
+                                <a id="cerrarSesion"
+                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
+                                    onclick="cerrarSesion()">Cerrar Sesión</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Seccion de ayuda -->
-        <div class="section has-background-white" id="divDocumentacion">
-            <div class="container">
-                <label class="subtitle">Documentación sobre la página</label>
-                <p>Información detallada sobre cómo funciona la página y la tecnología detrás de ella.</p>
-            </div>
-        </div>
-        <!-- Sobre que trata la aplicación -->
-        <div class="section has-background-light" id="divSobre-aplicacion">
-            <div class="container">
-                <label class="subtitle">Sobre qué trata la aplicación</label>
-                <p>Descripción general de la aplicación y sus objetivos.</p>
-            </div>
-        </div>
-        <!-- Seccion de Preguntas Generales -->
-        <div class="section has-background-white" id="preguntas-generales">
-            <div class="container">
-                <label class="subtitle">Preguntas Generales</label>
-                <p>Respuestas a las preguntas más frecuentes sobre el uso de la plataforma.</p>
-            </div>
-        </div>
-        <!-- Guia de uso -->
-        <div class="section has-background-light" id="guia-uso">
-            <div class="container">
-                <label class="subtitle">Guía de Uso</label>
-                <p>Una pequeña guía paso a paso sobre cómo utilizar las principales características de la aplicación.
-                </p>
-            </div>
+        <div class="div-ayuda">
+            
         </div>
         <!-- Columnas del footer -->
         <div class="columns m-0 p-0">
@@ -92,5 +66,7 @@
         </div>
     </div>
 </body>
+<script src="./js/cerrarSesion.js"></script>
+<script src="./js/ayuda.js"></script>
 
 </html>

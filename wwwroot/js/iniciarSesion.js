@@ -27,7 +27,12 @@ function iniciarSesion() {
         .then(async response => {
             if (response.ok) {
                 const result = await response.json();
-                const userCookie = "userToken=" + result["accessToken"] + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; samesite=strict";
+                const accessToken = await result["accessToken"];
+                if (!accessToken) {
+                    console.error('El token de acceso no está presente en la respuesta.');
+                    return;
+                }
+                const userCookie = "userToken=" + accessToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; samesite=strict";
                 document.cookie = userCookie;
                 window.location.href = "paginaPrincipalB.html";
             } else if (response.status === 401) {
@@ -36,5 +41,7 @@ function iniciarSesion() {
                 console.error('Error desconocido al iniciar sesión.');
             }
         })
-        .catch(error => console.error('No se pudo iniciar sesion. ', error))
+        .catch(error => console.error('No se pudo iniciar sesión. ', error));
+    
+    
 }

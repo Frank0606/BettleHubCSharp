@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BettleHubCsharp.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240501224230_CreacionInicial")]
+    [Migration("20240508233309_CreacionInicial")]
     partial class CreacionInicial
     {
         /// <inheritdoc />
@@ -24,6 +24,50 @@ namespace BettleHubCsharp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("BettleHubCsharp.Models.Ayuda", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Contenido")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ayuda");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "56f5d0d1-923c-4e3c-ac81-91a98fd85181",
+                            Contenido = "Información detallada sobre cómo funciona la página y la tecnología detrás de ella.",
+                            Titulo = "Documentacion sobre la pagina"
+                        },
+                        new
+                        {
+                            Id = "0a7be0f8-30d4-4e86-b00e-5fc75a02dc45",
+                            Contenido = "Descripción general de la aplicación y sus objetivos.",
+                            Titulo = "Sobre que trata la aplicacion"
+                        },
+                        new
+                        {
+                            Id = "9893e337-e3c3-4590-b011-f77e250b140e",
+                            Contenido = "Respuestas a las preguntas más frecuentes sobre el uso de la plataforma.",
+                            Titulo = "Preguntas generales"
+                        },
+                        new
+                        {
+                            Id = "ce8c7a26-f2a1-4493-b3fd-f99ab4d15051",
+                            Contenido = "Una pequeña guía paso a paso sobre cómo utilizar las principales características de la aplicación.",
+                            Titulo = "Guia de uso"
+                        });
+                });
 
             modelBuilder.Entity("BettleHubCsharp.Models.Biologo", b =>
                 {
@@ -100,38 +144,38 @@ namespace BettleHubCsharp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e1565b84-2b86-4af0-986b-922acf516265",
+                            Id = "68030228-1327-49e8-bcdf-e61629061987",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f7f68615-d316-45af-9fe6-682bd1d42331",
+                            ConcurrencyStamp = "b7be226e-74ee-4459-a7bb-62a38df556f4",
                             Edad = 19,
                             Email = "Correo1@correo.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CORREO1@CORREO.COM",
                             NormalizedUserName = "NOMBRE1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIvGlUoQMLOCWJ91df8HBTLKMzLHmhf/WGMI6YOnttaUFL7WHa59UiO3otk8YIRuqQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ6Xz92wV2W2Y+XB9OhQkIDIR1onqWveamPh4v38TNDOd87FqMd7C48hAGu3wP57Xw==",
                             PhoneNumberConfirmed = false,
                             Protegida = true,
-                            SecurityStamp = "41de10ae-1ce4-4ee1-90cd-a63d952b413a",
+                            SecurityStamp = "453abacc-304c-44e7-a18a-a4942e6b3845",
                             Telefono = 9999999999L,
                             TwoFactorEnabled = false,
                             UserName = "Nombre1"
                         },
                         new
                         {
-                            Id = "a70a5075-1830-49cb-a7a0-a557173cdd7f",
+                            Id = "32631526-be33-4b21-84b1-8a7eeec0afc2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4d21d77a-9483-4c4f-8ee8-87043d618022",
+                            ConcurrencyStamp = "54698dca-9870-4619-ae9e-19307753f817",
                             Edad = 20,
                             Email = "Correo2@correo.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CORREO2@CORREO.COM",
                             NormalizedUserName = "Nombre2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHEpUSbOyg9Kix0lzj6JDDOo7D17vQn5fnLv0tUZWQLexdeqIvU6lrT1pet/7SgW8Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECnU/k82W5efH7zuxKQ30eoUP4SAxMAfw+BHjVM37qKjjwSsI8WjbsJGjfT/rNa8eg==",
                             PhoneNumberConfirmed = false,
                             Protegida = false,
-                            SecurityStamp = "c90cd2d4-ca8b-41ed-8e56-2d2f5f548fe8",
+                            SecurityStamp = "25239d28-ed47-4574-b275-5a5f9b8c9b06",
                             Telefono = 9999999999L,
                             TwoFactorEnabled = false,
                             UserName = "Nombre2"
@@ -154,52 +198,52 @@ namespace BettleHubCsharp.Migrations
                     b.HasData(
                         new
                         {
-                            Id_Dato = "7549aae1-8241-43e4-9fdf-b42a930d218b",
+                            Id_Dato = "2448f470-1c99-4d2f-90ec-31f49abc44d0",
                             Descripcion_Dato = "Los Pasalidos son conocidos por su capacidad para producir sonidos, un comportamiento conocido como estridulación."
                         },
                         new
                         {
-                            Id_Dato = "547d346f-7118-4999-a0f7-e3ad221476db",
+                            Id_Dato = "bd602b2a-906f-4d5f-a2cc-b6735ff2068f",
                             Descripcion_Dato = "El comportamiento social de los Pasalidos es vivir en grupos familiares donde cooperan en el cuidado de las larvas y el mantenimiento de su hogar."
                         },
                         new
                         {
-                            Id_Dato = "d801ad56-a015-4a2d-99e8-cf5e75075c49",
+                            Id_Dato = "a31b4db2-76a2-47be-a379-97740cd5cae3",
                             Descripcion_Dato = "Estos escarabajos son uno de los pocos grupos de coleópteros que exhiben cuidado parental extenso."
                         },
                         new
                         {
-                            Id_Dato = "7e446d1c-26cd-4683-9605-6162bfcf8aa7",
+                            Id_Dato = "6e300a9a-9292-4c09-8f35-6cc19da5c943",
                             Descripcion_Dato = "Los Pasalidos ayudan en el ciclo de nutrientes en los ecosistemas forestales."
                         },
                         new
                         {
-                            Id_Dato = "a860e306-00a4-499d-a15f-e88afd619412",
+                            Id_Dato = "9c7d2b23-bc34-4127-a0b1-39c623b267e1",
                             Descripcion_Dato = "Aunque principalmente habitan en bosques húmedos y tropicales, tambien habitan bosques templados y áreas montañosas."
                         },
                         new
                         {
-                            Id_Dato = "20c3dd83-94ce-4177-bb36-ecb42c91e01c",
+                            Id_Dato = "9b942bc1-451e-436d-b4c1-8b8abfd6fd42",
                             Descripcion_Dato = "Los escarabajos de esta familia son xilófagos, lo que significa que se alimentan principalmente de madera."
                         },
                         new
                         {
-                            Id_Dato = "2fab21b2-aada-49a4-9cf1-0c66056643dc",
+                            Id_Dato = "a391d877-c63e-402c-bfb3-bc00f5b4e93b",
                             Descripcion_Dato = "Tienen cuerpos alargados y robustos, cabezas grandes y cuernos que utilizan en sus rituales de apareamiento y en la lucha por territorio o parejas."
                         },
                         new
                         {
-                            Id_Dato = "d4ed2525-9313-43d6-b401-118268137ab4",
+                            Id_Dato = "cc96120d-0824-449d-9cd8-bf88f2215194",
                             Descripcion_Dato = "Estos escarabajos pueden tener ciclos de vida relativamente largos en comparación con otros insectos."
                         },
                         new
                         {
-                            Id_Dato = "8d6d3b58-2687-4864-bc28-6f68d233fa50",
+                            Id_Dato = "15fd2d50-815d-4a04-a5c9-bd07d4060761",
                             Descripcion_Dato = "Los Pasalidos se encuentran principalmente en las regiones tropicales de América, Asia y África. En América, su distribución va desde México hasta Argentina."
                         },
                         new
                         {
-                            Id_Dato = "fdfd2335-c32b-4050-a81b-4734b71cd647",
+                            Id_Dato = "b6580d15-c826-43a1-88f8-18391be4f420",
                             Descripcion_Dato = "Los Pasalidos son objeto de estudio en áreas como ecología del comportamiento, biología de la conservación y entomología forestal."
                         });
                 });
@@ -381,31 +425,31 @@ namespace BettleHubCsharp.Migrations
                     b.HasData(
                         new
                         {
-                            Id_pregunta = "ed5f88bf-4d14-4667-a449-d112082e23b0",
+                            Id_pregunta = "98295b1a-4c52-4750-839f-f3144f6eb23f",
                             Pregunta_pregunta = "¿Quiénes fueron los desarrolladores?",
                             Respuesta_pregunta = "Somos un grupo de estudiantes de la carrera Lic. Tecnologías Computacionales de la Universidad Veracruzana. Nuestro proyecto Beetle-Finder es un ejemplo sobre nuestro trabajo como desarrolladores, enfocandonos en una comunidad cientifica."
                         },
                         new
                         {
-                            Id_pregunta = "08066457-7619-429b-aeb6-454da3e2c24c",
+                            Id_pregunta = "dba0498c-1334-4c13-abf7-08ffec4bd3e9",
                             Pregunta_pregunta = "¿Quién es el Dr Edwin Eriza?",
                             Respuesta_pregunta = "Un doctor"
                         },
                         new
                         {
-                            Id_pregunta = "129dd439-61a8-47ee-b252-21b477b46eaf",
+                            Id_pregunta = "3fcb3926-8ef6-4209-af60-e1ae2bf117f3",
                             Pregunta_pregunta = "¿Qué son los Pasalidos?",
                             Respuesta_pregunta = "Los pasálidos son una familia de escarabajos conocidos por su comportamiento social y ecológico, especializados en la descomposición de madera en bosques húmedos y tropicales."
                         },
                         new
                         {
-                            Id_pregunta = "8bba2efb-245c-423b-9b8c-959b1021c9d6",
+                            Id_pregunta = "013b8a07-bf4e-4f96-8911-e4ad259dda97",
                             Pregunta_pregunta = "¿Quiéres conocer mas sobre otras familias de escarabajos?",
                             Respuesta_pregunta = "Te recomendamos las siguiente paginas para saber mas sobre otras familias. "
                         },
                         new
                         {
-                            Id_pregunta = "699902a6-8688-4372-ade8-df8d08b243ae",
+                            Id_pregunta = "44d80f95-e4c3-44aa-805d-4b8ce17f5651",
                             Pregunta_pregunta = "¿Que hace Bettle-Finder?",
                             Respuesta_pregunta = "Es un paginas web sobre los escarabajos de la familia Passalidae, con la funcion unica de poder clasificar sus sonidos por especie."
                         });
@@ -454,13 +498,13 @@ namespace BettleHubCsharp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a0dec9fd-307b-4f39-b90b-ca9f9d9c0164",
+                            Id = "d4e39185-637e-4b70-a129-7c5be1618071",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "5d6ba7ab-e237-40be-b215-d61598f7250a",
+                            Id = "8881ab90-7112-4808-ac52-25ee9b4125d2",
                             Name = "Biologo",
                             NormalizedName = "BIOLOGO"
                         });
@@ -555,13 +599,13 @@ namespace BettleHubCsharp.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e1565b84-2b86-4af0-986b-922acf516265",
-                            RoleId = "a0dec9fd-307b-4f39-b90b-ca9f9d9c0164"
+                            UserId = "68030228-1327-49e8-bcdf-e61629061987",
+                            RoleId = "d4e39185-637e-4b70-a129-7c5be1618071"
                         },
                         new
                         {
-                            UserId = "a70a5075-1830-49cb-a7a0-a557173cdd7f",
-                            RoleId = "5d6ba7ab-e237-40be-b215-d61598f7250a"
+                            UserId = "32631526-be33-4b21-84b1-8a7eeec0afc2",
+                            RoleId = "8881ab90-7112-4808-ac52-25ee9b4125d2"
                         });
                 });
 

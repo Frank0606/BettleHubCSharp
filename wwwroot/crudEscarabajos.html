@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cliente Web API</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body class="has-background-black">
@@ -29,9 +31,9 @@
                             <div class="buttons m-0">
                                 <label
                                     class="has-text-light has-text-weight-bold mr-4 is-size-5 is-underlined">Administrador</label>
-                                <a href="inicioSesion.html"
-                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
-                                    Sesión</a>
+                                    <a id="cerrarSesion"
+                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
+                                    onclick="cerrarSesion()">Cerrar Sesión</a>
                             </div>
                         </div>
                     </div>
@@ -171,16 +173,40 @@
                             </div>
                             <div class="field">
                                 <label class="label">Audios</label>
-                                <div class="control">
-                                    <input type="file" id="audiosEscarabajo" accept="audio/wav" multiple>
+                                <div class="file has-name is-fullwidth">
+                                    <label class="file-label">
+                                        <input type="file" class="file-input" name="audio" accept="audio/wav" id="audio-input">
+                                        <span class="file-cta has-background-primary-soft">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label has-text-centered">Subir audio</span>
+                                        </span>
+                                        <span class="file-nameA"></span>
+                                    </label>
                                 </div>
-                            </div>                            
+                            </div>
+                            <div class="audio-preview" id="audio-preview" style="display: none;">
+                                <audio controls></audio>
+                            </div>
                             <div class="field">
-                                <label class="label">Imagenes</label>
-                                <div class="control">
-                                    <input type="file" id="imagenesEscarabajo" accept="image/*" multiple>
+                                <label class="label">Imágenes</label>
+                                <div class="file has-name is-fullwidth">
+                                    <label class="file-label">
+                                        <input id="image-input" type="file" class="file-input" name="imagen" accept="image/*">
+                                        <span class="file-cta has-background-primary-soft">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label has-text-centered">Subir imágenes</span>
+                                        </span>
+                                        <span class="file-nameI"></span>
+                                    </label>
                                 </div>
-                            </div>                            
+                            </div>
+                            <div id="image-preview" style="display: none;">
+                                <img id="preview-image" src="" alt="Vista previa de la imagen">
+                            </div>
                             <div class="field">
                                 <label class="label">Coordenadas</label>
                                 <div class="control">
@@ -252,10 +278,10 @@
                             <div class="field">
                                 <label for="" class="label">Nombre comun</label>
                                 <div class="control">
-                                    <input type="text" id="editarNombre_comun" class="input" placeholder="Nombre comun>
+                                    <input type="text" id="editarNombre_comun" class="input" placeholder="Nombre comun">
                                 </div>
                             </div>
-                            <div class=" field">
+                            <div class="field">
                                     <label for="" class="label">Antena</label>
                                     <div class="control">
                                         <input type="text" id="editarAntena" class="input" placeholder="Antena">
@@ -286,15 +312,21 @@
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label for="" class="label">Audios</label>
-                                    <div class="control">
-                                        <input type="text" id="editarAudios" class="input" placeholder="Audios">
-                                    </div>
+                                    <label class="file-label">
+                                        <input type="file" class="file-input" name="audio">
+                                        <span class="file-cta has-background-primary-soft">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label has-text-centered">Subir audios</span>
+                                        </span>
+                                        <span class="file-name"></span>
+                                    </label>
                                 </div>
                                 <div class="field">
                                     <label for="" class="label">Imagenes</label>
                                     <div class="control">
-                                        <input type="text" id="editarImagenes" class="input" placeholder="Imagenes">
+                                        <input type="file" id="editarImagenes" class="input" placeholder="Imagenes">
                                     </div>
                                 </div>
                         </form>
@@ -328,11 +360,11 @@
             </div>
         </div>
     </div>
-
-    <script src="js/escarabajosJS.js" asp-append-version="true"></script>
-    <script type="text/javascript">
-        obtenerEscarabajos();
-    </script>
+<script src="js/escarabajosJS.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    obtenerEscarabajos();
+</script>
+<script src="./js/cerrarSesion.js"></script>
+<script src="./js/audiosPreview.js"></script>
 </body>
-
 </html>

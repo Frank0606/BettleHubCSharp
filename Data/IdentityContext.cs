@@ -11,11 +11,13 @@ public class IdentityContext(DbContextOptions<IdentityContext> options) : Identi
     public DbSet<Escarabajo> Escarabajo { get; set; }
     public DbSet<Pregunta> Pregunta { get; set; }
     public DbSet<DatoCurioso> DatoCurioso { get; set; }
+    public DbSet<Ayuda> Ayuda { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new SeedEscarabajo());
         modelBuilder.ApplyConfiguration(new SeedPreguntas());
+        modelBuilder.ApplyConfiguration(new SeedAyuda());
         modelBuilder.ApplyConfiguration(new SeedDatosCuriosos());
         modelBuilder.SeedUserIdentityData();
 

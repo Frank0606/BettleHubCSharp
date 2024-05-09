@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -38,9 +38,9 @@
                 <div class="navbar-end">
                     <div class="navbar-item p-0">
                         <div class="buttons m-0">
-                            <a href="inicioSesion.html"
-                                class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive">Cerrar
-                                Sesión</a>
+                            <a id="cerrarSesion"
+                                class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
+                                onclick="cerrarSesion()">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>
@@ -49,53 +49,119 @@
     </div>
     <!-- contenido -->
     <div id="div_gallery" class="columns is-multiline is-mobile is-centered m-0"></div>
-    <!-- Modal -->
+
+    <!-- Modal de ficha tecnica del escarabajo -->
     <div id="modal" class="modal p-0 m-0">
 
+        <!-- Seleccion del fondo del modal -->
         <div class="modal-background has-background-black"></div>
 
-        <div class="modal-content" style="width: 90%; height: 100%; overflow-x:hidden;">
+        <!-- Contenido del modal -->
+        <div class="modal-content columns" style="width: 90%; height: 100%; overflow-x:hidden;">
 
-            <div id="columna_imagen" class="columns">
+            <!-- Columna de las imagenes -->
+            <div id="columna_imagen" class="column is-one-third">
+                <!-- Div de las imagenes -->
+                <div id="columna_fotos"></div>
+            </div>
 
-                <div id="columna_fotos" class="column is-one-third">
-                    <p class="is-size-3 has-text-white has-text-centered mb-5 has-text-weight-bold">Especie</p>
+            <!-- Columna de Información -->
+            <div id="columna_info" class="column is-one-third">
+                <!-- Titulo -->
+                <p class="has-text-white is-size-3 has-text-centered mb-5 has-text-weight-bold">Información</p>
+                <!-- Div con la descripcion de escarabajo -->
+                <div id="div-info" class="mb-5"></div>
+                <!-- Div con uno de sus audios aleatorios -->
+                <div id="div-audio"></div>
+                <!-- Div del boton para descargar algun recurso -->
+                <div id="div_btn_descargar" class="is-flex is-justify-content-center is-align-items-center">
+                    <button class="button is-success" id="btnDescargarEspecie">Descargar</button>
                 </div>
+            </div>
 
-                <div id="columna_info" class="column is-one-third">
-                    <p class="has-text-white is-size-3 has-text-centered mb-5 has-text-weight-bold">Información</p>
-                    <div id="div-info">
-
-                    </div>
-                    <div id="div_btn_descargar" class="is-flex is-justify-content-center is-align-items-center">
-                        <button class="button is-success">Descargar</button>
-                    </div>
-                </div>
-
-                <div id="columna_mapa" class="column is-one-third">
-                    <p class="has-text-white is-size-3 has-text-centered mb-5 has-text-weight-bold">Mapa</p>
-                    <div id="map" style="height: 300px;">
-                    </div>
-                    <div id="div-investigacion" class="" style="width: 80%; margin: 0 auto;">
-                        <p id="titulo_nivel_investigacion"
-                            class="has-text-white has-text-centered has-text-weight-bold is-size-5 mb-4">Nivel de
-                            investigación</p>
-                        <progress id="id_barra_investigacion" class="progress is-success is-medium mb-4" value="15"
-                            max="100">15%</progress>
-                        <div class="columns">
-                            <div class="column">
-                                <p class="has-text-white is-inline-block is-pulled-left">No aprobado</p>
-                            </div>
-                            <div class="column">
-                                <p class="has-text-white is-inline-block is-pulled-right">Aprobado</p>
-                            </div>
+            <!-- Columna con el mapa y estado de investigacion -->
+            <div id="columna_mapa" class="column is-one-third">
+                <!-- Titulo -->
+                <p class="has-text-white is-size-3 has-text-centered mb-5 has-text-weight-bold">Mapa</p>
+                <!-- Div del mapacon los puntos de las coordenadas -->
+                <div id="map" style="height: 100%; width: 100%;"></div>
+                <!-- Div de la barra del estado de progreso -->
+                <div id="div-investigacion" class="" style="width: 80%; margin: 0 auto;">
+                    <!-- Titulo de la investigacion -->
+                    <p id="titulo_nivel_investigacion" 
+                        class="has-text-white has-text-centered has-text-weight-bold is-size-5 mb-4">Nivel de investigación</p>
+                    <!-- Barra de estado -->
+                    <progress id="id_barra_investigacion" class="progress is-success is-medium mb-4" max="100"></progress>
+                    <!-- Div para apuntar si esta aprobado o no el escarabajo -->
+                    <div class="columns">
+                        <div class="column">
+                            <p class="has-text-white is-inline-block is-pulled-left">No aprobado</p>
+                        </div>
+                        <div class="column">
+                            <p class="has-text-white is-inline-block is-pulled-right">Aprobado</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Boton para cerrar el modal -->
         <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
     </div>
+
+    <!-- Modal del boton descargar Recursos -->
+    <div class="modal" id="downloadModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-white has-background-primary-soft">
+                <p class="modal-card-title" class="has-text-weight-bold">Seleccione los elementos a descargar</p>
+                <button class="delete" aria-label="close" id="closeModal" onclick="closeModalDescargas()"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox is-size-5">
+                                    <input type="checkbox" id="audioCheckbox" class="mr-2">
+                                    Audio
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox is-size-5">
+                                    <input type="checkbox" id="spectrogramCheckbox" class="mr-2">
+                                    Espectograma
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox is-size-5">
+                                    <input type="checkbox" id="imagesCheckbox" class="mr-2">
+                                    Imágenes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox is-size-5">
+                                    <input type="checkbox" id="techSheetCheckbox" class="mr-2">
+                                    Ficha técnica (.txt)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="downloadButton">Descargar</button>
+            </footer>
+        </div>
+    </div>
+
     <!-- Columnas del footer -->
     <div class="columns m-0 p-0">
         <!-- contenedor de sobre nosotros en parte inferior -->
@@ -113,7 +179,7 @@
         </div>
     </div>
 </body>
-
 <script src="./js/galeriaEscarabajos.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+<script src="./js/cerrarSesion.js"></script>
 </html>
