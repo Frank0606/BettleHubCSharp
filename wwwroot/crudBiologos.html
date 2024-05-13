@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cliente Web API</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body class="has-background-black">
@@ -65,10 +66,6 @@
                         <th class="has-text-centered">Correo</th>
                         <th class="has-text-centered">Edad</th>
                         <th class="has-text-centered">Telefono</th>
-                        <th class="has-text-centered">Usuario</th>
-                        <th class="has-text-centered">Administrador</th>
-                        <th class="has-text-centered">Editar</th>
-                        <th class="has-text-centered">Eliminar</th>
                     </tr>
                     <tbody id="mostrarBiologos"></tbody>
                 </table>
@@ -105,12 +102,6 @@
                                 <label class="label">Telefono</label>
                                 <div class="control">
                                     <input type="text" id="telefonoBiologo" placeholder="Telefono" class="input">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Usuario</label>
-                                <div class="control">
-                                    <input type="text" id="usuarioBiologo" placeholder="Usuario" class="input">
                                 </div>
                             </div>
                             <div class="field">
@@ -169,18 +160,6 @@
                                 <label class="label">Telefono</label>
                                 <div class="control">
                                     <input type="text" id="editarTelefono" class="input" placeholder="Telefono">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Usuario</label>
-                                <div class="control">
-                                    <input type="text" id="editarUsuario" class="input" placeholder="Usuario">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Contraseña</label>
-                                <div class="control">
-                                    <input type="password" id="editarContrasena" class="input" placeholder="Contraseña">
                                 </div>
                             </div>
                         </form>

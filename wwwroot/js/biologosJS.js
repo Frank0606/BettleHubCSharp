@@ -49,7 +49,6 @@ btnBorrarFormAgregar.addEventListener("click", (e) => {
     document.getElementById('correoBiologo').value = ''
     document.getElementById('edadBiologo').value = ''
     document.getElementById('telefonoBiologo').value = ''
-    document.getElementById('usuarioBiologo').value = ''
     document.getElementById('contrasenaBiologo').value = ''
 })
 
@@ -84,11 +83,11 @@ function _mostrarBiologos(data) {
         let tr = tBody.insertRow()
 
         let tdNombre = tr.insertCell(0)
-        let textNodeNombre = document.createTextNode(item.nombre)
+        let textNodeNombre = document.createTextNode(item.userName)
         tdNombre.appendChild(textNodeNombre)
 
         let tdCorreo = tr.insertCell(1)
-        let textNodeCorreo = document.createTextNode(item.correo)
+        let textNodeCorreo = document.createTextNode(item.email)
         tdCorreo.appendChild(textNodeCorreo)
 
         let tdEdad = tr.insertCell(2)
@@ -97,23 +96,15 @@ function _mostrarBiologos(data) {
         tdEdad.appendChild(textNodeEdad)
 
         let tdTelefono = tr.insertCell(3)
-        let textNodeTelefono = document.createTextNode(item.telefono)
+        let textNodeTelefono = document.createTextNode(item.phoneNumber)
         tdTelefono.classList.add('has-text-centered')
         tdTelefono.appendChild(textNodeTelefono)
 
-        let tdUsuario = tr.insertCell(4)
-        let textNodeUsuario = document.createTextNode(item.usuario)
-        tdUsuario.appendChild(textNodeUsuario)
-
-        let tdAdministrador = tr.insertCell(5)
-        let textNodeAdministrador = document.createTextNode(item.administrador)
-        tdAdministrador.appendChild(textNodeAdministrador)
-
-        let tdEditar = tr.insertCell(6)
+        let tdEditar = tr.insertCell(4)
         tdEditar.classList.add('has-text-centered')
         tdEditar.appendChild(btnEditar)
 
-        let tdEliminar = tr.insertCell(7)
+        let tdEliminar = tr.insertCell(5)
         tdEliminar.classList.add('has-text-centered')
         tdEliminar.appendChild(btnEliminar)
     })
@@ -125,15 +116,13 @@ function agregarBiologo() {
     const correo = document.getElementById('correoBiologo')
     const edad = document.getElementById('edadBiologo')
     const telefono = document.getElementById('telefonoBiologo')
-    const usuario = document.getElementById('usuarioBiologo')
     const contrasena = document.getElementById('contrasenaBiologo')
 
     const biologo = {
         Nombre: nombre.value.trim(),
         Correo: correo.value.trim(),
-        Edad: edad.value.trim(),
+        Edad: parseInt(edad.value.trim()),
         Telefono: telefono.value.trim(),
-        Usuario: usuario.value.trim(),
         Contrasena: contrasena.value.trim(),
         Administrador: false
     }
@@ -146,14 +135,13 @@ function agregarBiologo() {
         },
         body: JSON.stringify(biologo)
     })
-        .then(response => response .json())
+        .then(response => response.json())
         .then(() => {
             obtenerBiologos()
             nombre.value = ''
             correo.value = ''
             edad.value = ''
             telefono.value = ''
-            usuario.value = ''
             contrasena.value = ''
         })
         .then(() => document.getElementById('agregarBiologo').classList.remove('is-active'))
@@ -175,27 +163,24 @@ function mostrarFormEditar(id) {
     const biologo = biologos.find(biologo => biologo.id === id)
 
     document.getElementById('editarId').value = biologo.id
-    document.getElementById('editarNombre').value = biologo.nombre
-    document.getElementById('editarCorreo').value = biologo.correo
+    document.getElementById('editarNombre').value = biologo.userName
+    document.getElementById('editarCorreo').value = biologo.email
     document.getElementById('editarEdad').value = biologo.edad
-    document.getElementById('editarTelefono').value = biologo.telefono
-    document.getElementById('editarUsuario').value = biologo.usuario
-    document.getElementById('editarContrasena').value = biologo.contrasena
+    document.getElementById('editarTelefono').value = biologo.phoneNumber
     document.getElementById('editarForm').classList.add('is-active')
 }
 
 function actualizarBiologo() {
     const idbiologo = document.getElementById('editarId').value.trim()
-    
+
     const biologo = {
         Id: idbiologo,
         Nombre: document.getElementById('editarNombre').value.trim(),
         Correo: document.getElementById('editarCorreo').value.trim(),
         Edad: parseInt(document.getElementById('editarEdad').value.trim(), 10),
-        Telefono: parseInt(document.getElementById('editarTelefono').value.trim(), 10),
-        Usuario: document.getElementById('editarUsuario').value.trim(),
-        Contrasena: document.getElementById('editarContrasena').value.trim(),
-        Administrador: false
+        Telefono: document.getElementById('editarTelefono').value.trim(),
+        Administrador: false,
+        Contrasena: biologos.find(biologo => biologo.id === idbiologo).passwordHash
     }
 
     fetch(`${uri}/${idbiologo}`, {
@@ -208,10 +193,9 @@ function actualizarBiologo() {
     })
         .then(() => obtenerBiologos())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
-        //.then(() => window.location.reload())
         .catch(error => console.error('No se ha podido editar el biologo. ', error))
-        
-    
+
+
 }
 
 //          Funciones extras

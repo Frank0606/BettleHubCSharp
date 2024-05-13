@@ -23,6 +23,8 @@ const formAgregarEscarabajo = document.getElementById("formAgregarEscarabajo")
 const formEditar = document.getElementById('editarForm')
 const cerrarEditar = document.getElementById("cerrarModalEditar")
 const cerrarAgregar = document.getElementById('cerrarModalAgregar')
+const cerrarImagenes = document.getElementById('cerrarModalImagenes')
+const cerrarAudios = document.getElementById('cerrarModalAudios')
 const btnBorrarFormAgregar = document.getElementById('btnBorrarFormAgregar')
 //      Se crean los eventos -------------------------------------------------------------------------------
 formAgregarEscarabajo.addEventListener("submit", (e) => {
@@ -64,13 +66,23 @@ btnBorrarFormAgregar.addEventListener("click", (e) => {
     document.getElementById("editarImagenes").value = ''
 })
 
+cerrarImagenes.addEventListener('click', (e) => {
+    e.preventDefault()
+    document.getElementById('modalImagenes').classList.remove('is-active')
+})
+
+cerrarAudios.addEventListener('click', (e) => {
+    e.preventDefault()
+    document.getElementById('modalAudios').classList.remove('is-active')
+})
+
 //      Metodos para trabajar con la API
 //          Obtener o GET
 function obtenerEscarabajos() {
     fetch(uri)
-    .then(response => response.json())
-    .then(data => _mostrarEscarabajos(data))
-    .catch(error => console.error('No se han podido obtener los elementos. ', error))
+        .then(response => response.json())
+        .then(data => _mostrarEscarabajos(data))
+        .catch(error => console.error('No se han podido obtener los elementos. ', error))
 }
 
 function _mostrarEscarabajos(data) {
@@ -91,6 +103,16 @@ function _mostrarEscarabajos(data) {
         btnEliminar.innerHTML = 'Eliminar'
         btnEliminar.classList.add('button', 'is-small', 'is-danger', 'is-outlined', 'has-text-weight-bold');
         btnEliminar.setAttribute('onClick', `eliminarEscarabajo("${item.especie}")`)
+
+        let btnAudios = boton.cloneNode(false)
+        btnAudios.innerHTML = 'Audios'
+        btnAudios.classList.add('button', 'is-small', 'is-primary', 'is-outlined', 'has-text-weight-bold');
+        btnAudios.setAttribute('onClick', `abrirModalAudios("${item.especie}")`)
+
+        let btnImagenes = boton.cloneNode(false)
+        btnImagenes.innerHTML = 'Imagenes'
+        btnImagenes.classList.add('button', 'is-small', 'is-primary', 'is-outlined', 'has-text-weight-bold');
+        btnImagenes.setAttribute('onClick', `abrirModalImagenes("${item.especie}")`)
 
         let tr = tBody.insertRow()
 
@@ -132,7 +154,7 @@ function _mostrarEscarabajos(data) {
 
         let td10 = tr.insertCell(9)
         let textNode9 = document.createTextNode(item.mandibula)
-         td10.appendChild(textNode9)
+        td10.appendChild(textNode9)
 
         let td11 = tr.insertCell(10)
         let textNode10 = document.createTextNode(item.alas)
@@ -143,12 +165,12 @@ function _mostrarEscarabajos(data) {
         td12.appendChild(textNode11)
 
         let td13 = tr.insertCell(12)
-        let textNode12 = document.createTextNode(item.audioss)
-        td13.appendChild(textNode12)   
+        td13.classList.add('has-text-centered')
+        td13.appendChild(btnAudios)
 
         let td14 = tr.insertCell(13)
-        let textNode13 = document.createTextNode(item.imageness)
-        td14.appendChild(textNode13)
+        td14.classList.add('has-text-centered')
+        td14.appendChild(btnImagenes)
 
         let td15 = tr.insertCell(14)
         td15.classList.add('has-text-centered')
@@ -324,5 +346,42 @@ function openModalMostrar() {
 
     const modal2 = document.getElementById("breadcrumbAgregar")
     modal2.classList.remove('is-active')
+}
+
+function abrirModalImagenes(especie) {
+    document.getElementById('modalImagenes').classList.add('is-active')
+    const body = document.getElementById('bodyModalImagenes')
+    body.innerHTML = ''
+    const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie)
+    const imagenes = escarabajo.imagenes
+    imagenes.forEach(imagen => {
+
+    })
+}
+
+function abrirModalAudios(especie) {
+    document.getElementById('modalAudios').classList.add('is-active')
+    const body = document.getElementById('bodyModalAudios')
+
+    body.innerHTML = ''
+
+    const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie)
+    const audios = escarabajo.audios
+
+    const div = document.createElement('div')
+    div.setAttribute('id', 'audio-preview')
+    div.classList.add('audio-preview')
+
+    audios.forEach(audioSrc => {
+        const divPreview = div.cloneNode(false)
+        const audioPreview = document.createElement('audio')
+        audioPreview.setAttribute('controls', '')
+
+        audioPreview.src = audioSrc
+
+        divPreview.appendChild(audioPreview)
+        body.appendChild(divPreview)
+    });
+
 }
 //-------------------------------------------------------------------------------------------------------------------------------

@@ -51,6 +51,39 @@
                 <li id="breadcrumbAgregar"><a onclick=openModalAgregar()>Agregar</a></li>
             </ul>
         </nav>
+        <!-- Modales extras -->
+        <!-- Modal de imagenes -->
+        <div class="modal" id="modalImagenes">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head has-text-centered">
+                    <p class="modal-card-title has-text-weight-bold has-text-white">Imagenes</p>
+                    <button id="cerrarModalImagenes" aria-label="close" class="delete"></button>
+                </header>
+                <section class="modal-card-body" id="bodyModalImagenes">
+
+                </section>
+                <footer class="modal-card-foot">
+
+                </footer>
+            </div>
+        </div>
+        <!-- Modal de audios -->
+        <div class="modal" id="modalAudios">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head has-text-centered">
+                    <p class="modal-card-title has-text-weight-bold has-text-white">Audios</p>
+                    <button id="cerrarModalAudios" aria-label="close" class="delete"></button>
+                </header>
+                <section class="modal-card-body" id="bodyModalAudios">
+
+                </section>
+                <footer class="modal-card-foot">
+
+                </footer>
+            </div>
+        </div>
         <!-- Columna del CRUD Escarabajo -->
         <div class="columns is-centered">
             <!-- Tabla de mostrar a los escarabajos -->
@@ -75,8 +108,6 @@
                         <th class="has-text-centered">Mandibula</th>
                         <th class="has-text-centered">Alas</th>
                         <th class="has-text-centered">Elitros</th>
-                        <th class="has-text-centered">Audios</th>
-                        <th class="has-text-centered">Imagenes</th>
                     </tr>
                     <tbody id="mostrarEscarabajos"></tbody>
                 </table>

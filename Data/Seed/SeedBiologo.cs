@@ -37,7 +37,7 @@ namespace BettleHubCsharp.Data.Seed
                     UserName = "Nombre1",
                     NormalizedUserName = "Nombre1".ToUpper(),
                     Edad = 19,
-                    Telefono = 9999999999,
+                    PhoneNumber = "9999999999",
                     PasswordHash = new PasswordHasher<Biologo>().HashPassword(new Biologo(), "1234"),
                     Protegida = true
                 });
@@ -61,7 +61,7 @@ namespace BettleHubCsharp.Data.Seed
                     UserName = "Nombre2",
                     NormalizedUserName = "Nombre2",
                     Edad = 20,
-                    Telefono = 9999999999,
+                    PhoneNumber = "9999999999",
                     PasswordHash = new PasswordHasher<Biologo>().HashPassword(new Biologo(), "1234"),
                     Protegida = false
                 });

@@ -85,8 +85,9 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseAuthorization();
+//Primero se tiene que hacer el authentication y luego el authorization
 app.UseAuthentication();
+app.UseAuthorization();
 app.UseSlidingExpirationJwt();
 
 app.UseCors();

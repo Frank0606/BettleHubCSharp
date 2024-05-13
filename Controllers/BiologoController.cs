@@ -13,17 +13,17 @@ namespace BettleHubCsharp.Controllers
     public class BiologoController : Controller
     {
         private readonly IdentityContext _context;
-        private readonly UserManager<BiologoDTO> _userManager;
+        private readonly UserManager<Biologo> _userManager;
 
         // Constructor que inyecta el contexto de la base de datos y el administrador de usuarios
-        public BiologoController(IdentityContext context, UserManager<BiologoDTO> userManager)
+        public BiologoController(IdentityContext context, UserManager<Biologo> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
         // Método para obtener todos los biólogos
-        // [Authorize(Roles = "Biologo,Administrador")]
+        [Authorize(Roles = "Biologo,Administrador")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Biologo>>> GetBiologos()
         {
@@ -31,7 +31,7 @@ namespace BettleHubCsharp.Controllers
         }
 
         // Método para obtener un biólogo por su nombre de usuario
-        // [Authorize(Roles = "Biologo,Administrador")]
+        [Authorize(Roles = "Biologo,Administrador")]
         [HttpGet("UserName/{UserName}")]
         public async Task<ActionResult<Biologo>> GetBiologoUserName(string UserName)
         {
@@ -44,7 +44,7 @@ namespace BettleHubCsharp.Controllers
         }
 
         // Método para obtener un biólogo por su ID
-        // [Authorize(Roles = "Biologo,Administrador")]
+        [Authorize(Roles = "Biologo,Administrador")]
         [HttpGet("Id/{id}")]
         public async Task<ActionResult<Biologo>> GetBiologoId(string id)
         {
@@ -66,14 +66,32 @@ namespace BettleHubCsharp.Controllers
             {
                 Id = idBiologo,
                 Email = biologoDTO.Correo,
+                NormalizedEmail = biologoDTO.Correo.ToUpper(),
                 UserName = biologoDTO.Nombre,
+                NormalizedUserName = biologoDTO.Nombre.ToUpper(),
                 Edad = biologoDTO.Edad,
-                Telefono = biologoDTO.Telefono,
+                PhoneNumber = biologoDTO.Telefono,
                 PasswordHash = new PasswordHasher<Biologo>().HashPassword(new Biologo(), biologoDTO.Contrasena)
             };
 
             _context.Biologo.Add(biologo);
             await _context.SaveChangesAsync();
+
+            try
+            {
+                if (biologoDTO.Administrador)
+                {
+                    await _userManager.AddToRoleAsync(biologo, "Administrador");
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(biologo, "Biologo");
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest("Error al asignar el rol al biólogo: " + ex.Message);
+            }
 
             return CreatedAtAction(nameof(GetBiologoId), new { id = biologo.Id }, biologo);
         }
@@ -83,6 +101,7 @@ namespace BettleHubCsharp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBiologo(string id, BiologoDTO biologoDTO)
         {
+            Console.WriteLine(id);
             var biologo = await _context.Biologo.FindAsync(id);
             if (biologo == null)
             {
@@ -90,9 +109,11 @@ namespace BettleHubCsharp.Controllers
             }
 
             biologo.Email = biologoDTO.Correo;
+            biologo.NormalizedEmail = biologoDTO.Correo.ToUpper();
             biologo.UserName = biologoDTO.Nombre;
+            biologo.NormalizedUserName = biologoDTO.Nombre.ToUpper();
             biologo.Edad = biologoDTO.Edad;
-            biologo.Telefono = biologoDTO.Telefono;
+            biologo.PhoneNumber = biologoDTO.Telefono;
             biologo.PasswordHash = new PasswordHasher<Biologo>().HashPassword(new Biologo(), biologoDTO.Contrasena);
 
             try
@@ -128,13 +149,6 @@ namespace BettleHubCsharp.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        // Método privado para obtener el rol de un biólogo
-        private string GetBiologoRol(BiologoDTO biologoDTO)
-        {
-            var roles = _userManager.GetRolesAsync(biologoDTO).Result;
-            return roles.Count > 0 ? roles[0] : string.Empty;
         }
     }
 }

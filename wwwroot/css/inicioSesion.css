@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('./resources/images/backgroundInicioSesion.jpeg') no-repeat;
+    background: url('./resources/images/backgroundInicioSesion.webp') no-repeat;
     background-size: cover;
     background-position: center;
     margin: 0;

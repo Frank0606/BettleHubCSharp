@@ -1,5 +1,12 @@
 const uri = 'api/cuenta'
 
+document.addEventListener("keyup", function(event) {
+    const btnIniciarSesion = document.getElementById("btnIniciarSesion")
+    if (event.key === 13) {
+      btnIniciarSesion.click();
+    }
+  });
+
 const formIniciarSesion = document.getElementById("formIniciarSesion")
 
 formIniciarSesion.addEventListener("submit", (e) => {
