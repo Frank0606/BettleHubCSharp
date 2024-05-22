@@ -4,9 +4,19 @@ const uri = 'api/biologo'
 //Obtener a los biologos
 let biologos
 
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
+}
+
 async function fetchBiologos() {
     try {
-        const response = await fetch(uri);
+        const response = await fetch(uri, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + getCookie('userToken')
+            }
+        })
         const data = await response.json();
         biologos = data;
     } catch (error) {
@@ -55,7 +65,12 @@ btnBorrarFormAgregar.addEventListener("click", (e) => {
 //      Metodos para trabajar con la API
 //          Obtener o GET
 function obtenerBiologos() {
-    fetch(uri)
+    fetch(uri, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        }
+    })
         .then(response => response.json())
         .then(data => _mostrarBiologos(data))
         .catch(error => console.error('No se han podido obtener los elementos. ', error));
@@ -131,7 +146,8 @@ function agregarBiologo() {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('userToken')
         },
         body: JSON.stringify(biologo)
     })
@@ -152,7 +168,10 @@ function agregarBiologo() {
 //          Eliminar o DELETE
 function eliminarBiologo(id) {
     fetch(`${uri}/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        }
     })
         .then(() => obtenerBiologos())
         .catch(error => console.error('No se ha podido eliminar el biologo. ', error))
@@ -187,7 +206,8 @@ function actualizarBiologo() {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('userToken')
         },
         body: JSON.stringify(biologo)
     })

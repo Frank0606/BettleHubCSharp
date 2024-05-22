@@ -31,7 +31,7 @@
                             <div class="buttons m-0">
                                 <label
                                     class="has-text-light has-text-weight-bold mr-4 is-size-5 is-underlined">Administrador</label>
-                                    <a id="cerrarSesion"
+                                <a id="cerrarSesion"
                                     class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
                                     onclick="cerrarSesion()">Cerrar Sesión</a>
                             </div>
@@ -111,6 +111,7 @@
                     </tr>
                     <tbody id="mostrarEscarabajos"></tbody>
                 </table>
+                <button onclick="descargarTxt('especie1')">Descargar TXT</button>
             </div>
             <!-- Modal de agregar Escarabajo -->
             <div class="modal" id="agregarEscarabajo">
@@ -199,14 +200,16 @@
                             <div class="field">
                                 <label class="label">Descripcion</label>
                                 <div class="control">
-                                    <input type="text" id="descripcionEscarabajo" placeholder="Descripcion" class="input">
+                                    <input type="text" id="descripcionEscarabajo" placeholder="Descripcion"
+                                        class="input">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Audios</label>
                                 <div class="file has-name is-fullwidth">
                                     <label class="file-label">
-                                        <input type="file" class="file-input" name="audio" accept="audio/wav" id="audio-input">
+                                        <input type="file" class="file-input" name="audio" accept="audio/wav"
+                                            id="audio-input">
                                         <span class="file-cta has-background-primary-soft">
                                             <span class="file-icon">
                                                 <i class="fas fa-upload"></i>
@@ -224,7 +227,8 @@
                                 <label class="label">Imágenes</label>
                                 <div class="file has-name is-fullwidth">
                                     <label class="file-label">
-                                        <input id="image-input" type="file" class="file-input" name="imagen" accept="image/*">
+                                        <input id="image-input" type="file" class="file-input" name="imagen"
+                                            accept="image/*">
                                         <span class="file-cta has-background-primary-soft">
                                             <span class="file-icon">
                                                 <i class="fas fa-upload"></i>
@@ -241,7 +245,8 @@
                             <div class="field">
                                 <label class="label">Coordenadas</label>
                                 <div class="control">
-                                    <input type="text" id="coordenadasEscarabajo" placeholder="Coordenadas" class="input">
+                                    <input type="text" id="coordenadasEscarabajo" placeholder="Coordenadas"
+                                        class="input">
                                 </div>
                             </div>
                         </form>
@@ -313,53 +318,76 @@
                                 </div>
                             </div>
                             <div class="field">
-                                    <label for="" class="label">Antena</label>
-                                    <div class="control">
-                                        <input type="text" id="editarAntena" class="input" placeholder="Antena">
-                                    </div>
+                                <label for="" class="label">Antena</label>
+                                <div class="control">
+                                    <input type="text" id="editarAntena" class="input" placeholder="Antena">
                                 </div>
-                                <div class="field">
-                                    <label for="" class="label">Ojos</label>
-                                    <div class="control">
-                                        <input type="text" id="editarOjos" class="input" placeholder="Ojos">
-                                    </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Ojos</label>
+                                <div class="control">
+                                    <input type="text" id="editarOjos" class="input" placeholder="Ojos">
                                 </div>
-                                <div class="field">
-                                    <label for="" class="label">Mandibula</label>
-                                    <div class="control">
-                                        <input type="text" id="editarMandibula" class="input" placeholder="Mandibula">
-                                    </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Mandibula</label>
+                                <div class="control">
+                                    <input type="text" id="editarMandibula" class="input" placeholder="Mandibula">
                                 </div>
-                                <div class="field">
-                                    <label for="" class="label">Alas</label>
-                                    <div class="control">
-                                        <input type="text" id="editarAlas" class="input" placeholder="Alas">
-                                    </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Alas</label>
+                                <div class="control">
+                                    <input type="text" id="editarAlas" class="input" placeholder="Alas">
                                 </div>
-                                <div class="field">
-                                    <label for="" class="label">Elitros</label>
-                                    <div class="control">
-                                        <input type="text" id="editarElitros" class="input" placeholder="Elitros">
-                                    </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Elitros</label>
+                                <div class="control">
+                                    <input type="text" id="editarElitros" class="input" placeholder="Elitros">
                                 </div>
-                                <div class="field">
+                            </div>
+                            <div class="field">
+                                <label class="label">Audios</label>
+                                <div class="file has-name is-fullwidth">
                                     <label class="file-label">
-                                        <input type="file" class="file-input" name="audio">
+                                        <input type="file" class="file-input" name="audio" accept="audio/wav"
+                                            id="editarAudios">
                                         <span class="file-cta has-background-primary-soft">
                                             <span class="file-icon">
                                                 <i class="fas fa-upload"></i>
                                             </span>
-                                            <span class="file-label has-text-centered">Subir audios</span>
+                                            <span class="file-label has-text-centered">Subir audio</span>
                                         </span>
-                                        <span class="file-name"></span>
+                                        <span class="file-nameA"></span>
                                     </label>
                                 </div>
-                                <div class="field">
-                                    <label for="" class="label">Imagenes</label>
-                                    <div class="control">
-                                        <input type="file" id="editarImagenes" class="input" placeholder="Imagenes">
-                                    </div>
+                            </div>
+                            <div class="audio-preview" id="audio-preview" style="display: none;">
+                                <audio controls></audio>
+                            </div>
+                            <div class="field">
+                                <label class="label">Imágenes</label>
+                                <div class="file has-name is-fullwidth">
+                                    <label class="file-label">
+                                        <input id="editarImagenes" type="file" class="file-input" name="imagen"
+                                            accept="image/*">
+                                        <span class="file-cta has-background-primary-soft">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label has-text-centered">Subir imágenes</span>
+                                        </span>
+                                        <span class="file-nameI"></span>
+                                    </label>
                                 </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Coordenadas</label>
+                                <div class="control">
+                                    <input type="text" id="editarCoordenadas" placeholder="Coordenadas" class="input">
+                                </div>
+                            </div>
                         </form>
                     </section>
                     <footer class="modal-card-foot">
@@ -374,28 +402,12 @@
                 </div>
             </div>
         </div>
-        <!-- Columnas del footer -->
-        <div class="columns m-0 p-0">
-            <!-- contenedor de sobre nosotros en parte inferior -->
-            <div class="has-background-primary-soft p-4 is-full column is-justify-content-center has-text-centered">
-                <p class="has-text-light has-text-weight-bold is-size-4">Sobre nosotros</p>
-                <a href="https://www.facebook.com" target="_blank" class="icon is-large has-text-light">
-                    <i class='bx bxl-facebook-circle' style="font-size: 36px;"></i>
-                </a>
-                <a href="https://github.com" target="_blank" class="icon is-large has-text-light">
-                    <i class='bx bxl-github' style="font-size: 36px;"></i>
-                </a>
-                <a href="https://www.instagram.com" target="_blank" class="icon is-large has-text-light">
-                    <i class='bx bxl-instagram' style="font-size: 36px;"></i>
-                </a>
-            </div>
-        </div>
     </div>
-<script src="js/escarabajosJS.js" asp-append-version="true"></script>
-<script type="text/javascript">
-    obtenerEscarabajos();
-</script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+<script src="./js/escarabajosJS.js"></script>
 <script src="./js/cerrarSesion.js"></script>
 <script src="./js/audiosPreview.js"></script>
-</body>
+<script src="./js/footer.js"></script>
 </html>

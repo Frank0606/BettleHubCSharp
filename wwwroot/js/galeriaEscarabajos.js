@@ -4,18 +4,18 @@ let escarabajos
 // Obtén todas las imágenes de la galería
 const uri = 'api/escarabajo'
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // const userTokenValue = document.cookie.split('; ')
-    // .find(row => row.startsWith('userToken='))
-    // ?.split('=')[1];
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
+}
 
-    // console.log(document.cookie.split('=')[1])
-    // console.log(userTokenValue)
+document.addEventListener('DOMContentLoaded', () => {
 
     fetch(uri, {
         method: 'GET',
-        Authorization: `Bearer ${document.cookie.split('=')[1]}`
+        headers: {
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        }
     })
         .then(response => response.json())
         .then(data => {
@@ -84,6 +84,7 @@ function mostrarDescripcion(especie) {
                 let labelAtributo = document.createElement('label')
                 labelAtributo.classList.add('has-text-weight-bold')
                 labelAtributo.textContent = Object.keys(escarabajo)[i]
+                labelAtributo.style.textTransform = "uppercase"
                 let pArtributo = parrafo.cloneNode(false)
                 pArtributo.textContent = atributo
                 divInfo.appendChild(labelAtributo)
@@ -125,14 +126,16 @@ function mostrarCoordenadas(especie) {
         if (escarabajo.especie === especie) {
             const divMap = document.getElementById('map')
             var scriptElement = divMap.querySelector('script_map');
+
             if (scriptElement) {
                 divMap.removeChild(scriptElement);
-                
             }
+
             let coordenadasArray = escarabajo.coordenadas[0].split(',')
             let x = parseFloat(coordenadasArray[0])
             let y = parseFloat(coordenadasArray[1])
             let z = parseInt(coordenadasArray[2])
+            
             const script = document.createElement('script')
             script.classList.add('script_map')
             script.textContent = `
@@ -146,17 +149,6 @@ function mostrarCoordenadas(especie) {
 
                 L.marker([${x}, ${y}]).addTo(map)
             `
-
-            // if(map != undefined) {map.remove();}
-            //     var map = L.map('map').setView([${x}, ${y}], ${z})
-                
-
-            //     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            //         maxZoom: 19,
-            //         attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            //     }).addTo(map)
-
-            //     L.marker([${x}, ${y}]).addTo(map)
 
             divMap.appendChild(script)
         }
@@ -266,19 +258,15 @@ function descargarRecursos(especie) {
 
 // Función para abrir el modal
 function openModal() {
-    // Obtener el modal por su id
     const modal = document.getElementById('modal')
 
-    // Agregar la clase 'is-active' al modal para mostrarlo
     modal.classList.add('is-active')
 }
 
 // Función para cerrar el modal
 function closeModal() {
-    // Obtener el modal por su id
     const modal = document.getElementById('modal')
 
-    // Remover la clase 'is-active' del modal para ocultarlo
     modal.classList.remove('is-active')
 }
 

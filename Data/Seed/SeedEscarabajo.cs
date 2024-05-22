@@ -26,7 +26,7 @@ public class SeedEscarabajo : IEntityTypeConfiguration<Escarabajo>
         Descripcion = "Los escarabajos pasálidos, también conocidos como escarabajos de tierra, son insectos coleópteros que se caracterizan por su cuerpo ovalado y duro, así como por sus antenas cortas y robustas.", 
         Estado_investigacion = false, 
         Audios = ["./css/resources/audios/junctistriatus/P_junctistriatus_6_2.wav"], 
-        Imagenes = ["./css/resources/images/pasalido1.jpg"], 
+        Imagenes = ["./css/resources/images/pasalido1.webp"], 
         Biologos = [], 
         Coordenadas = ["19.5450165,-96.8953113,14"], 
         Protegida = true 
@@ -48,7 +48,7 @@ public class SeedEscarabajo : IEntityTypeConfiguration<Escarabajo>
         Descripcion = "Los escarabajos pasálidos: pequeños guardianes del suelo. Estos insectos, con su armadura brillante y patas fuertes, son esenciales para mantener el equilibrio del ecosistema del suelo al descomponer materia orgánica y aerar el sustrato.", 
         Estado_investigacion = false, 
         Audios = ["./css/resources/audios/junctistriatus/P_junctistriatus_6_2.wav"], 
-        Imagenes = ["./css/resources/images/pasalido2.jpg"], 
+        Imagenes = ["./css/resources/images/pasalido2.webp"], 
         Biologos = [], 
         Coordenadas = ["17.0794635,-96.7063748,17"], 
         Protegida = true 
@@ -70,7 +70,7 @@ public class SeedEscarabajo : IEntityTypeConfiguration<Escarabajo>
         Descripcion = "Los escarabajos pasálidos son criaturas fascinantes que se encuentran en una variedad de hábitats terrestres. Su papel como descomponedores es crucial para el ciclo de nutrientes, contribuyendo al proceso de compostaje y enriqueciendo la salud del suelo.", 
         Estado_investigacion = false, 
         Audios = ["./css/resources/audios/subopacus/P_subopacus_5_3.wav"], 
-        Imagenes = ["./css/resources/images/pasalido3.jpg"], 
+        Imagenes = ["./css/resources/images/pasalido3.webp"], 
         Biologos = [], 
         Coordenadas = ["19.4973646,-96.8573872,16"], 
         Protegida = true 
@@ -92,7 +92,7 @@ public class SeedEscarabajo : IEntityTypeConfiguration<Escarabajo>
         Descripcion = "Descubre el mundo subterráneo de los escarabajos pasálidos. Estos pequeños insectos, con su caparazón brillante y su actividad incansable, desempeñan un papel vital en la transformación de materia orgánica en nutrientes disponibles para otras formas de vida en el suelo.", 
         Estado_investigacion = false, 
         Audios = ["./css/resources/audios/zuninoi/P_zuninoi_3_6.wav"], 
-        Imagenes = ["./css/resources/images/pasalido4.jpg"], 
+        Imagenes = ["./css/resources/images/pasalido4.webp"], 
         Biologos = [], 
         Coordenadas = ["19.5266079,-96.9242194,17"], 
         Protegida = true 

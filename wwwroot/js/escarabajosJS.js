@@ -3,20 +3,36 @@ const uri = 'api/escarabajo'
 
 //Obtener a los escarabajos
 let escarabajos
+const { jsPDF } = window.jspdf
+
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
+}
 
 async function fetchEscarabajos() {
     try {
         const response = await fetch(uri, {
             method: 'GET',
-            Authorization: document.cookie[1]
-        })
+            headers: {
+                'Authorization': 'Bearer ' + getCookie('userToken')
+            }
+        },)
         const data = await response.json()
-        escarabajos = data
+        if(getCookie('userRol')==='Administrador'){
+            escarabajos = data
+        } else {
+            alert("No eres administardor")
+        }
     } catch (error) {
         console.error('No se puede obtener el array de escarabajos', error)
     }
 }
 fetchEscarabajos()
+
+document.addEventListener('DOMContentLoaded', () => {
+    obtenerEscarabajos()
+})
 
 //carga los forms
 const formAgregarEscarabajo = document.getElementById("formAgregarEscarabajo")
@@ -79,7 +95,12 @@ cerrarAudios.addEventListener('click', (e) => {
 //      Metodos para trabajar con la API
 //          Obtener o GET
 function obtenerEscarabajos() {
-    fetch(uri)
+    fetch(uri, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        }
+    })
         .then(response => response.json())
         .then(data => _mostrarEscarabajos(data))
         .catch(error => console.error('No se han podido obtener los elementos. ', error))
@@ -200,6 +221,7 @@ function agregarEscarabajo() {
     const descripcion = document.getElementById('descripcionEscarabajo')
     const audios = document.getElementById('audiosEscarabajo')
     const imagenes = document.getElementById('imagenesEscarabajo')
+    const coordenadas = document.getElementById('coordenadasEscarabajo')
 
     const escarabajo = {
         Especie: especie.value.trim(),
@@ -215,15 +237,18 @@ function agregarEscarabajo() {
         Alas: alas.value.trim(),
         Elitros: elitros.value.trim(),
         Descripcion: descripcion.value.trim(),
-        Audios: JSON.parse("[" + audios.value.trim() + "]"),
-        Imagenes: JSON.parse("[" + imagenes.value.trim() + "]")
+        Estado_investigacion: false,
+        Audios: audios ? JSON.parse("[" + audios.value.trim() + "]") : JSON.parse("[null]"),
+        Imagenes: imagenes ? JSON.parse("[" + imagenes.value.trim() + "]") : JSON.parse("[null]"),
+        Coordenadas: coordenadas ? JSON.parse("[" + coordenadas.value.trim().toString() + "]") : JSON.parse("[null]")
     }
 
     fetch(uri, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('userToken')
         },
         body: JSON.stringify(escarabajo)
     })
@@ -242,8 +267,6 @@ function agregarEscarabajo() {
             mandibula.value = ''
             alas.value = ''
             elitros.value = ''
-            audios.value = ''
-            imagenes.value = ''
         })
         .then(() => document.getElementById('agregarEscarabajo').classList.remove('is-active'))
         .then(() => openModalMostrar())
@@ -253,7 +276,10 @@ function agregarEscarabajo() {
 //          Eliminar o DELETE
 function eliminarEscarabajo(id) {
     fetch(`${uri}/delete/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE', 
+        headers: {
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        }
     })
         .then(() => obtenerEscarabajos())
         .catch(error => console.error('No se ha podido eliminar el escarabajo. ', error))
@@ -263,6 +289,8 @@ function eliminarEscarabajo(id) {
 var especieEditar
 function mostrarFormEditar(especie) {
     const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie);
+
+    console.log(escarabajo)
 
     document.getElementById("editarEspecie").value = escarabajo.especie;
     document.getElementById("editarFamilia").value = escarabajo.familia;
@@ -276,8 +304,7 @@ function mostrarFormEditar(especie) {
     document.getElementById("editarMandibula").value = escarabajo.mandibula;
     document.getElementById("editarAlas").value = escarabajo.alas;
     document.getElementById("editarElitros").value = escarabajo.elitros;
-    document.getElementById("editarAudios").value = escarabajo.audioss;
-    document.getElementById("editarImagenes").value = escarabajo.imageness;
+    document.getElementById("editarCoordenadas").value = escarabajo.coordenadas;
     document.getElementById('editarForm').classList.add('is-active')
 
     especieEditar = especie
@@ -313,7 +340,8 @@ function actualizarEscarabajo() {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('userToken')
         },
         body: JSON.stringify(escarabajo)
     })
@@ -385,3 +413,37 @@ function abrirModalAudios(especie) {
 
 }
 //-------------------------------------------------------------------------------------------------------------------------------
+
+function mostrarDatosPDF() {
+
+    const doc = new jsPDF()
+    doc.setFontSize(12)
+    doc.text('Datos de los Escarabajos', 10, 10)
+
+    const headers = Object.keys(escarabajos)
+    const data = escarabajos.map(item => [item.especie, item.familia, item.genero, item.patas, item.torax, item.ciclo_vida, item.nombre_comun, item.antena, item.ojos, item.mandibula, item.alas, item.elitros, item.descripcion, item.estado_investigacion]);
+    console.log(data)
+    doc.autoTable({
+        head: [headers],
+        body: data,
+        startY: 20,
+        theme: 'grid',
+        columnStyles: {
+            0: { fontStyle: 'bold' },
+        }
+    })
+
+    doc.save('datos_escarabajos.pdf');
+}
+
+function descargarTxt(especie) {
+    var fs = CreateObject("Scripting.FileSystemObject")
+    const writeStream = fs.createWriteStream('beetles_data.txt');
+    const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie)
+
+    escarabajo.forEach(atributo => {
+        writeStream.write(`${atributo}`);
+    });
+
+    console.log('Data written to file successfully!');
+}

@@ -10,17 +10,12 @@ namespace BettleHubCsharp.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 
-public class EscarabajoController : Controller
+public class EscarabajoController(IdentityContext context) : Controller
 {
 
-    private readonly IdentityContext _context;
+    private readonly IdentityContext _context = context;
 
-    public EscarabajoController(IdentityContext context)
-    {
-        _context = context;
-    }
-
-    // [Authorize(Roles = "Biologo,Administrador")]
+    [Authorize(Roles = "Biologo,Administrador")]
     //Este es el metodo para recuperar todos los biologos
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Escarabajo>>> GetEscarabajos()
@@ -28,8 +23,8 @@ public class EscarabajoController : Controller
         return await _context.Escarabajo.AsNoTracking().ToListAsync();
     }
 
-    // [Authorize(Roles = "Biologo,Administrador")]
-    //Este metodo es para recuperar un solo biologo por medio de su nombre
+    //Este metodo es para recuperar un solo biologo por medio de su 
+    [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("Nombre/{nombreComun}")]
     public async Task<ActionResult<Escarabajo>> GetEscarabajoNombreComun(string nombreComun)
     {
@@ -41,7 +36,7 @@ public class EscarabajoController : Controller
         return escarabajo;
     }
 
-    // [Authorize(Roles = "Biologo,Administrador")]
+    [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("Especie/{especie}")]
     public async Task<ActionResult<Escarabajo>> GetEscarabajoEspecie(string especie)
     {
@@ -53,8 +48,8 @@ public class EscarabajoController : Controller
         return escarabajo;
     }
 
-    // [Authorize(Roles = "Administrador")]
     //Este metodo es para insertar un biologo
+    [Authorize(Roles = "Administrador")]
     [HttpPost]
     public async Task<ActionResult<Escarabajo>> PostEscarabajo(EscarabajoDTO escarabajoDTO)
     {
@@ -75,7 +70,8 @@ public class EscarabajoController : Controller
             Audios = escarabajoDTO.Audios,
             Imagenes = escarabajoDTO.Imagenes,
             Estado_investigacion = escarabajoDTO.Estado_investigacion,
-            Descripcion = escarabajoDTO.Descripcion
+            Descripcion = escarabajoDTO.Descripcion,
+            Coordenadas = escarabajoDTO.Coordenadas
         };
 
         _context.Escarabajo.Add(escarabajo);
@@ -84,8 +80,8 @@ public class EscarabajoController : Controller
         return CreatedAtAction(nameof(GetEscarabajoEspecie), new { especie = escarabajo.Especie }, escarabajo);
     }
 
-    // [Authorize(Roles = "Administrador")]
     //Este es el metodo para editar un biologo
+    [Authorize(Roles = "Administrador")]
     [HttpPut("put/{especie}")]
     public async Task<IActionResult> PutEscarabajo(string especie, EscarabajoDTO escarabajoDTO)
     {
@@ -121,8 +117,8 @@ public class EscarabajoController : Controller
         return NoContent();
     }
 
-    // [Authorize(Roles = "Administrador")]
     //Este es el metodo para eliminar un biologo por ID
+    [Authorize(Roles = "Administrador")]
     [HttpDelete("delete/{especie}")]
     public async Task<IActionResult> DeleteEscarabajo(string especie)
     {
@@ -143,30 +139,30 @@ public class EscarabajoController : Controller
         return NoContent();
     }
 
-    // [Authorize(Roles = "Biologo,Administrador")]
+    [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("get/coordenadas/{especie}")]
     public async Task<ActionResult<List<string>>> GetCoordenadas(string especie)
     {
         var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
-        List<string> coordendas = escarabajo!.Coordenadas!.ToList();
+        List<string> coordendas = [.. escarabajo!.Coordenadas!];
         return coordendas;
     }
 
-    // [Authorize(Roles = "Biologo,Administrador")]
+    [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("get/imagenes/{especie}")]
     public async Task<ActionResult<List<string>>> GetImagenes(string especie)
     {
         var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
-        List<string> imagenes = escarabajo!.Imagenes!.ToList();
+        List<string> imagenes = [.. escarabajo!.Imagenes!];
         return imagenes;
     }
 
-    // [Authorize(Roles = "Biologo,Administrador")]
+    [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("get/audios/{especie}")]
     public async Task<ActionResult<List<string>>> GetAudios(string especie)
     {
         var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
-        List<string> audios = escarabajo!.Audios!.ToList();
+        List<string> audios = [.. escarabajo!.Audios!];
         return audios;
     }
 }

@@ -20,8 +20,7 @@
                 <!-- Contenedor de cada uno de los elementos del navbar -->
                 <div class="navbar-brand">
                     <a class="navbar-item">
-                        <img class="image" src="./css/resources/images/logo.webp"
-                            alt="Bettle-finder">
+                        <img class="image" src="./css/resources/images/logo.webp" alt="Bettle-finder">
                     </a>
                     <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
                         href="paginaPrincipalB.html">Bettle-finder</a>
@@ -38,8 +37,8 @@
                         <div class="navbar-item p-0">
                             <div class="buttons m-0">
                                 <a id="cerrarSesion"
-                                class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
-                                onclick="cerrarSesion()">Cerrar Sesión</a>
+                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
+                                    onclick="cerrarSesion()">Cerrar Sesión</a>
                             </div>
                         </div>
                     </div>
@@ -53,15 +52,16 @@
                 style="height: 40rem; padding-top: 10rem; padding-bottom: 10rem;">
                 <div class="label">
                     <p class="has-text-black px-6 is-size-3">Puedes buscar entre todas las especies que tenemos
-                        registradas hasta hoy en nuestra pagina.</p>
+                        registradas hasta hoy en nuestra página.</p>
                 </div>
                 <div class="field has-addons has-addons-centered mt-6 busqueda">
                     <div class="control">
                         <input placeholder="Buscar especie" class="input is-large has-background-white has-text-black"
-                            type="text">
+                            type="text" id="campoBusqueda">
+                        <ul id="sugerencia" class="menu-list"></ul>
                     </div>
                     <div class="control">
-                        <button class="button has-background-primary-soft is-large">Buscar</button>
+                        <button class="button has-background-primary-soft is-large" id="botonBusqueda">Buscar</button>
                     </div>
                 </div>
             </div>
@@ -85,23 +85,6 @@
         <div id="slider" class="mb-6 mt-6">
 
         </div>
-
-        <!-- Columnas del footer -->
-        <div class="columns m-0 p-0">
-            <!-- contenedor de sobre nosotros en parte inferior -->
-            <div class="has-background-primary-soft p-4 is-full column is-justify-content-center has-text-centered">
-                <p class="has-text-light has-text-weight-bold is-size-4">Sobre nosotros</p>
-                <a href="https://www.facebook.com" target="_blank" class="icon is-large has-text-light">
-                    <i class='bx bxl-facebook-circle' style="font-size: 36px;"></i>
-                </a>
-                <a href="https://github.com" target="_blank" class="icon is-large has-text-light">
-                    <i class='bx bxl-github' style="font-size: 36px;"></i>
-                </a>
-                <a href="https://www.instagram.com" target="_blank" class="icon is-large has-text-light">
-                    <i class='bx bxl-instagram' style="font-size: 36px;"></i>
-                </a>
-            </div>
-        </div>
         <script defer src="js/preguntasYdatos.js" asp-append-version="true"></script>
         <script>
             const cssLink = document.createElement('link');
@@ -112,4 +95,6 @@
         </script>
 </body>
 <script src="./js/cerrarSesion.js"></script>
+<script src="./js/footer.js"></script>
+
 </html>

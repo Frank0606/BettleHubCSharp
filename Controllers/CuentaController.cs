@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using BettleHubCsharp.Models;
 using BettleHubCsharp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +9,10 @@ namespace BettleHubCsharp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CuentaController : Controller
+    public class CuentaController(UserManager<Biologo> userManager, JwtTokenService jwtTokenService) : Controller
     {
-        private readonly UserManager<Biologo> _userManager;
-        private readonly JwtTokenService _jwtTokenService;
-
-        // Constructor que inyecta el administrador de usuarios y el servicio de token JWT
-        public CuentaController(UserManager<Biologo> userManager, JwtTokenService jwtTokenService)
-        {
-            _userManager = userManager;
-            _jwtTokenService = jwtTokenService;
-        }
+        private readonly UserManager<Biologo> _userManager = userManager;
+        private readonly JwtTokenService _jwtTokenService = jwtTokenService;
 
         // Método para iniciar sesión
         [HttpPost]
@@ -57,6 +51,7 @@ namespace BettleHubCsharp.Controllers
                     usuario.Id,
                     usuario.Email,
                     usuario.UserName,
+                    Rol = roles.First(),
                     AccessToken = jwt
                 });
             }

@@ -1,9 +1,17 @@
 uri = "api/ayuda"
 let ayudas
 
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch(uri, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        }
     })
         .then(response => response.json())
         .then(data => {

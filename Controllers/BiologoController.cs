@@ -10,17 +10,10 @@ namespace BettleHubCsharp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BiologoController : Controller
+    public class BiologoController(IdentityContext context, UserManager<Biologo> userManager) : Controller
     {
-        private readonly IdentityContext _context;
-        private readonly UserManager<Biologo> _userManager;
-
-        // Constructor que inyecta el contexto de la base de datos y el administrador de usuarios
-        public BiologoController(IdentityContext context, UserManager<Biologo> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
+        private readonly IdentityContext _context = context;
+        private readonly UserManager<Biologo> _userManager = userManager;
 
         // Método para obtener todos los biólogos
         [Authorize(Roles = "Biologo,Administrador")]
@@ -57,7 +50,7 @@ namespace BettleHubCsharp.Controllers
         }
 
         // Método para insertar un nuevo biólogo
-        // [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<ActionResult<Biologo>> PostBiologo(BiologoDTO biologoDTO)
         {
@@ -97,11 +90,10 @@ namespace BettleHubCsharp.Controllers
         }
 
         // Método para actualizar un biólogo existente
-        // [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBiologo(string id, BiologoDTO biologoDTO)
         {
-            Console.WriteLine(id);
             var biologo = await _context.Biologo.FindAsync(id);
             if (biologo == null)
             {
@@ -122,7 +114,6 @@ namespace BettleHubCsharp.Controllers
             }
             catch (DbException ex)
             {
-                Console.WriteLine(ex.Message);
                 return BadRequest();
             }
 
@@ -130,7 +121,7 @@ namespace BettleHubCsharp.Controllers
         }
 
         // Método para eliminar un biólogo por su ID
-        // [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBiologo(string id)
         {

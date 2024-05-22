@@ -1,4 +1,30 @@
+const uri = 'api/escarabajo'
+
+//Obtener a los escarabajos
+let escarabajos
+
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
+}
+
+async function fetchEscarabajos() {
+    try {
+        const response = await fetch(uri, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + getCookie('userToken')
+            }
+        },)
+        const data = await response.json()
+        escarabajos = data
+    } catch (error) {
+        console.error('No se puede obtener el array de escarabajos', error)
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    fetchEscarabajos()
     fetch("api/pregunta", {
         method: 'GET',
         headers: {
@@ -16,11 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error('Error al obtener las preguntas:', error))
 })
-
-function getCookie(name) {
-    const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
-    return cookieValue ? cookieValue.pop() : '';
-}
 
 function mostrarPreguntas(data) {
 
@@ -142,3 +163,38 @@ punto.forEach( (cadaPunto, i) => {
         punto[i].classList.add('activo')
     })
 })
+
+const botonBusqueda = document.getElementById('botonBusqueda')
+const cajaBusqueda = document.getElementById('campoBusqueda')
+const lista = document.getElementById('sugerencia')
+
+cajaBusqueda.addEventListener('input', function () {
+    const input = cajaBusqueda.value.toLowerCase();
+
+    // Filtra los escarabajos basándote en la entrada del usuario
+    const filtro = escarabajos.filter(escarabajo =>
+        escarabajo.especie.toLowerCase().startsWith(input)
+    );
+
+    // Limpia la lista antes de añadir los nuevos elementos
+    lista.innerHTML = "";
+
+    // Si la entrada está vacía, asegúrate de que la lista también esté vacía
+    if (input === "") {
+        return;
+    }
+
+    // Añade los elementos filtrados a la lista
+    filtro.forEach(escarabajo => {
+        const li = document.createElement('li');
+        li.textContent = escarabajo.especie;
+        li.classList.add('has-background-primary-soft', 'has-text-white', 'p-3')
+
+        li.addEventListener('click', () => {
+            openModal();
+            mostrarDescripcion(escarabajo.especie);
+        });
+
+        lista.appendChild(li);
+    });
+});

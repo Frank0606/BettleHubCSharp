@@ -324,8 +324,8 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "92cc4183-8b82-4c16-8b94-20761c3085e0", null, "Administrador", "ADMINISTRADOR" },
-                    { "b5dee26a-ad3a-469e-8590-38e56134d3d3", null, "Biologo", "BIOLOGO" }
+                    { "6ab58abe-2946-4d72-9d0b-2298a1e59072", null, "Biologo", "BIOLOGO" },
+                    { "aaed96d5-8456-4844-87f2-3f0f6cd013aa", null, "Administrador", "ADMINISTRADOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -333,8 +333,8 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Edad", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Protegida", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "e1c28248-2e0d-455f-89cb-c31dd8d9813c", 0, "c2e153bd-340e-4e11-8a3f-710fe6aae658", 19, "Correo1@correo.com", false, false, null, "CORREO1@CORREO.COM", "NOMBRE1", "AQAAAAIAAYagAAAAEMCNYXOjn+gSVpYxuisJvIdVAHMsvS9CHhcUHOHS6nYayGgWCyPTbDJViJcAAupTJw==", "9999999999", false, true, "2e2e67bc-6953-44ef-9043-83d79f260990", false, "Nombre1" },
-                    { "fb674beb-617b-4ea8-93da-cd660bfa7058", 0, "3046ba2d-c619-457e-adc7-4bdefc0c5782", 20, "Correo2@correo.com", false, false, null, "CORREO2@CORREO.COM", "Nombre2", "AQAAAAIAAYagAAAAELd17mZA3mH046P5eHU5pXU+UV9jvBJNvrcPDHBpgl2u/DUp4HhwVEtO4JIM3st/xQ==", "9999999999", false, false, "0b664db5-5b7b-463f-a45c-b807b70834ca", false, "Nombre2" }
+                    { "274ccacb-78e8-4d35-a121-1a481a409823", 0, "fdbb87e3-088c-45c1-ab9b-48915c8d547b", 20, "Correo2@correo.com", false, false, null, "CORREO2@CORREO.COM", "Nombre2", "AQAAAAIAAYagAAAAEDxxQ1NRFmgv76zAAVH8igXWGJfcYJXm0SF7FVHIblriXIin9Ov1wFTvi8l6O8LZ7w==", "9999999999", false, false, "7a9bd6d4-ad8e-4179-9ede-5b4de5586631", false, "Nombre2" },
+                    { "ee0f2cb4-a723-4998-992b-616d0562082a", 0, "a0f28420-909d-4311-9d56-2af2262de373", 19, "Correo1@correo.com", false, false, null, "CORREO1@CORREO.COM", "NOMBRE1", "AQAAAAIAAYagAAAAEAr9OnralsX9Lax/KnJBl/zLgL4Ky9lsdkhOJlRAz8bbhUwOP1rma4PjQeZkkHMcTA==", "9999999999", false, true, "4b67b5a1-393c-4797-9838-6d5da6e8026f", false, "Nombre1" }
                 });
 
             migrationBuilder.InsertData(
@@ -342,10 +342,10 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "Id", "Contenido", "Titulo" },
                 values: new object[,]
                 {
-                    { "8eee6e67-fdbe-4326-a0d5-f37626c5eae5", "Una pequeña guía paso a paso sobre cómo utilizar las principales características de la aplicación.", "Guia de uso" },
-                    { "93128a68-8c34-4d21-8d09-473c94c5679a", "Información detallada sobre cómo funciona la página y la tecnología detrás de ella.", "Documentacion sobre la pagina" },
-                    { "c0b52926-b7c8-45d0-bad9-64549b2bd3f1", "Respuestas a las preguntas más frecuentes sobre el uso de la plataforma.", "Preguntas generales" },
-                    { "f5f1b248-7642-437d-a34b-87f2ff020d85", "Descripción general de la aplicación y sus objetivos.", "Sobre que trata la aplicacion" }
+                    { "51a0ee55-e14e-4189-afaa-17332c740f31", "Respuestas a las preguntas más frecuentes sobre el uso de la plataforma.", "Preguntas generales" },
+                    { "a83a906d-82e0-4c17-9dde-293c9b6f5241", "Descripción general de la aplicación y sus objetivos.", "Sobre que trata la aplicacion" },
+                    { "b317f70b-b747-437e-970c-c9025ae0bb58", "Información detallada sobre cómo funciona la página y la tecnología detrás de ella.", "Documentacion sobre la pagina" },
+                    { "b45b9852-5cfe-446b-a49a-8eb5eb3b9fbe", "Una pequeña guía paso a paso sobre cómo utilizar las principales características de la aplicación.", "Guia de uso" }
                 });
 
             migrationBuilder.InsertData(
@@ -353,16 +353,16 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "Id_Dato", "Descripcion_Dato" },
                 values: new object[,]
                 {
-                    { "0c9ead33-5c06-4c4d-9444-89730fee24fb", "Los Pasalidos son conocidos por su capacidad para producir sonidos, un comportamiento conocido como estridulación." },
-                    { "2d16b465-123c-403e-a654-ca0981c187b5", "Los escarabajos de esta familia son xilófagos, lo que significa que se alimentan principalmente de madera." },
-                    { "3a7dc162-b587-4590-89ce-93f0f2eccc5c", "Los Pasalidos se encuentran principalmente en las regiones tropicales de América, Asia y África. En América, su distribución va desde México hasta Argentina." },
-                    { "44348bd7-f6fa-4003-af34-af452db210ba", "Los Pasalidos son objeto de estudio en áreas como ecología del comportamiento, biología de la conservación y entomología forestal." },
-                    { "4bbef930-6a77-493e-bb32-8db32f2ac9dc", "Tienen cuerpos alargados y robustos, cabezas grandes y cuernos que utilizan en sus rituales de apareamiento y en la lucha por territorio o parejas." },
-                    { "567dfc5d-0189-4856-b15e-6fcfffd13f60", "El comportamiento social de los Pasalidos es vivir en grupos familiares donde cooperan en el cuidado de las larvas y el mantenimiento de su hogar." },
-                    { "8bcc5a52-da16-407c-8796-d372f41c378f", "Aunque principalmente habitan en bosques húmedos y tropicales, tambien habitan bosques templados y áreas montañosas." },
-                    { "8e78a9a9-0f02-4503-ae9c-6c8ecadeeace", "Estos escarabajos pueden tener ciclos de vida relativamente largos en comparación con otros insectos." },
-                    { "a4f3ce32-b238-46f8-acfe-dc2d9f7a04c4", "Estos escarabajos son uno de los pocos grupos de coleópteros que exhiben cuidado parental extenso." },
-                    { "d639125a-1611-4f63-ad3c-87a0470e4398", "Los Pasalidos ayudan en el ciclo de nutrientes en los ecosistemas forestales." }
+                    { "1604aa61-6a1c-4201-a79d-869580674686", "Estos escarabajos son uno de los pocos grupos de coleópteros que exhiben cuidado parental extenso." },
+                    { "2edeaf14-ae2b-4690-afd3-3c2314ba047e", "Los Pasalidos son conocidos por su capacidad para producir sonidos, un comportamiento conocido como estridulación." },
+                    { "3a85a4a9-2ad0-4514-9390-ee11998c5f83", "Los Pasalidos se encuentran principalmente en las regiones tropicales de América, Asia y África. En América, su distribución va desde México hasta Argentina." },
+                    { "47475cb2-7efe-4ede-b5b4-f1d6f42d53fa", "Los Pasalidos son objeto de estudio en áreas como ecología del comportamiento, biología de la conservación y entomología forestal." },
+                    { "60d30e9f-570a-4535-942e-1132afaa6208", "El comportamiento social de los Pasalidos es vivir en grupos familiares donde cooperan en el cuidado de las larvas y el mantenimiento de su hogar." },
+                    { "75971083-3a85-4294-87bc-ac1a391a5816", "Tienen cuerpos alargados y robustos, cabezas grandes y cuernos que utilizan en sus rituales de apareamiento y en la lucha por territorio o parejas." },
+                    { "99d7f477-fffa-42b3-8c53-047d786bb792", "Los Pasalidos ayudan en el ciclo de nutrientes en los ecosistemas forestales." },
+                    { "c2d7fa11-e813-4ad2-9b31-fda39c915f75", "Aunque principalmente habitan en bosques húmedos y tropicales, tambien habitan bosques templados y áreas montañosas." },
+                    { "d58db78c-4022-4aca-892a-3fc44d322fc7", "Los escarabajos de esta familia son xilófagos, lo que significa que se alimentan principalmente de madera." },
+                    { "f2d1769e-eaa3-4c82-8ba9-dc5e0220f2ca", "Estos escarabajos pueden tener ciclos de vida relativamente largos en comparación con otros insectos." }
                 });
 
             migrationBuilder.InsertData(
@@ -370,10 +370,10 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "Especie", "Alas", "Antena", "Audios", "Ciclo_vida", "Coordenadas", "Descripcion", "Elitros", "Estado_investigacion", "Familia", "Genero", "Imagenes", "Mandibula", "Nombre_comun", "Ojos", "Patas", "Protegida", "Torax" },
                 values: new object[,]
                 {
-                    { "especie1", "alas1", 1, "[\"./css/resources/audios/junctistriatus/P_junctistriatus_6_2.wav\"]", "ciclo_vida1", "[\"19.5450165,-96.8953113,14\"]", "Los escarabajos pasálidos, también conocidos como escarabajos de tierra, son insectos coleópteros que se caracterizan por su cuerpo ovalado y duro, así como por sus antenas cortas y robustas.", "elitros1", false, "familia1", "genero1", "[\"./css/resources/images/pasalido1.jpg\"]", "mandibula1", "nombre_comun1", "ojos1", 1, true, "torax1" },
-                    { "especie2", "alas2", 2, "[\"./css/resources/audios/junctistriatus/P_junctistriatus_6_2.wav\"]", "ciclo_vida2", "[\"17.0794635,-96.7063748,17\"]", "Los escarabajos pasálidos: pequeños guardianes del suelo. Estos insectos, con su armadura brillante y patas fuertes, son esenciales para mantener el equilibrio del ecosistema del suelo al descomponer materia orgánica y aerar el sustrato.", "elitros2", false, "familia2", "genero2", "[\"./css/resources/images/pasalido2.jpg\"]", "mandibula2", "nombre_comun2", "ojos2", 2, true, "torax2" },
-                    { "especie3", "alas3", 3, "[\"./css/resources/audios/subopacus/P_subopacus_5_3.wav\"]", "ciclo_vida3", "[\"19.4973646,-96.8573872,16\"]", "Los escarabajos pasálidos son criaturas fascinantes que se encuentran en una variedad de hábitats terrestres. Su papel como descomponedores es crucial para el ciclo de nutrientes, contribuyendo al proceso de compostaje y enriqueciendo la salud del suelo.", "elitros3", false, "familia3", "genero3", "[\"./css/resources/images/pasalido3.jpg\"]", "mandibula3", "nombre_comun3", "ojos3", 3, true, "torax3" },
-                    { "especie4", "alas4", 4, "[\"./css/resources/audios/zuninoi/P_zuninoi_3_6.wav\"]", "ciclo_vida4", "[\"19.5266079,-96.9242194,17\"]", "Descubre el mundo subterráneo de los escarabajos pasálidos. Estos pequeños insectos, con su caparazón brillante y su actividad incansable, desempeñan un papel vital en la transformación de materia orgánica en nutrientes disponibles para otras formas de vida en el suelo.", "elitros4", false, "familia4", "genero4", "[\"./css/resources/images/pasalido4.jpg\"]", "mandibula4", "nombre_comun4", "ojos4", 4, true, "torax4" }
+                    { "especie1", "alas1", 1, "[\"./css/resources/audios/junctistriatus/P_junctistriatus_6_2.wav\"]", "ciclo_vida1", "[\"19.5450165,-96.8953113,14\"]", "Los escarabajos pasálidos, también conocidos como escarabajos de tierra, son insectos coleópteros que se caracterizan por su cuerpo ovalado y duro, así como por sus antenas cortas y robustas.", "elitros1", false, "familia1", "genero1", "[\"./css/resources/images/pasalido1.webp\"]", "mandibula1", "nombre_comun1", "ojos1", 1, true, "torax1" },
+                    { "especie2", "alas2", 2, "[\"./css/resources/audios/junctistriatus/P_junctistriatus_6_2.wav\"]", "ciclo_vida2", "[\"17.0794635,-96.7063748,17\"]", "Los escarabajos pasálidos: pequeños guardianes del suelo. Estos insectos, con su armadura brillante y patas fuertes, son esenciales para mantener el equilibrio del ecosistema del suelo al descomponer materia orgánica y aerar el sustrato.", "elitros2", false, "familia2", "genero2", "[\"./css/resources/images/pasalido2.webp\"]", "mandibula2", "nombre_comun2", "ojos2", 2, true, "torax2" },
+                    { "especie3", "alas3", 3, "[\"./css/resources/audios/subopacus/P_subopacus_5_3.wav\"]", "ciclo_vida3", "[\"19.4973646,-96.8573872,16\"]", "Los escarabajos pasálidos son criaturas fascinantes que se encuentran en una variedad de hábitats terrestres. Su papel como descomponedores es crucial para el ciclo de nutrientes, contribuyendo al proceso de compostaje y enriqueciendo la salud del suelo.", "elitros3", false, "familia3", "genero3", "[\"./css/resources/images/pasalido3.webp\"]", "mandibula3", "nombre_comun3", "ojos3", 3, true, "torax3" },
+                    { "especie4", "alas4", 4, "[\"./css/resources/audios/zuninoi/P_zuninoi_3_6.wav\"]", "ciclo_vida4", "[\"19.5266079,-96.9242194,17\"]", "Descubre el mundo subterráneo de los escarabajos pasálidos. Estos pequeños insectos, con su caparazón brillante y su actividad incansable, desempeñan un papel vital en la transformación de materia orgánica en nutrientes disponibles para otras formas de vida en el suelo.", "elitros4", false, "familia4", "genero4", "[\"./css/resources/images/pasalido4.webp\"]", "mandibula4", "nombre_comun4", "ojos4", 4, true, "torax4" }
                 });
 
             migrationBuilder.InsertData(
@@ -381,11 +381,11 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "Id_pregunta", "Pregunta_pregunta", "Respuesta_pregunta" },
                 values: new object[,]
                 {
-                    { "3a004f1f-91d4-438f-8215-ee27cc57cf4d", "¿Quiéres conocer mas sobre otras familias de escarabajos?", "Te recomendamos las siguiente paginas para saber mas sobre otras familias. " },
-                    { "8ba87a12-a1dd-4db7-afd8-66c9ec83500d", "¿Que hace Bettle-Finder?", "Es un paginas web sobre los escarabajos de la familia Passalidae, con la funcion unica de poder clasificar sus sonidos por especie." },
-                    { "9db20dcc-474d-4a7c-8315-30e888b53a18", "¿Quiénes fueron los desarrolladores?", "Somos un grupo de estudiantes de la carrera Lic. Tecnologías Computacionales de la Universidad Veracruzana. Nuestro proyecto Beetle-Finder es un ejemplo sobre nuestro trabajo como desarrolladores, enfocandonos en una comunidad cientifica." },
-                    { "a7596a2a-c1d9-4f47-9aa2-b517c1052674", "¿Quién es el Dr Edwin Eriza?", "Un doctor" },
-                    { "d6185e02-c9e2-4853-9085-2c0235c66c4e", "¿Qué son los Pasalidos?", "Los pasálidos son una familia de escarabajos conocidos por su comportamiento social y ecológico, especializados en la descomposición de madera en bosques húmedos y tropicales." }
+                    { "4d8dc9c2-b08c-4f32-9937-27aa69ab14ef", "¿Quién es el Dr Edwin Eriza?", "Un doctor" },
+                    { "9c70cfd3-f3a9-4ba8-8ebe-787b44b92048", "¿Qué son los Pasalidos?", "Los pasálidos son una familia de escarabajos conocidos por su comportamiento social y ecológico, especializados en la descomposición de madera en bosques húmedos y tropicales." },
+                    { "a805662f-3a9c-4e16-af53-24e3fe71b086", "¿Que hace Bettle-Finder?", "Es un paginas web sobre los escarabajos de la familia Passalidae, con la funcion unica de poder clasificar sus sonidos por especie." },
+                    { "b9074fd1-9046-48e3-b51b-bf9fcc706456", "¿Quiéres conocer mas sobre otras familias de escarabajos?", "Te recomendamos las siguiente paginas para saber mas sobre otras familias. " },
+                    { "d8508545-81c3-4192-ac91-149e1f0214c7", "¿Quiénes fueron los desarrolladores?", "Somos un grupo de estudiantes de la carrera Lic. Tecnologías Computacionales de la Universidad Veracruzana. Nuestro proyecto Beetle-Finder es un ejemplo sobre nuestro trabajo como desarrolladores, enfocandonos en una comunidad cientifica." }
                 });
 
             migrationBuilder.InsertData(
@@ -393,8 +393,8 @@ namespace BettleHubCsharp.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "92cc4183-8b82-4c16-8b94-20761c3085e0", "e1c28248-2e0d-455f-89cb-c31dd8d9813c" },
-                    { "b5dee26a-ad3a-469e-8590-38e56134d3d3", "fb674beb-617b-4ea8-93da-cd660bfa7058" }
+                    { "6ab58abe-2946-4d72-9d0b-2298a1e59072", "274ccacb-78e8-4d35-a121-1a481a409823" },
+                    { "aaed96d5-8456-4844-87f2-3f0f6cd013aa", "ee0f2cb4-a723-4998-992b-616d0562082a" }
                 });
 
             migrationBuilder.CreateIndex(
