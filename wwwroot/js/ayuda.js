@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ayudas = data
             crearSeccionesAyudas(ayudas)
         })
-        .catch(error => console.log("No se obtuvieron los datos de ayuda: ", error))
+        .catch(error => alert("No se obtuvieron los datos de ayuda"))
 })
 
 function crearSeccionesAyudas(ayudas) {

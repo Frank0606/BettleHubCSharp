@@ -103,7 +103,7 @@ function obtenerEscarabajos() {
     })
         .then(response => response.json())
         .then(data => _mostrarEscarabajos(data))
-        .catch(error => console.error('No se han podido obtener los elementos. ', error))
+        .catch(error => alert("Error al obtener los datos de escarabajos"))
 }
 
 function _mostrarEscarabajos(data) {
@@ -270,7 +270,7 @@ function agregarEscarabajo() {
         })
         .then(() => document.getElementById('agregarEscarabajo').classList.remove('is-active'))
         .then(() => openModalMostrar())
-        .catch(error => console.error('No se ha podido crear el escarabajo. ', error))
+        .catch(error => alert("No se pudo crear el escarabajo"))
 }
 
 //          Eliminar o DELETE
@@ -282,7 +282,7 @@ function eliminarEscarabajo(id) {
         }
     })
         .then(() => obtenerEscarabajos())
-        .catch(error => console.error('No se ha podido eliminar el escarabajo. ', error))
+        .catch(error => alert("No se pudo eliminar al escarabajo"))
 }
 
 //          Editar o UPDATE
@@ -348,7 +348,7 @@ function actualizarEscarabajo() {
         .then(() => obtenerEscarabajos())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
         .then(() => window.location.reload())
-        .catch(error => console.error('Error al actualizar el escarabajo: ', error))
+        .catch(error => alert("No se pudo editar al escarabajo '" + escarabajo.Especie + "'"))
 }
 
 function _displayCount(length) {

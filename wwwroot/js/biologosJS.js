@@ -18,8 +18,13 @@ async function fetchBiologos() {
             }
         })
         const data = await response.json();
-        biologos = data;
+        if(getCookie('userRol')==='Biologo'){
+            biologos = data
+        } else {
+            alert("No eres un biologo")
+        }
     } catch (error) {
+        alert("Error para obtener a los biologos")
         console.error('No se puede obtener el array de biologos', error);
     }
 }
@@ -73,7 +78,7 @@ function obtenerBiologos() {
     })
         .then(response => response.json())
         .then(data => _mostrarBiologos(data))
-        .catch(error => console.error('No se han podido obtener los elementos. ', error));
+        .catch(error => alert("No se pueden obtener los biologos"));
 }
 
 function _mostrarBiologos(data) {
@@ -162,7 +167,7 @@ function agregarBiologo() {
         })
         .then(() => document.getElementById('agregarBiologo').classList.remove('is-active'))
         .then(() => openModalMostrar())
-        .catch(error => console.error('No se ha podido crear el biologo. ', error))
+        .catch(error => alert("No se ha podido agregar al biologo"))
 }
 
 //          Eliminar o DELETE
@@ -174,7 +179,7 @@ function eliminarBiologo(id) {
         }
     })
         .then(() => obtenerBiologos())
-        .catch(error => console.error('No se ha podido eliminar el biologo. ', error))
+        .catch(error => alert("No se ha podido eliminar a este biologo"))
 }
 
 //          Editar o UPDATE
@@ -213,7 +218,7 @@ function actualizarBiologo() {
     })
         .then(() => obtenerBiologos())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
-        .catch(error => console.error('No se ha podido editar el biologo. ', error))
+        .catch(error => alert("No se ha podido editar al biologo '" + biologo.Nombre + "'"))
 
 
 }

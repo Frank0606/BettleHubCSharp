@@ -19,6 +19,7 @@ async function fetchEscarabajos() {
         const data = await response.json()
         escarabajos = data
     } catch (error) {
+        alert("Error al obtener los escarabajos")
         console.error('No se puede obtener el array de escarabajos', error)
     }
 }
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Error al realizar la solicitud.');
+                alert("Error con el carrusel")
             }
             return response.json();
         })
@@ -187,14 +188,22 @@ cajaBusqueda.addEventListener('input', function () {
     // Añade los elementos filtrados a la lista
     filtro.forEach(escarabajo => {
         const li = document.createElement('li');
-        li.textContent = escarabajo.especie;
         li.classList.add('has-background-primary-soft', 'has-text-white', 'p-3')
 
-        li.addEventListener('click', () => {
-            openModal();
-            mostrarDescripcion(escarabajo.especie);
-        });
+        const a = document.createElement('a')
+        a.textContent = escarabajo.especie
+        a.setAttribute('src', `mostrarDescripcion(${escarabajo.especie})`)
 
+        li.appendChild(a)
         lista.appendChild(li);
     });
 });
+
+function mostrarDescripcion(especie){
+    document.cookie = 'especieBusqueda=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    let date = new Date();
+    date.setTime(date.getTime() + (2 * 60 * 60 * 1000));
+    let expires = "expires=" + date.toUTCString();
+    especieCookie = "especieBusqueda=" + especie + ";" + expires + "; SameSite=strict";
+    document.cookie = especieCookie
+}

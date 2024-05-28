@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryImages = document.querySelectorAll('.img')
             cargarMetodoImagenesModal()
         })
+        .catch(error => alert("Error al obtener los escarabajos"))
 })
 
 function _mostrarEscarabajoGaleria(data) {
@@ -248,6 +249,7 @@ function descargarRecursos(especie) {
                         });
                 })
                 .catch(error => {
+                    alert("Error al cargar los archivos para descargar")
                     console.error("Error al cargar los archivos:", error)
                 })
         }

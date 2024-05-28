@@ -112,7 +112,7 @@ namespace BettleHubCsharp.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbException ex)
+            catch (DbException)
             {
                 return BadRequest();
             }

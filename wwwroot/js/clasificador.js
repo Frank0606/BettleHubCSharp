@@ -39,7 +39,7 @@ function clasificarAudio(){
         })
             .then(response => response.json())
             .then(data => console.log(data))
-            .catch(error => "Error: " + console.log(error))
+            .catch(error => alert("Error al clasificar el audio"))
     } else {
         alert("Por favor, selecciona un archivo de audio primero.")
     }

@@ -52,12 +52,15 @@ function iniciarSesion() {
                 } if (getCookieValue('userRol') === "Biologo") {
                     window.location.href = "paginaPrincipalB.html";
                 } else {
+                    alert("Error al crearte un token")
                     console.log("No tiene un rol")
                 }
             } else if (response.status === 401) {
                 console.error('Credenciales incorrectas.');
+                alert("Usuario o contraseña incorrecta")
             } else {
                 console.error('Error desconocido al iniciar sesión.');
+                alert("Hubo un error en el sistema")
             }
         })
         .catch(error => console.error('No se pudo iniciar sesión. ', error));

@@ -32,6 +32,9 @@ builder.Services.AddIdentity<Biologo, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<IdentityContext>();
 
+// Registro del servicio de IEmailSender
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+
 // Configuración de CORS
 builder.Services.AddCors(options =>
 {
