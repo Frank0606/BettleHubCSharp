@@ -10,7 +10,6 @@ function getCookie(name) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
     fetch(uri, {
         method: 'GET',
         headers: {
@@ -23,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
             _mostrarEscarabajoGaleria(escarabajos)
             galleryImages = document.querySelectorAll('.img')
             cargarMetodoImagenesModal()
+            if(getCookie('especieBusqueda')){
+                const especie = getCookie('especieBusqueda')
+                mostrarDescripcion(especie)
+                openModal()
+                document.cookie = 'especieBusqueda=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            }
         })
         .catch(error => alert("Error al obtener los escarabajos"))
 })
@@ -63,7 +68,6 @@ function _mostrarEscarabajoGaleria(data) {
 function cargarMetodoImagenesModal() {
     galleryImages.forEach(image => {
         image.addEventListener('click', () => {
-            // Abre el modal
             openModal()
         })
     })
@@ -173,17 +177,26 @@ function mostrarGradoInvestigacion(especie) {
 }
 
 function agregarBtnDescargar(especie) {
-    escarabajos.forEach(escarabajo => {
-        if(escarabajo.especie === especie) {
-            const btnDescargar = document.getElementById("btnDescargarEspecie")
-            btnDescargar.addEventListener('click', () => {
-                const modal = document.getElementById('downloadModal');
-                modal.classList.add('is-active');
-                const btn = document.getElementById("downloadButton")
-                btn.setAttribute("onclick", `descargarRecursos("${escarabajo.especie}")`)
-            })
-        }
-    })
+    // escarabajos.forEach(escarabajo => {
+    //     if(escarabajo.especie === especie) {
+    //         const btnDescargar = document.getElementById("btnDescargarEspecie")
+    //         btnDescargar.addEventListener('click', () => {
+    //             const modal = document.getElementById('downloadModal');
+    //             modal.classList.add('is-active');
+    //             const btn = document.getElementById("downloadButton")
+    //             btn.setAttribute("onclick", `descargarRecursos("${escarabajo.especie}")`)
+    //         })
+    //     }
+    // })
+    const btnDescargar = document.getElementById("btnDescargarEspecie");
+    btnDescargar.onclick = () => {
+        const modal = document.getElementById('downloadModal');
+        modal.classList.add('is-active');
+        const btn = document.getElementById("downloadButton");
+        btn.onclick = () => {
+            descargarRecursos(especie);
+        };
+    };
 }
 
 function descargarRecursos(especie) {
@@ -193,9 +206,15 @@ function descargarRecursos(especie) {
     const imagesCheckbox = document.getElementById("imagesCheckbox")
     const techSheetCheckbox = document.getElementById("techSheetCheckbox")
 
+    boolAudio = audioCheckbox.checked
+    boolEspectogramas = spectrogramCheckbox.checked
+    boolImagenes = imagesCheckbox.checked
+    boolTechSheet = techSheetCheckbox.checked
+
     escarabajos.forEach(escarabajo => {
         if(escarabajo.especie === especie) {
-            if (audioCheckbox.checked) {
+            if (boolAudio) {
+                console.log("Si entro")
                 escarabajo.audios.forEach(audio => {
                     archivosSeleccionados.push({ ruta: audio, carpeta: "audios" })
                 })
@@ -205,7 +224,7 @@ function descargarRecursos(especie) {
             //         archivosSeleccionados.push({ ruta: espectograma, carpeta: "espectrogramas" })
             //     })
             // }
-            if (imagesCheckbox.checked) {
+            if (boolImagenes) {
                 escarabajo.imagenes.forEach(imagen => {
                     archivosSeleccionados.push({ ruta: imagen, carpeta: "imagenes" })
                 })
@@ -261,7 +280,6 @@ function descargarRecursos(especie) {
 // Función para abrir el modal
 function openModal() {
     const modal = document.getElementById('modal')
-
     modal.classList.add('is-active')
 }
 

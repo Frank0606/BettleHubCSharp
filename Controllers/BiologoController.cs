@@ -24,15 +24,17 @@ namespace BettleHubCsharp.Controllers
         }
 
         // Método para obtener un biólogo por su nombre de usuario
-        [Authorize(Roles = "Biologo,Administrador")]
-        [HttpGet("UserName/{UserName}")]
-        public async Task<ActionResult<Biologo>> GetBiologoUserName(string UserName)
+        // [Authorize(Roles = "Biologo,Administrador")]
+        [HttpGet("Email/{Email}")]
+        public async Task<ActionResult<Biologo>> GetBiologoUserName(string Email)
         {
-            var biologo = await _context.Biologo.SingleOrDefaultAsync(b => b.UserName == UserName);
+            var biologo = await _context.Biologo.SingleOrDefaultAsync(b => b.Email == Email);
+            
             if (biologo == null)
             {
                 return NotFound();
             }
+
             return biologo;
         }
 
@@ -89,10 +91,32 @@ namespace BettleHubCsharp.Controllers
             return CreatedAtAction(nameof(GetBiologoId), new { id = biologo.Id }, biologo);
         }
 
-        // Método para actualizar un biólogo existente
+        [HttpPut("email/{id}")]
+        public async Task<IActionResult> PutBiologo(string id, string contrasenaNueva)
+        {
+            var biologo = await _context.Biologo.FindAsync(id);
+            if (biologo == null)
+            {
+                return NotFound();
+            }
+
+            biologo.PasswordHash = new PasswordHasher<Biologo>().HashPassword(new Biologo(), contrasenaNueva);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbException)
+            {
+                return BadRequest();
+            }
+
+            return NoContent();
+        }
+        
         [Authorize(Roles = "Administrador")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBiologo(string id, BiologoDTO biologoDTO)
+        public async Task<IActionResult> ActualizarContrasena(string id, BiologoDTO biologoDTO)
         {
             var biologo = await _context.Biologo.FindAsync(id);
             if (biologo == null)

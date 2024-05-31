@@ -3,20 +3,16 @@ using BettleHubCsharp.Models;
 using BettleHubCsharp.Services;
 using System.Collections.Concurrent;
 using System.Net.Mail;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BettleHubCsharp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmailController : ControllerBase
+    public class EmailController(IEmailSender emailSender) : ControllerBase
     {
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender = emailSender;
         private static readonly ConcurrentDictionary<string, string> _verificationCodes = new();
-
-        public EmailController(IEmailSender emailSender)
-        {
-            _emailSender = emailSender;
-        }
 
         [HttpPost("enviarCorreo")]
         public async Task<IActionResult> EnviarCorreo([FromBody] EmailRequest request)
@@ -56,6 +52,13 @@ namespace BettleHubCsharp.Controllers
             return BadRequest("Código no encontrado para el email proporcionado");
         }
 
+        [HttpPost("comprobarCorreo")]
+        public IActionResult ComprobarCorreo([FromBody] EmailRequest email){
+            if (_verificationCodes.TryGetValue(email.Email, out string? savedCode)){
+                return Ok();
+            }
+            return BadRequest("No esta registrado el correo");
+        }
         private static string GenerateRandomCode()
         {
             Random random = new();

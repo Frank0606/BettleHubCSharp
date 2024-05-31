@@ -17,4 +17,13 @@ public class AyudaController(IdentityContext context) : Controller
     public async Task<ActionResult<IEnumerable<Ayuda>>> GetAyuda(){
         return await _context.Ayuda.AsNoTracking().ToListAsync();
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Ayuda>> GetBuscarAyudaId(string id){
+        var ayuda = await _context.Ayuda.SingleOrDefaultAsync(e => e.Id == id);
+        if(ayuda == null){
+            return NotFound();
+        }
+        return ayuda;
+    }
 }

@@ -24,8 +24,8 @@ async function fetchEscarabajos() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetchEscarabajos()
+document.addEventListener("DOMContentLoaded", async () => {
+    await fetchEscarabajos()
     fetch("api/pregunta", {
         method: 'GET',
         headers: {
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             mostrarPreguntas(data)
+            escucharSonidoPaginaPrincipal()
         })
         .catch(error => console.error('Error al obtener las preguntas:', error))
 })
@@ -192,7 +193,7 @@ cajaBusqueda.addEventListener('input', function () {
 
         const a = document.createElement('a')
         a.textContent = escarabajo.especie
-        a.setAttribute('src', `mostrarDescripcion(${escarabajo.especie})`)
+        a.setAttribute('onClick', `mostrarDescripcion('${escarabajo.especie}')`)
 
         li.appendChild(a)
         lista.appendChild(li);
@@ -200,10 +201,25 @@ cajaBusqueda.addEventListener('input', function () {
 });
 
 function mostrarDescripcion(especie){
-    document.cookie = 'especieBusqueda=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     let date = new Date();
     date.setTime(date.getTime() + (2 * 60 * 60 * 1000));
     let expires = "expires=" + date.toUTCString();
     especieCookie = "especieBusqueda=" + especie + ";" + expires + "; SameSite=strict";
     document.cookie = especieCookie
+    window.location.href = "galeriaEscarabajos.html"
+}
+
+function escucharSonidoPaginaPrincipal() {
+    const audioContainer = document.getElementById('audioContainer')
+
+    const numeroRandomEscarabajo = Math.floor(Math.random() * (escarabajos.length))
+    const escarabajoRandom = escarabajos[numeroRandomEscarabajo]
+
+    const numeroRandomAudio = Math.floor(Math.random() * (escarabajos[numeroRandomEscarabajo].audios.length))
+    const audioRandom = escarabajoRandom.audios[numeroRandomAudio]
+
+    const audioElement = document.createElement('audio')
+    audioElement.src = audioRandom
+    audioElement.controls = true
+    audioContainer.appendChild(audioElement)
 }

@@ -6,8 +6,8 @@ namespace BettleHubCsharp.Services
 {
     public class EmailSender : IEmailSender
     {
-        private readonly string _smtpEmail = "frankdanielsanchez55@gmail.com";
-        private readonly string _smtpPassword = "ratb ndsj vzzg wafs";
+        private readonly string _smtpEmail = "beetlefinder948@gmail.com";
+        private readonly string _smtpPassword = "cmvt lwpr efdk fpvg";
 
         public Task SendEmailAsync(string email, string subject, string body)
         {

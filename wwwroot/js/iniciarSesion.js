@@ -11,6 +11,7 @@ const formIniciarSesion = document.getElementById("formIniciarSesion")
 
 formIniciarSesion.addEventListener("submit", (e) => {
     e.preventDefault()
+    document.getElementById("btnIniciarSesion").classList.add('is-loading')
     iniciarSesion()
 })
 
@@ -47,13 +48,14 @@ function iniciarSesion() {
                 const rolCookie = "userRol=" + rol + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
                 document.cookie = rolCookie;
                 
-                if(getCookieValue('userRol') === "Administrador") {
+                if(getCookie('userRol') === "Administrador") {
                     window.location.href = "paginaPrincipalA.html";
-                } if (getCookieValue('userRol') === "Biologo") {
-                    window.location.href = "paginaPrincipalB.html";
                 } else {
-                    alert("Error al crearte un token")
-                    console.log("No tiene un rol")
+                    if (getCookie('userRol') === "Biologo") {
+                    window.location.href = "paginaPrincipalB.html";
+                    } else {
+                        console.log("No tiene un rol")
+                    }
                 }
             } else if (response.status === 401) {
                 console.error('Credenciales incorrectas.');
@@ -66,11 +68,7 @@ function iniciarSesion() {
         .catch(error => console.error('No se pudo iniciar sesión. ', error));
 }
 
-function getCookieValue(cookieName) {
-    // Obtiene todas las cookies y las divide en un array de cookies individuales
-    const cookies = document.cookie.split(";");
-    // Busca la cookie con el nombre especificado
-    const cookie = cookies.find(cookie => cookie.trim().startsWith(cookieName + "="));
-    // Si se encuentra la cookie, devuelve su valor; de lo contrario, devuelve null
-    return cookie ? cookie.split("=")[1] : null;
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
 }
