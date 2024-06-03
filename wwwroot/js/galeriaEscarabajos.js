@@ -9,6 +9,41 @@ function getCookie(name) {
     return cookieValue ? cookieValue.pop() : '';
 }
 
+function mostrarErrorServidor() {
+    const btnCerrarSesion = document.getElementById("cerrarSesion")
+    btnCerrarSesion.classList.add("is-hidden")
+
+    const divPrincipal = document.getElementById("div_gallery");
+    divPrincipal.innerHTML = "";
+
+    const divError = document.createElement("div");
+    divError.classList.add("has-text-centered");
+    divError.style.width = "100%";
+
+    const titulo = document.createElement("p");
+    titulo.classList.add("label", "has-text-white", "is-size-3", "my-4");
+    titulo.textContent = "Fallas en el sistema";
+
+    const texto = document.createElement("p");
+    texto.classList.add("has-text-white", "is-size-4", "mb-5");
+    texto.textContent = "Lo sentimos. Tenemos problemas para comunicarnos con el sistema.";
+
+    const imagenContainer = document.createElement("div");
+    imagenContainer.classList.add("is-flex", "is-justify-content-center", "mb-6");
+
+    const imagen = document.createElement("img");
+    imagen.src = "./css/resources/images/escarabajoError.webp";
+    imagen.classList.add("image", "is-128x128");
+
+    imagenContainer.appendChild(imagen);
+
+    divError.appendChild(titulo);
+    divError.appendChild(texto);
+    divError.appendChild(imagenContainer);
+
+    divPrincipal.appendChild(divError);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch(uri, {
         method: 'GET',
@@ -29,7 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.cookie = 'especieBusqueda=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
             }
         })
-        .catch(error => alert("Error al obtener los escarabajos"))
+        .catch(error => {
+            mostrarErrorServidor()
+        })
 })
 
 function _mostrarEscarabajoGaleria(data) {
@@ -177,17 +214,6 @@ function mostrarGradoInvestigacion(especie) {
 }
 
 function agregarBtnDescargar(especie) {
-    // escarabajos.forEach(escarabajo => {
-    //     if(escarabajo.especie === especie) {
-    //         const btnDescargar = document.getElementById("btnDescargarEspecie")
-    //         btnDescargar.addEventListener('click', () => {
-    //             const modal = document.getElementById('downloadModal');
-    //             modal.classList.add('is-active');
-    //             const btn = document.getElementById("downloadButton")
-    //             btn.setAttribute("onclick", `descargarRecursos("${escarabajo.especie}")`)
-    //         })
-    //     }
-    // })
     const btnDescargar = document.getElementById("btnDescargarEspecie");
     btnDescargar.onclick = () => {
         const modal = document.getElementById('downloadModal');
@@ -214,7 +240,6 @@ function descargarRecursos(especie) {
     escarabajos.forEach(escarabajo => {
         if(escarabajo.especie === especie) {
             if (boolAudio) {
-                console.log("Si entro")
                 escarabajo.audios.forEach(audio => {
                     archivosSeleccionados.push({ ruta: audio, carpeta: "audios" })
                 })
@@ -294,14 +319,78 @@ function closeModalDescargas() {
 
     const modal = document.getElementById('downloadModal')
     const audioCheckbox = document.getElementById("audioCheckbox")
-    const spectrogramCheckbox = document.getElementById("spectrogramCheckbox")
+    // const spectrogramCheckbox = document.getElementById("spectrogramCheckbox")
     const imagesCheckbox = document.getElementById("imagesCheckbox")
-    const techSheetCheckbox = document.getElementById("techSheetCheckbox")
+    // const techSheetCheckbox = document.getElementById("techSheetCheckbox")
 
     audioCheckbox.checked = false
-    spectrogramCheckbox.checked = false
+    // spectrogramCheckbox.checked = false
     imagesCheckbox.checked = false
-    techSheetCheckbox.checked = false
+    // techSheetCheckbox.checked = false
 
     modal.classList.remove('is-active')
+}
+
+function descargarTxt(especie) {
+    var fs = CreateObject("Scripting.FileSystemObject")
+    const writeStream = fs.createWriteStream('beetles_data.txt');
+    const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie)
+
+    escarabajo.forEach(atributo => {
+        writeStream.write(`${atributo}`);
+    });
+
+    console.log('Data written to file successfully!');
+
+    return writeStream
+}
+
+function aplicarFiltros() {
+    // Recoger valores de los filtros
+    const filtroFamilia = document.getElementById('filtroFamilia').value.toLowerCase();
+    const filtroPatas = document.getElementById('filtroPatas').value;
+    const filtroAntenas = document.getElementById('filtroAntenas').value;
+    const filtroInvestigacion = document.getElementById('filtroInvestigacion').value;
+
+    // Filtrar los escarabajos según los criterios de los filtros
+    const datosFiltrados = escarabajos.filter(item => {
+        let coincideFamilia = true;
+        let coincidePatas = true;
+        let coincideAntenas = true;
+        let coincideInvestigacion = true;
+
+        if (filtroFamilia) {
+            coincideFamilia = item.familia.toLowerCase().includes(filtroFamilia);
+        }
+
+        if (filtroPatas) {
+            coincidePatas = item.patas === parseInt(filtroPatas);
+        }
+
+        if (filtroAntenas) {
+            coincideAntenas = item.antena === parseInt(filtroAntenas);
+        }
+
+        if (filtroInvestigacion) {
+            coincideInvestigacion = item.estado_investigacion === (filtroInvestigacion === '1');
+        }
+
+        return coincideFamilia && coincidePatas && coincideAntenas && coincideInvestigacion;
+    });
+
+    // Mostrar la galería filtrada
+    _mostrarEscarabajoGaleria(datosFiltrados);
+    // Hacer que se puedan abrir los modales de los escarabajos filtrados
+    configurarEventosModales();
+}
+
+//Función para que la galeria pueda reestablecerse cuando se borre
+function configurarEventosModales() {
+    const imagenes = document.querySelectorAll('.img');
+    imagenes.forEach(imagen => {
+        imagen.addEventListener('click', function() {
+            const especie = this.getAttribute('alt');
+            mostrarDescripcion(especie);
+        });
+    });
 }

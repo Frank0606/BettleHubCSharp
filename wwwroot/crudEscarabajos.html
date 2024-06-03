@@ -11,35 +11,10 @@
 </head>
 
 <body class="has-background-black">
-    <div class="bulma-container">
-        <!-- Columna del encabezado y barra de navegacion -->
-        <div class="columns is-flex is-full m-0">
-            <!-- contenedor de encabezado y barra de navegacion navbar-->
-            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
-                aria-label="main navigation">
-                <!-- Contenedor de cada uno de los elementos del navbar -->
-                <div class="navbar-brand">
-                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
-                        href="paginaPrincipalA.html">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="crudBiologos.html">Biologos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="crudEscarabajos.html">Escarabajos</a>
-                    <!-- Conjunto de elementos al final de la barra de navegacion -->
-                    <div class="navbar-end">
-                        <div class="navbar-item p-0">
-                            <div class="buttons m-0">
-                                <label
-                                    class="has-text-light has-text-weight-bold mr-4 is-size-5 is-underlined">Administrador</label>
-                                <a id="cerrarSesion"
-                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
-                                    onclick="cerrarSesion()">Cerrar Sesión</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Columna del encabezado y barra de navegacion -->
+    <div class="columns is-flex is-full m-0" id="divNavbarA">
+    </div>
+    <div class="bulma-container" id="ContenidoPrincipal">
         <!-- Columna del titulo -->
         <div class="columns has-background-black is-flex is-full m-0 mb-3">
             <h1 class="column has-text-centered title m-4">Administración de Escarabajos</h1>
@@ -111,7 +86,6 @@
                     </tr>
                     <tbody id="mostrarEscarabajos"></tbody>
                 </table>
-                <button onclick="descargarTxt('especie1')">Descargar TXT</button>
             </div>
             <!-- Modal de agregar Escarabajo -->
             <div class="modal" id="agregarEscarabajo">
@@ -126,82 +100,82 @@
                             <div class="field">
                                 <label class="label">Especie</label>
                                 <div class="control">
-                                    <input type="text" id="especieEscarabajo" placeholder="Especie" class="input">
+                                    <input type="text" id="especieEscarabajo" placeholder="Especie" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Familia</label>
                                 <div class="control">
-                                    <input type="text" id="familiaEscarabajo" placeholder="Familia" class="input">
+                                    <input type="text" id="familiaEscarabajo" placeholder="Familia" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Genero</label>
                                 <div class="control">
-                                    <input type="text" id="generoEscarabajo" placeholder="Genero" class="input">
+                                    <input type="text" id="generoEscarabajo" placeholder="Genero" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Patas</label>
                                 <div class="control">
-                                    <input type="text" id="patasEscarabajo" placeholder="Patas" class="input">
+                                    <input type="number" id="patasEscarabajo" placeholder="Patas" class="input" max="1" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Torax</label>
                                 <div class="control">
-                                    <input type="text" id="toraxEscarabajo" placeholder="Torax" class="input">
+                                    <input type="text" id="toraxEscarabajo" placeholder="Torax" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Ciclo de vida</label>
                                 <div class="control">
                                     <input type="text" id="ciclo_vidaEscarabajo" placeholder="Cliclo de vida"
-                                        class="input">
+                                        class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Nombre común</label>
                                 <div class="control">
                                     <input type="text" id="nombre_comunEscarabajo" placeholder="Nombre comun"
-                                        class="input">
+                                        class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Antena</label>
                                 <div class="control">
-                                    <input type="text" id="antenaEscarabajo" placeholder="Antena" class="input">
+                                    <input type="number" id="antenaEscarabajo" placeholder="Antena" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Ojos</label>
                                 <div class="control">
-                                    <input type="text" id="ojosEscarabajo" placeholder="Ojos" class="input">
+                                    <input type="text" id="ojosEscarabajo" placeholder="Ojos" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Mandibula</label>
                                 <div class="control">
-                                    <input type="text" id="mandibulaEscarabajo" placeholder="Mandibula" class="input">
+                                    <input type="text" id="mandibulaEscarabajo" placeholder="Mandibula" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Alas</label>
                                 <div class="control">
-                                    <input type="text" id="alasEscarabajo" placeholder="Alas" class="input">
+                                    <input type="text" id="alasEscarabajo" placeholder="Alas" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Elitros</label>
                                 <div class="control">
-                                    <input type="text" id="elitrosEscarabajo" placeholder="Elitros" class="input">
+                                    <input type="text" id="elitrosEscarabajo" placeholder="Elitros" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Descripcion</label>
                                 <div class="control">
                                     <input type="text" id="descripcionEscarabajo" placeholder="Descripcion"
-                                        class="input">
+                                        class="input" required>
                                 </div>
                             </div>
                             <div class="field">
@@ -278,73 +252,79 @@
                             <div class="field">
                                 <label for="" class="label">Especie</label>
                                 <div class="control">
-                                    <input type="text" id="editarEspecie" class="input" placeholder="Especie">
+                                    <input type="text" id="editarEspecie" class="input" placeholder="Especie" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Familia</label>
                                 <div class="control">
-                                    <input type="text" id="editarFamilia" class="input" placeholder="Familia">
+                                    <input type="text" id="editarFamilia" class="input" placeholder="Familia" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Genero</label>
                                 <div class="control">
-                                    <input type="text" id="editarGenero" class="input" placeholder="Genero">
+                                    <input type="text" id="editarGenero" class="input" placeholder="Genero" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Patas</label>
                                 <div class="control">
-                                    <input type="text" id="editarPatas" class="input" placeholder="Patas">
+                                    <input type="text" id="editarPatas" class="input" placeholder="Patas" maxlength="1" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Torax</label>
                                 <div class="control">
-                                    <input type="text" id="editarTorax" class="input" placeholder="Torax">
+                                    <input type="text" id="editarTorax" class="input" placeholder="Torax" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Ciclo de vida</label>
                                 <div class="control">
-                                    <input type="text" id="editarCiclo_vida" class="input" placeholder="Ciclo de vida">
+                                    <input type="text" id="editarCiclo_vida" class="input" placeholder="Ciclo de vida" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Nombre comun</label>
                                 <div class="control">
-                                    <input type="text" id="editarNombre_comun" class="input" placeholder="Nombre comun">
+                                    <input type="text" id="editarNombre_comun" class="input" placeholder="Nombre comun" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Antena</label>
                                 <div class="control">
-                                    <input type="text" id="editarAntena" class="input" placeholder="Antena">
+                                    <input type="text" id="editarAntena" class="input" placeholder="Antena" maxlength="1" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Ojos</label>
                                 <div class="control">
-                                    <input type="text" id="editarOjos" class="input" placeholder="Ojos">
+                                    <input type="text" id="editarOjos" class="input" placeholder="Ojos" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Mandibula</label>
                                 <div class="control">
-                                    <input type="text" id="editarMandibula" class="input" placeholder="Mandibula">
+                                    <input type="text" id="editarMandibula" class="input" placeholder="Mandibula" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Alas</label>
                                 <div class="control">
-                                    <input type="text" id="editarAlas" class="input" placeholder="Alas">
+                                    <input type="text" id="editarAlas" class="input" placeholder="Alas" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Elitros</label>
                                 <div class="control">
-                                    <input type="text" id="editarElitros" class="input" placeholder="Elitros">
+                                    <input type="text" id="editarElitros" class="input" placeholder="Elitros" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Descripcion</label>
+                                <div class="control">
+                                    <input type="text" id="editarDescripcion" class="input" placeholder="Descripcion" required>
                                 </div>
                             </div>
                             <div class="field">
@@ -398,12 +378,12 @@
                             </p>
                         </div>
                     </footer>
-                    <!-- <div id="editarFormEscarabajo"> -->
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script src="./js/encabezadoA.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 <script src="./js/escarabajosJS.js"></script>

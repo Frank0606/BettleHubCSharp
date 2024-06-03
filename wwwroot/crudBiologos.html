@@ -10,35 +10,10 @@
 </head>
 
 <body class="has-background-black">
-    <div class="bulma-container">
-        <!-- Columna del encabezado y barra de navegacion -->
-        <div class="columns is-flex is-full m-0">
-            <!-- contenedor de encabezado y barra de navegacion navbar-->
-            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
-                aria-label="main navigation">
-                <!-- Contenedor de cada uno de los elementos del navbar -->
-                <div class="navbar-brand">
-                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
-                        href="paginaPrincipalA.html">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="crudBiologos.html">Biologos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="crudEscarabajos.html">Escarabajos</a>
-                    <!-- Conjunto de elementos al final de la barra de navegacion -->
-                    <div class="navbar-end">
-                        <div class="navbar-item p-0">
-                            <div class="buttons m-0">
-                                <label
-                                    class="has-text-light has-text-weight-bold mr-4 is-size-5 is-underlined">Administrador</label>
-                                    <a id="cerrarSesion"
-                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
-                                    onclick="cerrarSesion()">Cerrar Sesión</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Columna del encabezado y barra de navegacion -->
+    <div class="columns is-flex is-full m-0" id="divNavbarA">
+    </div>
+    <div class="bulma-container" id="ContenidoPrincipal">
         <!-- Columna del titulo -->
         <div class="columns has-background-black is-flex is-full m-0 mb-3">
             <h1 class="column has-text-centered title m-4">Administración de Biologos</h1>
@@ -83,32 +58,36 @@
                             <div class="field">
                                 <label class="label">Nombre</label>
                                 <div class="control">
-                                    <input type="text" id="nombreBiologo" placeholder="Nombre" class="input">
+                                    <input type="text" id="nombreBiologo" placeholder="Nombre" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Correo</label>
                                 <div class="control">
-                                    <input type="email" id="correoBiologo" placeholder="Correo" class="input">
+                                    <input type="email" id="correoBiologo" placeholder="Correo" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Edad</label>
                                 <div class="control">
-                                    <input type="text" id="edadBiologo" placeholder="Edad" class="input">
+                                    <input type="number" id="edadBiologo" placeholder="Edad" class="input" maxlength="2"
+                                        required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Telefono</label>
                                 <div class="control">
-                                    <input type="text" id="telefonoBiologo" placeholder="Telefono" class="input">
+                                    <input type="number" id="telefonoBiologo" placeholder="Telefono" class="input"
+                                        minlength="10" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Contraseña</label>
                                 <div class="control">
-                                    <input type="password" id="contrasenaBiologo" placeholder="Contraseña"
-                                        class="input">
+                                    <input type="password" id="contrasenaBiologo" placeholder="Contraseña" class="input"
+                                        required minlength="8" pattern="(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}">
+                                    <span id="passwordError" class="error is-size-6">La contraseña debe tener al menos 8
+                                        caracteres, incluir al menos un número y una mayúscula.</span>
                                 </div>
                             </div>
                         </form>
@@ -141,25 +120,27 @@
                             <div class="field">
                                 <label class="label">Nombre</label>
                                 <div class="control">
-                                    <input type="text" id="editarNombre" class="input" placeholder="Nombre">
+                                    <input type="text" id="editarNombre" class="input" placeholder="Nombre" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Correo</label>
                                 <div class="control">
-                                    <input type="email" id="editarCorreo" class="input" placeholder="Correo">
+                                    <input type="email" id="editarCorreo" class="input" placeholder="Correo" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Edad</label>
                                 <div class="control">
-                                    <input type="text" id="editarEdad" class="input" placeholder="Edad">
+                                    <input type="number" id="editarEdad" class="input" placeholder="Edad" maxlength="2"
+                                        required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Telefono</label>
                                 <div class="control">
-                                    <input type="text" id="editarTelefono" class="input" placeholder="Telefono">
+                                    <input type="number" id="editarTelefono" class="input" placeholder="Telefono"
+                                        maxlength="10" required>
                                 </div>
                             </div>
                         </form>
@@ -177,8 +158,8 @@
         </div>
     </div>
 </body>
-<script src="js/biologosJS.js" asp-append-version="true"></script>
-<script type="text/javascript">obtenerBiologos()</script>
+<script src="./js/encabezadoA.js"></script>
+<script src="js/biologosJS.js"></script>
 <script src="./js/cerrarSesion.js"></script>
 <script src="./js/footer.js"></script>
 </html>

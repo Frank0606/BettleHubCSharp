@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const audioInput = document.getElementById('audio-input')
+    const audioInput = document.getElementById('audioInput')
     const audioPreview = document.getElementById('audio-preview')
 
     audioInput.addEventListener('change', function () {
@@ -16,15 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    const imageInput = document.getElementById('image-input');
-    const fileNameElement = document.querySelector('.file-nameI');
+    // const imageInput = document.getElementById('image-input');
+    // const fileNameElement = document.querySelector('.file-nameI');
 
-    imageInput.addEventListener('change', function () {
-        if (this.files && this.files[0]) {
-            const fileName = this.files[0].name;
-            fileNameElement.textContent = fileName;
-        } else {
-            fileNameElement.textContent = ''
-        }
-    })
+    // imageInput.addEventListener('change', function () {
+    //     if (this.files && this.files[0]) {
+    //         const fileName = this.files[0].name;
+    //         fileNameElement.textContent = fileName;
+    //     } else {
+    //         fileNameElement.textContent = ''
+    //     }
+    // })
 })

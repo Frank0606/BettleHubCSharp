@@ -16,33 +16,54 @@
 
 <body>
     <!-- Columnas del navbar -->
-    <div class="columns is-flex is-full m-0">
-        <!-- contenedor de encabezado y barra de navegacion navbar-->
-        <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
-            aria-label="main navigation">
-            <!-- Contenedor de cada uno de los elementos del navbar -->
-            <div class="navbar-brand">
-                <a class="navbar-item">
-                    <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.webp"
-                        alt="Bettle-finder">
-                </a>
-                <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
-                    href="paginaPrincipalB.html">Bettle-finder</a>
-                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                    href="galeriaEscarabajos.html">Especies</a>
-                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                    href="paginaClasificador.html">Clasificador</a>
-                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                    href="paginaRecursos.html">Recursos</a>
-                <a class="navbar-item is-size-4 has-text-weight-medium has-text-light" href="paginaAyuda.html">Ayuda</a>
-                <!-- Conjunto de elementos al final de la barra de navegacion -->
-                <div class="navbar-end">
-                    <div class="navbar-item p-0">
-                        <div class="buttons m-0">
-                            <a id="cerrarSesion"
-                                class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
-                                onclick="cerrarSesion()">Cerrar Sesión</a>
-                        </div>
+    <div class="columns is-flex is-full m-0" id="divNavbar">
+    </div>
+    <!-- Filtro -->
+    <div id="div_filtro_gallery" class="columns is-multiline is-mobile is-centered m-0 mt-3 pb-3" style="border-bottom: 8px solid #006657;">
+        <div class="column has-text-centered is-align-content-center" id="div_titulo_filtro">
+            <p class="has-text-white is-size-3 has-text-weight-bold">Filtrar por:</p>
+        </div>
+        <br>
+        <br>
+        <!-- Filtro por familia -->
+        <div class="column is-one-fifth">
+            <div class="field">
+                <label class="label">Familia</label>
+                <div class="control">
+                    <input class="input" type="text" id="filtroFamilia" placeholder="Ingrese una familia"
+                        oninput="aplicarFiltros()">
+                </div>
+            </div>
+        </div>
+        <!-- Filtro por cantidad de patas -->
+        <div class="column is-one-fifth">
+            <div class="field">
+                <label class="label">Cantidad de patas</label>
+                <div class="control">
+                    <input class="input" type="number" id="filtroPatas" placeholder="Ingrese la cantidad de patas">
+                </div>
+            </div>
+        </div>
+        <!-- Filtro por cantidad de antenas -->
+        <div class="column is-one-fifth">
+            <div class="field">
+                <label class="label">Cantidad de antenas</label>
+                <div class="control">
+                    <input class="input" type="number" id="filtroAntenas" placeholder="Ingrese la cantidad de antenas">
+                </div>
+            </div>
+        </div>
+        <!-- Filtro por estado de investigación -->
+        <div class="column is-one-fifth">
+            <div class="field">
+                <label class="label">Estado de investigación</label>
+                <div class="control">
+                    <div class="select">
+                        <select id="filtroInvestigacion">
+                            <option value="">Todos</option>
+                            <option value="1">Aprobado</option>
+                            <option value="0">No aprobado</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -89,10 +110,12 @@
                 <!-- Div de la barra del estado de progreso -->
                 <div id="div-investigacion" class="" style="width: 80%; margin: 0 auto;">
                     <!-- Titulo de la investigacion -->
-                    <p id="titulo_nivel_investigacion" 
-                        class="has-text-white has-text-centered has-text-weight-bold is-size-5 mb-4">Nivel de investigación</p>
+                    <p id="titulo_nivel_investigacion"
+                        class="has-text-white has-text-centered has-text-weight-bold is-size-5 mb-4">Nivel de
+                        investigación</p>
                     <!-- Barra de estado -->
-                    <progress id="id_barra_investigacion" class="progress is-success is-medium mb-4" max="100"></progress>
+                    <progress id="id_barra_investigacion" class="progress is-success is-medium mb-4"
+                        max="100"></progress>
                     <!-- Div para apuntar si esta aprobado o no el escarabajo -->
                     <div class="columns">
                         <div class="column">
@@ -128,14 +151,14 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="field">
+                        <!-- <div class="field">
                             <div class="control">
                                 <label class="checkbox is-size-5">
                                     <input type="checkbox" id="spectrogramCheckbox" class="mr-2">
                                     Espectograma
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="column is-half">
                         <div class="field">
@@ -146,24 +169,79 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="field">
+                        <!-- <div class="field">
                             <div class="control">
                                 <label class="checkbox is-size-5">
                                     <input type="checkbox" id="techSheetCheckbox" class="mr-2">
                                     Ficha técnica (.txt)
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </section>
+            <!-- Filtro -->
+            <div id="div_filtro_gallery" class="columns is-multiline is-mobile is-centered m-0">
+                <div class="column" id="div_titulo_filtro">
+                    <p class="has-text-black is-size-3 has-text-weight-bold">Filtrar por</p>
+                </div>
+                <br>
+                <br>
+                <!-- Filtro por familia -->
+                <div class="column is-one-fifth">
+                    <div class="field">
+                        <label class="label">Familia</label>
+                        <div class="control">
+                            <input class="input" type="text" id="filtroFamilia" placeholder="Ingrese una familia"
+                                oninput="aplicarFiltros()">
+                        </div>
+                    </div>
+                </div>
+                <!-- Filtro por cantidad de patas -->
+                <div class="column is-one-fifth">
+                    <div class="field">
+                        <label class="label">Cantidad de patas</label>
+                        <div class="control">
+                            <input class="input" type="number" id="filtroPatas"
+                                placeholder="Ingrese la cantidad de patas">
+                        </div>
+                    </div>
+                </div>
+                <!-- Filtro por cantidad de antenas -->
+                <div class="column is-one-fifth">
+                    <div class="field">
+                        <label class="label">Cantidad de antenas</label>
+                        <div class="control">
+                            <input class="input" type="number" id="filtroAntenas"
+                                placeholder="Ingrese la cantidad de antenas">
+                        </div>
+                    </div>
+                </div>
+                <!-- Filtro por estado de investigación -->
+                <div class="column is-one-fifth">
+                    <div class="field">
+                        <label class="label">Estado de investigación</label>
+                        <div class="control">
+                            <div class="select">
+                                <select id="filtroInvestigacion">
+                                    <option value="">Todos</option>
+                                    <option value="1">Aprobado</option>
+                                    <option value="0">No aprobado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="modal-card-foot">
                 <button class="button is-success" id="downloadButton">Descargar</button>
             </footer>
         </div>
     </div>
 </body>
+<script src="./js/encabezado.js"></script>
 <script src="./js/galeriaEscarabajos.js"></script>
 <script src="./js/cerrarSesion.js"></script>
 <script src="./js/footer.js"></script>
+
 </html>

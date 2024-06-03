@@ -3,7 +3,6 @@ using BettleHubCsharp.Models;
 using BettleHubCsharp.Services;
 using System.Collections.Concurrent;
 using System.Net.Mail;
-using Microsoft.IdentityModel.Tokens;
 
 namespace BettleHubCsharp.Controllers
 {

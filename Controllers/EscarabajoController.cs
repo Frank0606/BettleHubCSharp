@@ -165,4 +165,37 @@ public class EscarabajoController(IdentityContext context) : Controller
         List<string> audios = [.. escarabajo!.Audios!];
         return audios;
     }
+
+    //Endpoint para filtrar los escarabajos
+    [HttpGet("filtrar")]
+    public async Task<ActionResult<IEnumerable<Escarabajo>>> FiltrarEscarabajos(
+        [FromQuery] string? familia,
+        [FromQuery] int? patas,
+        [FromQuery] int? antenas,
+        [FromQuery] bool? investigacion)
+    {
+        var query = _context.Escarabajo.AsQueryable();
+
+        if (!string.IsNullOrEmpty(familia))
+        {
+            query = query.Where(e => e.Familia.Contains(familia));
+        }
+
+        if (patas.HasValue)
+        {
+            query = query.Where(e => e.Patas == patas.Value);
+        }
+
+        if (antenas.HasValue)
+        {
+            query = query.Where(e => e.Antena == antenas.Value);
+        }
+
+        if (investigacion.HasValue)
+        {
+            query = query.Where(e => e.Estado_investigacion == investigacion.Value);
+        }
+
+        return await query.AsNoTracking().ToListAsync();
+    }
 }

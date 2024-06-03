@@ -12,41 +12,10 @@
 </head>
 
 <body class="has-background-black">
-    <div class="bulma-container">
-        <!-- Columna del encabezado y barra de navegacion -->
-        <div class="columns is-flex is-full m-0">
-            <!-- contenedor de encabezado y barra de navegacion navbar-->
-            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
-                aria-label="main navigation">
-                <!-- Contenedor de cada uno de los elementos del navbar -->
-                <div class="navbar-brand">
-                    <a class="navbar-item">
-                        <img class="image   is-fullheight-with-navbar" src="./css/resources/images/logo.webp"
-                            alt="Bettle-finder">
-                    </a>
-                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
-                        href="paginaPrincipalB.html">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="galeriaEscarabajos.html">Especies</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="paginaClasificador.html">Clasificador</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="paginaRecursos.html">Recursos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="paginaAyuda.html">Ayuda</a>
-                    <!-- Conjunto de elementos al final de la barra de navegacion -->
-                    <div class="navbar-end">
-                        <div class="navbar-item p-0">
-                            <div class="buttons m-0">
-                                <a id="cerrarSesion"
-                                    class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
-                                    onclick="cerrarSesion()">Cerrar Sesión</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Columna del encabezado y barra de navegacion -->
+    <div class="columns is-flex is-full m-0" id="divNavbar">
+    </div>
+    <div class="bulma-container" id="ContenidoPrincipal">
         <!-- Columna del titulo -->
         <div class="columns has-background-black is-flex is-full m-0 mb-3">
             <h1 class="column has-text-centered title m-4">Clasificador de Audios de Escarabajos</h1>
@@ -135,6 +104,7 @@
         </div>
     </div>
 </body>
+<script src="./js/encabezado.js"></script>
 <script src="./js/cerrarSesion.js"></script>
 <script src="./js/audiosPreview.js"></script>
 <script src="./js/footer.js"></script>

@@ -6,84 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pagina Principal - Administrador</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body class="has-background-black">
     <!-- contenedor completo -->
     <div class="bulma-container">
         <!-- Columnas del navbar -->
-        <div class="columns is-flex is-full m-0">
-            <!-- contenedor de encabezado y barra de navegacion navbar-->
-            <div class="navbar has-background-primary-soft column p-0 is-full" role="navigation"
-                aria-label="main navigation">
-                <!-- Contenedor de cada uno de los elementos del navbar -->
-                <div class="navbar-brand">
-                    <a class="navbar-item is-size-2 is-uppercase has-text-weight-bold p-5 has-text-light"
-                        href="paginaPrincipalA.html">Bettle-finder</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="crudBiologos.html">Biologos</a>
-                    <a class="navbar-item is-size-4 has-text-weight-medium has-text-light"
-                        href="crudEscarabajos.html">Escarabajos</a>
-                    <!-- Conjunto de elementos al final de la barra de navegacion -->
-                    <div class="navbar-end">
-                        <div class="navbar-item p-0">
-                            <div class="buttons m-0">
-                                <a id="cerrarSesion"
-                                class="button is-light is-outlined has-text-weight-bold mr-5 is-normal is-responsive"
-                                onclick="cerrarSesion()">Cerrar Sesión</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="columns is-flex is-full m-0" id="divNavbarA">
         </div>
         <!-- Columnas del contenido principal -->
-        <div class="columns m-0 has-background-white">
+        <div class="columns m-0 has-background-white" id="ContenidoPrincipal">
             <!-- contenedor principal de informacion -->
-            <div class="column is-one-third is-responsive"
+            <div class="column is-one-third is-responsive is-align-content-center"
                 style="height: 40rem; padding-top: 10rem; padding-bottom: 10rem;">
                 <div class="label">
-                    <p class="has-text-black px-6 is-size-3">Puedes buscar entre todas las especies que tenemos
-                        registradas hasta hoy en nuestra pagina.</p>
+                    <p class="has-text-black px-6 is-size-3 has-text-centered">Bienvenido Dr. Edwin</p>
                 </div>
-                <div class="field has-addons has-addons-centered mt-6">
-                    <div class="control">
-                        <input placeholder="Buscar especie" class="input is-large" type="text">
-                    </div>
-                    <div class="control">
-                        <button class="button has-background-primary-soft is-large">Buscar</button>
-                    </div>
-                </div>
+                <p class="has-text-black px-6 is-size-5 has-text-centered" id="cuentaEscarabajos"></p>
+                <p class="has-text-black px-6 is-size-5 has-text-centered" id="cuentaBiologos"></p>
             </div>
             <!-- contenedor del lado derecho, informacion secundaria, datos extras, acciones -->
             <div class="column has-background-black is-two-thirds m-0 p-0">
                 <figure class="image" style="height: 100%;">
-                    <img src="./css/resources/images/escarabajo1.webp" alt="Especie" class="is-fullwidth"
+                    <img src="./css/resources/images/paginaPrincipal_1.webp" alt="Especie" class="is-fullwidth"
                         style="height: 100%; object-fit: cover;">
                 </figure>
-                <div>
-                    <button class="button has-background-primary-soft is-normal">Escuchar</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="columns has-background-white m-0">
-            <div class="column is-flex is-justify-content-center py-6" style="height: 10rem;">
-                <label class="label has-text-black is-size-2">¿Como suenan los escarabajos?</label>
-            </div>
-        </div>
-
-        <div class="columns has-background-white m-0">
-            <div class="column is-flex is-justify-content-center py-6">
-                <label class="label has-text-black">¿Pregunta?</label>
-            </div>
-            <div class="column is-flex is-justify-content-center py-6">
-                <p class="has-text-black">Pequeño texto descriptivo</p>
             </div>
         </div>
     </div>
 </body>
-<script src="js/preguntasYdatos.js" asp-append-version="true"></script>
+<script src="./js/encabezadoA.js"></script>
 <script src="./js/cerrarSesion.js"></script>
 <script src="./js/footer.js"></script>
+<script src="./js/principalAdmin.js"></script>
 </html>

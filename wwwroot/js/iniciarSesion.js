@@ -39,6 +39,9 @@ function iniciarSesion() {
 
                 if (!accessToken) {
                     console.error('El token de acceso no está presente en la respuesta.');
+                    swal("Problema", "Tenemos problemas para conectarnos con el servidor. Intente de nuevo por favor.", "error", {
+                        button: "Aceptar"
+                    })
                     return;
                 }
 
@@ -54,18 +57,28 @@ function iniciarSesion() {
                     if (getCookie('userRol') === "Biologo") {
                     window.location.href = "paginaPrincipalB.html";
                     } else {
-                        console.log("No tiene un rol")
+                        swal("Problema", "Tenemos problemas para asignarte un rol. Intente de nuevo por favor.", "error", {
+                            button: "Aceptar"
+                        })
                     }
                 }
             } else if (response.status === 401) {
-                console.error('Credenciales incorrectas.');
-                alert("Usuario o contraseña incorrecta")
+                swal("Problema", "Tu usuario y contraseña son incorrectos. Intente de nuevo por favor", "error", {
+                    button: "Aceptar"
+                })
+                document.getElementById("btnIniciarSesion").classList.remove('is-loading')
             } else {
-                console.error('Error desconocido al iniciar sesión.');
-                alert("Hubo un error en el sistema")
+                swal("Problema", "Tenemos problemas para conectarnos con el servidor. Intente de nuevo por favor.", "error", {
+                    button: "Aceptar"
+                })
+                document.getElementById("btnIniciarSesion").classList.remove('is-loading')
             }
         })
-        .catch(error => console.error('No se pudo iniciar sesión. ', error));
+        .catch(error => {
+            swal("Problema", "Tenemos problemas para conectarnos con el servidor. Intente de nuevo por favor.", "error", {
+                button: "Aceptar"
+            })
+        });
 }
 
 function getCookie(name) {

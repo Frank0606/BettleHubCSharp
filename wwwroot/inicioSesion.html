@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <link async href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link defer rel="stylesheet" href="./css/inicioSesion.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -23,7 +24,8 @@
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="password" placeholder="Contraseña" id="contrasenaLogin" required />
+                <input class="input" type="password" placeholder="Contraseña" id="contrasenaLogin" required
+                    minlength="8" pattern="(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}" />
                 <span class="icon is-small is-left">
                     <i class='bx bxs-lock-alt'></i>
                 </span>
@@ -36,10 +38,10 @@
         </div>
 
         <div id="Contenedor-Inicio-Sesion">
-            <button class="button is-light is-fullwidth is-outlined" type="submit" id="btnIniciarSesion">Iniciar sesión</button>
+            <button class="button is-light is-fullwidth is-outlined" type="submit" id="btnIniciarSesion">Iniciar
+                sesión</button>
         </div>
     </form>
     <script src="js/iniciarSesion.js" asp-append-version="true"></script>
 </body>
-
 </html>

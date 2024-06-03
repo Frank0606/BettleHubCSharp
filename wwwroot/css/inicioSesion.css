@@ -46,3 +46,14 @@ body {
 .field a {
     color: #00d1b2;
 }
+
+.swal-button {
+    background-color: #006657;
+    color: white;
+}
+
+.swal-text {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    text-align: center;
+}

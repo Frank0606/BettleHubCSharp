@@ -14,7 +14,7 @@ public class EscarabajoDTO{
     public required string Alas { get; set; }
     public required string Elitros { get; set; }
     public required string Descripcion { get; set; }
-    public required bool Estado_investigacion { get; set; } = false;
+    public bool Estado_investigacion { get; set; } = false;
     public string[]? Audios { get; set; }
     public string[]? Imagenes { get; set; }
     public string[]? Coordenadas { get; set; }

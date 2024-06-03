@@ -24,7 +24,7 @@ namespace BettleHubCsharp.Controllers
         }
 
         // Método para obtener un biólogo por su nombre de usuario
-        // [Authorize(Roles = "Biologo,Administrador")]
+        [Authorize(Roles = "Biologo,Administrador")]
         [HttpGet("Email/{Email}")]
         public async Task<ActionResult<Biologo>> GetBiologoUserName(string Email)
         {
@@ -57,6 +57,9 @@ namespace BettleHubCsharp.Controllers
         public async Task<ActionResult<Biologo>> PostBiologo(BiologoDTO biologoDTO)
         {
             var idBiologo = Guid.NewGuid().ToString();
+
+            // if(biologoDTO.Contrasena < 8 || biologoDTO.Contrasena )
+
             Biologo biologo = new()
             {
                 Id = idBiologo,

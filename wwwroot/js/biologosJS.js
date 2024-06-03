@@ -9,6 +9,44 @@ function getCookie(name) {
     return cookieValue ? cookieValue.pop() : '';
 }
 
+function mostrarErrorServidor() {
+    const txtAdmin = document.getElementById("adminLabel")
+    txtAdmin.classList.add("is-hidden")
+
+    const btnCerrarSesion = document.getElementById("cerrarSesion")
+    btnCerrarSesion.classList.add("is-hidden")
+
+    const divPrincipal = document.getElementById("ContenidoPrincipal");
+    divPrincipal.innerHTML = "";
+
+    const divError = document.createElement("div");
+    divError.classList.add("has-text-centered");
+    divError.style.width = "100%";
+
+    const titulo = document.createElement("p");
+    titulo.classList.add("label", "has-text-white", "is-size-3", "my-4");
+    titulo.textContent = "Fallas en el sistema";
+
+    const texto = document.createElement("p");
+    texto.classList.add("has-text-white", "is-size-4", "mb-5");
+    texto.textContent = "Lo sentimos. Tenemos problemas para comunicarnos con el sistema.";
+
+    const imagenContainer = document.createElement("div");
+    imagenContainer.classList.add("is-flex", "is-justify-content-center", "mb-6");
+
+    const imagen = document.createElement("img");
+    imagen.src = "./css/resources/images/escarabajoError.webp";
+    imagen.classList.add("image", "is-128x128");
+
+    imagenContainer.appendChild(imagen);
+
+    divError.appendChild(titulo);
+    divError.appendChild(texto);
+    divError.appendChild(imagenContainer);
+
+    divPrincipal.appendChild(divError);
+}
+
 async function fetchBiologos() {
     try {
         const response = await fetch(uri, {
@@ -18,14 +56,14 @@ async function fetchBiologos() {
             }
         })
         const data = await response.json();
-        if(getCookie('userRol')==='Biologo'){
+        if (getCookie('userRol') === 'Administrador') {
             biologos = data
+            _mostrarBiologos(biologos)
         } else {
-            alert("No eres un biologo")
+            mostrarErrorServidor()
         }
     } catch (error) {
-        alert("Error para obtener a los biologos")
-        console.error('No se puede obtener el array de biologos', error);
+        mostrarErrorServidor()
     }
 }
 fetchBiologos()
@@ -70,15 +108,11 @@ btnBorrarFormAgregar.addEventListener("click", (e) => {
 //      Metodos para trabajar con la API
 //          Obtener o GET
 function obtenerBiologos() {
-    fetch(uri, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + getCookie('userToken')
-        }
-    })
-        .then(response => response.json())
-        .then(data => _mostrarBiologos(data))
-        .catch(error => alert("No se pueden obtener los biologos"));
+    try {
+        _mostrarBiologos(biologos)
+    } catch (error) {
+        mostrarErrorServidor()
+    }
 }
 
 function _mostrarBiologos(data) {
@@ -138,36 +172,45 @@ function agregarBiologo() {
     const telefono = document.getElementById('telefonoBiologo')
     const contrasena = document.getElementById('contrasenaBiologo')
 
-    const biologo = {
-        Nombre: nombre.value.trim(),
-        Correo: correo.value.trim(),
-        Edad: parseInt(edad.value.trim()),
-        Telefono: telefono.value.trim(),
-        Contrasena: contrasena.value.trim(),
-        Administrador: false
-    }
+    const passwordError = document.getElementById('passwordError');
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    fetch(uri, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getCookie('userToken')
-        },
-        body: JSON.stringify(biologo)
-    })
-        .then(response => response.json())
-        .then(() => {
-            obtenerBiologos()
-            nombre.value = ''
-            correo.value = ''
-            edad.value = ''
-            telefono.value = ''
-            contrasena.value = ''
+    if (!passwordPattern.test(contrasena.value)) {
+        passwordError.classList.remove("hidden")
+    } else {
+        passwordError.classList.add("hidden")
+
+        const biologo = {
+            Nombre: nombre.value.trim(),
+            Correo: correo.value.trim(),
+            Edad: parseInt(edad.value.trim()),
+            Telefono: telefono.value.trim(),
+            Contrasena: contrasena.value.trim(),
+            Administrador: false
+        }
+    
+        fetch(uri, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('userToken')
+            },
+            body: JSON.stringify(biologo)
         })
-        .then(() => document.getElementById('agregarBiologo').classList.remove('is-active'))
-        .then(() => openModalMostrar())
-        .catch(error => alert("No se ha podido agregar al biologo"))
+            .then(response => response.json())
+            .then(() => {
+                obtenerBiologos()
+                nombre.value = ''
+                correo.value = ''
+                edad.value = ''
+                telefono.value = ''
+                contrasena.value = ''
+            })
+            .then(() => document.getElementById('agregarBiologo').classList.remove('is-active'))
+            .then(() => window.location.reload())
+            .catch(error => alert("No se ha podido agregar al biologo"))
+    }
 }
 
 //          Eliminar o DELETE
@@ -178,7 +221,7 @@ function eliminarBiologo(id) {
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
-        .then(() => obtenerBiologos())
+        .then(() => window.location.reload())
         .catch(error => alert("No se ha podido eliminar a este biologo"))
 }
 
@@ -216,7 +259,7 @@ function actualizarBiologo() {
         },
         body: JSON.stringify(biologo)
     })
-        .then(() => obtenerBiologos())
+        .then(() => window.location.reload())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
         .catch(error => alert("No se ha podido editar al biologo '" + biologo.Nombre + "'"))
 

@@ -10,6 +10,44 @@ function getCookie(name) {
     return cookieValue ? cookieValue.pop() : '';
 }
 
+function mostrarErrorServidor() {
+    const txtAdmin = document.getElementById("adminLabel")
+    txtAdmin.classList.add("is-hidden")
+
+    const btnCerrarSesion = document.getElementById("cerrarSesion")
+    btnCerrarSesion.classList.add("is-hidden")
+
+    const divPrincipal = document.getElementById("ContenidoPrincipal");
+    divPrincipal.innerHTML = "";
+
+    const divError = document.createElement("div");
+    divError.classList.add("has-text-centered");
+    divError.style.width = "100%";
+
+    const titulo = document.createElement("p");
+    titulo.classList.add("label", "has-text-white", "is-size-3", "my-4");
+    titulo.textContent = "Fallas en el sistema";
+
+    const texto = document.createElement("p");
+    texto.classList.add("has-text-white", "is-size-4", "mb-5");
+    texto.textContent = "Lo sentimos. Tenemos problemas para comunicarnos con el sistema.";
+
+    const imagenContainer = document.createElement("div");
+    imagenContainer.classList.add("is-flex", "is-justify-content-center", "mb-6");
+
+    const imagen = document.createElement("img");
+    imagen.src = "./css/resources/images/escarabajoError.webp";
+    imagen.classList.add("image", "is-128x128");
+
+    imagenContainer.appendChild(imagen);
+
+    divError.appendChild(titulo);
+    divError.appendChild(texto);
+    divError.appendChild(imagenContainer);
+
+    divPrincipal.appendChild(divError);
+}
+
 async function fetchEscarabajos() {
     try {
         const response = await fetch(uri, {
@@ -21,18 +59,15 @@ async function fetchEscarabajos() {
         const data = await response.json()
         if(getCookie('userRol')==='Administrador'){
             escarabajos = data
+            _mostrarEscarabajos(escarabajos)
         } else {
-            alert("No eres administardor")
+            mostrarErrorServidor()
         }
     } catch (error) {
-        console.error('No se puede obtener el array de escarabajos', error)
+        mostrarErrorServidor()
     }
 }
 fetchEscarabajos()
-
-document.addEventListener('DOMContentLoaded', () => {
-    obtenerEscarabajos()
-})
 
 //carga los forms
 const formAgregarEscarabajo = document.getElementById("formAgregarEscarabajo")
@@ -95,15 +130,11 @@ cerrarAudios.addEventListener('click', (e) => {
 //      Metodos para trabajar con la API
 //          Obtener o GET
 function obtenerEscarabajos() {
-    fetch(uri, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + getCookie('userToken')
-        }
-    })
-        .then(response => response.json())
-        .then(data => _mostrarEscarabajos(data))
-        .catch(error => alert("Error al obtener los datos de escarabajos"))
+    try {
+        _mostrarEscarabajos(escarabajos)
+    } catch (error) {
+        mostrarErrorServidor()
+    }
 }
 
 function _mostrarEscarabajos(data) {
@@ -223,6 +254,8 @@ function agregarEscarabajo() {
     const imagenes = document.getElementById('imagenesEscarabajo')
     const coordenadas = document.getElementById('coordenadasEscarabajo')
 
+    let coordenadasStr = coordenadas ? coordenadas.value.trim().toString() : "[]";
+
     const escarabajo = {
         Especie: especie.value.trim(),
         Familia: familia.value.trim(),
@@ -240,7 +273,7 @@ function agregarEscarabajo() {
         Estado_investigacion: false,
         Audios: audios ? JSON.parse("[" + audios.value.trim() + "]") : JSON.parse("[null]"),
         Imagenes: imagenes ? JSON.parse("[" + imagenes.value.trim() + "]") : JSON.parse("[null]"),
-        Coordenadas: coordenadas ? JSON.parse("[" + coordenadas.value.trim().toString() + "]") : JSON.parse("[null]")
+        Coordenadas: coordenadasStr ? JSON.parse('["' + coordenadasStr.replace(/,/g, '","') + '"]') : JSON.parse("[null]")
     }
 
     fetch(uri, {
@@ -290,8 +323,6 @@ var especieEditar
 function mostrarFormEditar(especie) {
     const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie);
 
-    console.log(escarabajo)
-
     document.getElementById("editarEspecie").value = escarabajo.especie;
     document.getElementById("editarFamilia").value = escarabajo.familia;
     document.getElementById("editarGenero").value = escarabajo.genero;
@@ -304,6 +335,7 @@ function mostrarFormEditar(especie) {
     document.getElementById("editarMandibula").value = escarabajo.mandibula;
     document.getElementById("editarAlas").value = escarabajo.alas;
     document.getElementById("editarElitros").value = escarabajo.elitros;
+    document.getElementById("editarDescripcion").value = escarabajo.descripcion;
     document.getElementById("editarCoordenadas").value = escarabajo.coordenadas;
     document.getElementById('editarForm').classList.add('is-active')
 
@@ -332,8 +364,9 @@ function actualizarEscarabajo() {
         Mandibula: document.getElementById('editarMandibula').value.trim(),
         Alas: document.getElementById('editarAlas').value.trim(),
         Elitros: document.getElementById('editarElitros').value.trim(),
-        Audioss: audios,
-        Imageness: imagenes
+        Descripcion: document.getElementById('editarDescripcion').value.trim(),
+        Audios: audios,
+        Imagenes: imagenes
     }
 
     fetch(`${uri}/put/${especieEditar}`, {
@@ -434,16 +467,4 @@ function mostrarDatosPDF() {
     })
 
     doc.save('datos_escarabajos.pdf');
-}
-
-function descargarTxt(especie) {
-    var fs = CreateObject("Scripting.FileSystemObject")
-    const writeStream = fs.createWriteStream('beetles_data.txt');
-    const escarabajo = escarabajos.find(escarabajo => escarabajo.especie === especie)
-
-    escarabajo.forEach(atributo => {
-        writeStream.write(`${atributo}`);
-    });
-
-    console.log('Data written to file successfully!');
 }

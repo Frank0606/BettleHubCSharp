@@ -26,22 +26,25 @@ Content-Type: application/json
 
 ###
 
-POST https://localhost:7083/api/escarabajo
+POST https://localhost:5001/api/escarabajo
 Content-Type: application/json
 
 {
-    "Especie_escarabajo": "especie123",
-    "Familia_escarabajo": "familiaput",
-    "Genero_escarabajo": "generoput",
-    "Patas_escarabajo": 12,
-    "Torax_escarabajo": "toraxput",
-    "Ciclo_vida_escarabajo": "ciclo_vidaput",
-    "Nombre_comun_escarabajo": "nombre_comunput",
-    "Antena_escarabajo": 23,
-    "Ojos_escarabajo": "ojosput",
-    "Mandibula_escarabajo": "mandibulaput",
-    "Alas_escarabajo": "alasput",
-    "Elitros_escarabajo": "elitrosput",
-    "Audios_escarabajo": [],
-    "Imagenes_escarabajo": []
+    "Especie": "especie123",
+    "Familia": "familiaput",
+    "Genero": "generoput",
+    "Patas": 12,
+    "Torax": "toraxput",
+    "Ciclo_vida": "ciclo_vidaput",
+    "Nombre_comun": "nombre_comunput",
+    "Antena": 23,
+    "Ojos": "ojosput",
+    "Mandibula": "mandibulaput",
+    "Alas": "alasput",
+    "Elitros": "elitrosput",
+    "Descripcion": "descripcionpost",
+    "Estado_investigacion": false,
+    "Coordenadas": [],
+    "Audios": [],
+    "Imagenes": []
 }
