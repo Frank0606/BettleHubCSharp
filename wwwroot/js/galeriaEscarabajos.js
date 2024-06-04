@@ -233,9 +233,9 @@ function descargarRecursos(especie) {
     const techSheetCheckbox = document.getElementById("techSheetCheckbox")
 
     boolAudio = audioCheckbox.checked
-    boolEspectogramas = spectrogramCheckbox.checked
+    // boolEspectogramas = spectrogramCheckbox.checked
     boolImagenes = imagesCheckbox.checked
-    boolTechSheet = techSheetCheckbox.checked
+    // boolTechSheet = techSheetCheckbox.checked
 
     escarabajos.forEach(escarabajo => {
         if(escarabajo.especie === especie) {

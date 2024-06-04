@@ -57,7 +57,7 @@ async function fetchEscarabajos() {
             }
         },)
         const data = await response.json()
-        if(getCookie('userRol')==='Administrador'){
+        if (getCookie('userRol') === 'Administrador') {
             escarabajos = data
             _mostrarEscarabajos(escarabajos)
         } else {
@@ -250,11 +250,28 @@ function agregarEscarabajo() {
     const alas = document.getElementById('alasEscarabajo')
     const elitros = document.getElementById('elitrosEscarabajo')
     const descripcion = document.getElementById('descripcionEscarabajo')
-    const audios = document.getElementById('audiosEscarabajo')
-    const imagenes = document.getElementById('imagenesEscarabajo')
     const coordenadas = document.getElementById('coordenadasEscarabajo')
 
     let coordenadasStr = coordenadas ? coordenadas.value.trim().toString() : "[]";
+    let audios
+    let imagenes
+
+    try {
+        let rutaImagen = guardarImagenes()
+        let rutaAudio = guardarAudios()
+        imagenes = rutaImagen
+        audios = rutaAudio
+        if(imagenes === null || audios === null){
+            swal("Problema", "No se pudo guardar ninguno de los recursos", "error", {
+                button: "Aceptar"
+            })
+            return
+        }
+    } catch (error) {
+        swal("Problema", "No se pudo guardar ninguno de los recursos", "error", {
+            button: "Aceptar"
+        })
+    }
 
     const escarabajo = {
         Especie: especie.value.trim(),
@@ -300,6 +317,8 @@ function agregarEscarabajo() {
             mandibula.value = ''
             alas.value = ''
             elitros.value = ''
+            document.getElementById('imageInput').value = ''
+            document.getElementById('audioInput').value = ''
         })
         .then(() => document.getElementById('agregarEscarabajo').classList.remove('is-active'))
         .then(() => openModalMostrar())
@@ -309,12 +328,12 @@ function agregarEscarabajo() {
 //          Eliminar o DELETE
 function eliminarEscarabajo(id) {
     fetch(`${uri}/delete/${id}`, {
-        method: 'DELETE', 
+        method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
-        .then(() => obtenerEscarabajos())
+        .then(() => window.location.reload())
         .catch(error => alert("No se pudo eliminar al escarabajo"))
 }
 
@@ -448,14 +467,18 @@ function abrirModalAudios(especie) {
 //-------------------------------------------------------------------------------------------------------------------------------
 
 function mostrarDatosPDF() {
+    const doc = new jsPDF();
+    doc.setFontSize(12);
+    doc.text('Datos de los Escarabajos', 10, 10);
 
-    const doc = new jsPDF()
-    doc.setFontSize(12)
-    doc.text('Datos de los Escarabajos', 10, 10)
+    // Obtiene el nombre de las columnas
+    const headers = Object.keys(escarabajos[0]);
+    console.log(headers);
 
-    const headers = Object.keys(escarabajos)
-    const data = escarabajos.map(item => [item.especie, item.familia, item.genero, item.patas, item.torax, item.ciclo_vida, item.nombre_comun, item.antena, item.ojos, item.mandibula, item.alas, item.elitros, item.descripcion, item.estado_investigacion]);
-    console.log(data)
+    // Extraer los valores de cada objeto quetenemos ene el array
+    const data = escarabajos.map(item => headers.map(header => item[header]));
+    console.log(data);
+
     doc.autoTable({
         head: [headers],
         body: data,
@@ -464,7 +487,69 @@ function mostrarDatosPDF() {
         columnStyles: {
             0: { fontStyle: 'bold' },
         }
-    })
+    });
 
     doc.save('datos_escarabajos.pdf');
+}
+
+function guardarImagenes() {
+    const input = document.getElementById('imageInput');
+    const file = input.files[0];
+
+    if (!file) {
+        alert("Por favor selecciona una imagen.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('imagen', file);
+
+    fetch('/api/file/imagen', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        },
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            return data
+        })
+        .catch(error => {
+            swal("Problema", "No se pudo guardar las imagenes.", "error", {
+                button: "Aceptar"
+            })
+        });
+}
+
+function guardarAudios() {
+    const input = document.getElementById('audioInput');
+    const file = input.files[0];
+
+    if (!file) {
+        alert("Por favor selecciona un audio.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('audio', file);
+
+    fetch('/api/file/audio', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        },
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            return data
+        })
+        .catch(error => {
+            swal("Problema", "No se pudo guardar los audios.", "error", {
+                button: "Aceptar"
+            })
+        });
 }
