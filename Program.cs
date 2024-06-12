@@ -85,8 +85,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configuración para usar archivos estáticos
-app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = ["inicioSesion.html"] });
-app.UseStaticFiles();
+// app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = ["index.html"] });
+// app.UseStaticFiles();
 
 // app.UseHttpsRedirection();
 app.UseRouting();

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jGeHe4e0lAX1UQBbiSlQJP06YMSjcPoImbUtjaoJF7iFw+IgYjrtmhUoeJH+is8MaF24DHChwGKshmkvFKxZNA==",
+  "dgSpecHash": "J1mGeVFN2wznO3p6d7S9fdgEilJYxgSFrJ60qXj73ae9W5gSRValz8fzAzRl1AvdHaCAob3RJ/X1Tx+k/FJ3tg==",
   "success": true,
   "projectFilePath": "D:\\Documentos (D)\\UV\\8vo Semestre\\Desarrollo de software\\BettleHubCsharp\\BettleHubCsharp.csproj",
   "expectedPackageFiles": [
@@ -86,7 +86,8 @@
     "C:\\Users\\f_dan\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\f_dan\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\f_dan\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512",
-    "C:\\Users\\f_dan\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+    "C:\\Users\\f_dan\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\f_dan\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\8.0.6\\microsoft.netcore.app.host.linux-x64.8.0.6.nupkg.sha512"
   ],
   "logs": []
 }
