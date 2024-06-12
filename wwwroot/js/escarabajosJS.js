@@ -541,7 +541,7 @@ async function guardarImagenes() {
     const formData = new FormData();
     formData.append('imagen', file);
 
-    fetch('/api/file/imagen', {
+    fetch('http://192.168.56.104:5001/api/file/imagen', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -580,7 +580,7 @@ async function guardarAudios() {
     const formData = new FormData();
     formData.append('audio', file);
 
-    fetch('/api/file/audio', {
+    fetch('http://192.168.56.104:5001/api/file/audio', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
