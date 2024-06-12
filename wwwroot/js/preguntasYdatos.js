@@ -72,7 +72,7 @@ async function fetchEscarabajos() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     await fetchEscarabajos()
-    fetch("api/pregunta", {
+    fetch("http://192.168.56.104:5001/api/pregunta", {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + getCookie('userToken')
