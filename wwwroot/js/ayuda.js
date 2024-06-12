@@ -13,7 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
-        .then(response => response.json())
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(data => {
             ayudas = data
             crearSeccionesAyudas(ayudas)

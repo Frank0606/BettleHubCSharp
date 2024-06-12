@@ -16,157 +16,238 @@ public class EscarabajoController(IdentityContext context) : Controller
     private readonly IdentityContext _context = context;
 
     [Authorize(Roles = "Biologo,Administrador")]
-    //Este es el metodo para recuperar todos los biologos
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Escarabajo>>> GetEscarabajos()
     {
-        return await _context.Escarabajo.AsNoTracking().ToListAsync();
+        try
+        {
+            return await _context.Escarabajo.AsNoTracking().ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error al obtener los escarabajos: {ex.Message}");
+        }
     }
 
-    //Este metodo es para recuperar un solo biologo por medio de su 
     [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("Nombre/{nombreComun}")]
     public async Task<ActionResult<Escarabajo>> GetEscarabajoNombreComun(string nombreComun)
     {
-        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Nombre_comun == nombreComun); //Esto es para buscar otro atributo que no sea la llave
-        if (escarabajo == null)
+        try
         {
-            return NotFound();
+            var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Nombre_comun == nombreComun);
+            if (escarabajo == null)
+            {
+                return NotFound("Escarabajo no encontrado");
+            }
+            return escarabajo;
         }
-        return escarabajo;
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error al obtener el escarabajo: {ex.Message}");
+        }
     }
 
     [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("Especie/{especie}")]
     public async Task<ActionResult<Escarabajo>> GetEscarabajoEspecie(string especie)
     {
-        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie); //Esto es para buscar otro atributo que no sea la llave
-        if (escarabajo == null)
+        try
         {
-            return NotFound();
+            var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
+            if (escarabajo == null)
+            {
+                return NotFound("Escarabajo no encontrado");
+            }
+            return escarabajo;
         }
-        return escarabajo;
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error al obtener el escarabajo: {ex.Message}");
+        }
     }
 
-    //Este metodo es para insertar un biologo
     [Authorize(Roles = "Administrador")]
     [HttpPost]
     public async Task<ActionResult<Escarabajo>> PostEscarabajo(EscarabajoDTO escarabajoDTO)
     {
-        Escarabajo escarabajo = new()
+        try
         {
-            Especie = escarabajoDTO.Especie,
-            Familia = escarabajoDTO.Familia,
-            Genero = escarabajoDTO.Genero,
-            Patas = escarabajoDTO.Patas,
-            Torax = escarabajoDTO.Torax,
-            Ciclo_vida = escarabajoDTO.Ciclo_vida,
-            Nombre_comun = escarabajoDTO.Nombre_comun,
-            Antena = escarabajoDTO.Antena,
-            Ojos = escarabajoDTO.Ojos,
-            Mandibula = escarabajoDTO.Mandibula,
-            Alas = escarabajoDTO.Alas,
-            Elitros = escarabajoDTO.Elitros,
-            Audios = escarabajoDTO.Audios,
-            Imagenes = escarabajoDTO.Imagenes,
-            Estado_investigacion = escarabajoDTO.Estado_investigacion,
-            Descripcion = escarabajoDTO.Descripcion,
-            Coordenadas = escarabajoDTO.Coordenadas
-        };
+            Escarabajo escarabajo = new()
+            {
+                Especie = escarabajoDTO.Especie,
+                Familia = escarabajoDTO.Familia,
+                Genero = escarabajoDTO.Genero,
+                Patas = escarabajoDTO.Patas,
+                Torax = escarabajoDTO.Torax,
+                Ciclo_vida = escarabajoDTO.Ciclo_vida,
+                Nombre_comun = escarabajoDTO.Nombre_comun,
+                Antena = escarabajoDTO.Antena,
+                Ojos = escarabajoDTO.Ojos,
+                Mandibula = escarabajoDTO.Mandibula,
+                Alas = escarabajoDTO.Alas,
+                Elitros = escarabajoDTO.Elitros,
+                Audios = escarabajoDTO.Audios,
+                Imagenes = escarabajoDTO.Imagenes,
+                Estado_investigacion = escarabajoDTO.Estado_investigacion,
+                Descripcion = escarabajoDTO.Descripcion,
+                Coordenadas = escarabajoDTO.Coordenadas
+            };
 
-        _context.Escarabajo.Add(escarabajo);
-        await _context.SaveChangesAsync();
+            _context.Escarabajo.Add(escarabajo);
+            await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetEscarabajoEspecie), new { especie = escarabajo.Especie }, escarabajo);
+            return CreatedAtAction(nameof(GetEscarabajoEspecie), new { especie = escarabajo.Especie }, escarabajo);
+        }
+        catch (DbException ex)
+        {
+            return StatusCode(500, $"Error al insertar el escarabajo: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error inesperado: {ex.Message}");
+        }
     }
 
-    //Este es el metodo para editar un biologo
     [Authorize(Roles = "Administrador")]
     [HttpPut("put/{especie}")]
     public async Task<IActionResult> PutEscarabajo(string especie, EscarabajoDTO escarabajoDTO)
     {
-        var escarabajo = await _context.Escarabajo.FindAsync(especie);
-        if (escarabajo == null)
+        try
         {
-            return NotFound();
+            var escarabajo = await _context.Escarabajo.FindAsync(especie);
+            if (escarabajo == null)
+            {
+                return NotFound("Escarabajo no encontrado");
+            }
+
+            _context.Escarabajo.Remove(escarabajo);
+            await _context.SaveChangesAsync();
+
+            Escarabajo escarabajo1 = new()
+            {
+                Especie = escarabajoDTO.Especie,
+                Familia = escarabajoDTO.Familia,
+                Genero = escarabajoDTO.Genero,
+                Patas = escarabajoDTO.Patas,
+                Torax = escarabajoDTO.Torax,
+                Ciclo_vida = escarabajoDTO.Ciclo_vida,
+                Nombre_comun = escarabajoDTO.Nombre_comun,
+                Antena = escarabajoDTO.Antena,
+                Ojos = escarabajoDTO.Ojos,
+                Mandibula = escarabajoDTO.Mandibula,
+                Alas = escarabajoDTO.Alas,
+                Elitros = escarabajoDTO.Elitros,
+                Estado_investigacion = escarabajoDTO.Estado_investigacion,
+                Descripcion = escarabajoDTO.Descripcion
+            };
+
+            _context.Escarabajo.Add(escarabajo1);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
-
-        _context.Escarabajo.Remove(escarabajo);
-        await _context.SaveChangesAsync();
-
-        Escarabajo escarabajo1 = new()
+        catch (DbException ex)
         {
-            Especie = escarabajoDTO.Especie,
-            Familia = escarabajoDTO.Familia,
-            Genero = escarabajoDTO.Genero,
-            Patas = escarabajoDTO.Patas,
-            Torax = escarabajoDTO.Torax,
-            Ciclo_vida = escarabajoDTO.Ciclo_vida,
-            Nombre_comun = escarabajoDTO.Nombre_comun,
-            Antena = escarabajoDTO.Antena,
-            Ojos = escarabajoDTO.Ojos,
-            Mandibula = escarabajoDTO.Mandibula,
-            Alas = escarabajoDTO.Alas,
-            Elitros = escarabajoDTO.Elitros,
-            Estado_investigacion = escarabajoDTO.Estado_investigacion,
-            Descripcion = escarabajoDTO.Descripcion
-        };
-
-        _context.Escarabajo.Add(escarabajo1);
-        await _context.SaveChangesAsync();
-        return NoContent();
+            return StatusCode(500, $"Error al actualizar el escarabajo: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error inesperado: {ex.Message}");
+        }
     }
 
-    //Este es el metodo para eliminar un biologo por ID
     [Authorize(Roles = "Administrador")]
     [HttpDelete("delete/{especie}")]
     public async Task<IActionResult> DeleteEscarabajo(string especie)
     {
-        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
-        if (escarabajo == null)
+        try
         {
-            return NotFound();
-        }
+            var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
+            if (escarabajo == null)
+            {
+                return NotFound("Escarabajo no encontrado");
+            }
 
-        if (escarabajo.Protegida)
+            if (escarabajo.Protegida)
+            {
+                return BadRequest("El escarabajo está protegido y no puede ser eliminado");
+            }
+
+            _context.Escarabajo.Remove(escarabajo);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch (DbException ex)
         {
-            return BadRequest();
+            return StatusCode(500, $"Error al eliminar el escarabajo: {ex.Message}");
         }
-
-        _context.Escarabajo.Remove(escarabajo);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error inesperado: {ex.Message}");
+        }
     }
 
     [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("get/coordenadas/{especie}")]
     public async Task<ActionResult<List<string>>> GetCoordenadas(string especie)
     {
-        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
-        List<string> coordendas = [.. escarabajo!.Coordenadas!];
-        return coordendas;
+        try
+        {
+            var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
+            if (escarabajo == null)
+            {
+                return NotFound("Escarabajo no encontrado");
+            }
+            List<string> coordenadas = escarabajo.Coordenadas.ToList();
+            return coordenadas;
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error al obtener las coordenadas: {ex.Message}");
+        }
     }
 
     [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("get/imagenes/{especie}")]
     public async Task<ActionResult<List<string>>> GetImagenes(string especie)
     {
-        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
-        List<string> imagenes = [.. escarabajo!.Imagenes!];
-        return imagenes;
+        try
+        {
+            var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
+            if (escarabajo == null)
+            {
+                return NotFound("Escarabajo no encontrado");
+            }
+            List<string> imagenes = escarabajo.Imagenes.ToList();
+            return imagenes;
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error al obtener las imágenes: {ex.Message}");
+        }
     }
 
     [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("get/audios/{especie}")]
     public async Task<ActionResult<List<string>>> GetAudios(string especie)
     {
-        var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
-        List<string> audios = [.. escarabajo!.Audios!];
-        return audios;
+        try
+        {
+            var escarabajo = await _context.Escarabajo.SingleOrDefaultAsync(e => e.Especie == especie);
+            if (escarabajo == null)
+            {
+                return NotFound("Escarabajo no encontrado");
+            }
+            List<string> audios = escarabajo.Audios.ToList();
+            return audios;
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error al obtener los audios: {ex.Message}");
+        }
     }
 
-    //Endpoint para filtrar los escarabajos
     [HttpGet("filtrar")]
     public async Task<ActionResult<IEnumerable<Escarabajo>>> FiltrarEscarabajos(
         [FromQuery] string? familia,
@@ -174,28 +255,35 @@ public class EscarabajoController(IdentityContext context) : Controller
         [FromQuery] int? antenas,
         [FromQuery] bool? investigacion)
     {
-        var query = _context.Escarabajo.AsQueryable();
-
-        if (!string.IsNullOrEmpty(familia))
+        try
         {
-            query = query.Where(e => e.Familia.Contains(familia));
-        }
+            var query = _context.Escarabajo.AsQueryable();
 
-        if (patas.HasValue)
+            if (!string.IsNullOrEmpty(familia))
+            {
+                query = query.Where(e => e.Familia.Contains(familia));
+            }
+
+            if (patas.HasValue)
+            {
+                query = query.Where(e => e.Patas == patas.Value);
+            }
+
+            if (antenas.HasValue)
+            {
+                query = query.Where(e => e.Antena == antenas.Value);
+            }
+
+            if (investigacion.HasValue)
+            {
+                query = query.Where(e => e.Estado_investigacion == investigacion.Value);
+            }
+
+            return await query.AsNoTracking().ToListAsync();
+        }
+        catch (Exception ex)
         {
-            query = query.Where(e => e.Patas == patas.Value);
+            return StatusCode(500, $"Error al filtrar los escarabajos: {ex.Message}");
         }
-
-        if (antenas.HasValue)
-        {
-            query = query.Where(e => e.Antena == antenas.Value);
-        }
-
-        if (investigacion.HasValue)
-        {
-            query = query.Where(e => e.Estado_investigacion == investigacion.Value);
-        }
-
-        return await query.AsNoTracking().ToListAsync();
     }
 }

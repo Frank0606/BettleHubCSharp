@@ -51,8 +51,20 @@ async function fetchEscarabajos() {
                 'Authorization': 'Bearer ' + getCookie('userToken')
             }
         },)
+        const newToken = response.headers.get('Set-Authorization');
+        if (newToken) {
+            console.log('Nuevo token:', newToken);
+            const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+            document.cookie = tokenCookie;
+        }
         const data = await response.json()
-        escarabajos = data
+        if(data.message){
+            swal("Problema - Escarabajos", data.message, "error", {
+                button: "Aceptar"
+            }); 
+        } else {
+            escarabajos = data
+        }
     } catch (error) {
         mostrarErrorServidor()
     }
@@ -67,11 +79,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     })
         .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
             return response.json();
         })
         .then(data => {
-            mostrarPreguntas(data)
-            escucharSonidoPaginaPrincipal()
+            if(data.message){
+                swal("Problema - Preguntas", data.message, "error", {
+                    button: "Aceptar"
+                });
+            } else {
+                mostrarPreguntas(data)
+                escucharSonidoPaginaPrincipal()
+            }
         })
         .catch(error => {
             const carusel = document.getElementById("slider")

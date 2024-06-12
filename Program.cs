@@ -75,6 +75,8 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 // Configuración específica del entorno de desarrollo
 if (app.Environment.IsDevelopment())
 {
@@ -86,7 +88,7 @@ if (app.Environment.IsDevelopment())
 app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = ["inicioSesion.html"] });
 app.UseStaticFiles();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseRouting();
 //Primero se tiene que hacer el authentication y luego el authorization
 app.UseAuthentication();

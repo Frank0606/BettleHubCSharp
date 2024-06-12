@@ -18,46 +18,48 @@ namespace BettleHubCsharp.Controllers
         [HttpPost]
         public async Task<IActionResult> IniciarSesion([FromBody] Cuenta cuenta)
         {
-            // Busca el usuario por su nombre
-            var usuario = await _userManager.FindByNameAsync(cuenta.Nombre);
+            try{
+                // Busca el usuario por su nombre
+                var usuario = await _userManager.FindByNameAsync(cuenta.Nombre);
 
-            if (usuario is null)
-            {
-                // Si el usuario no existe, devuelve un error de usuario incorrecto
-                return Unauthorized(new { mensaje = "Usuario incorrecto." });
-            }
-
-            // Obtiene los roles del usuario
-            var roles = await _userManager.GetRolesAsync(usuario);
-
-            // Verifica la contraseña
-            var hasher = new PasswordHasher<Biologo>();
-            var result = hasher.VerifyHashedPassword(new Biologo(), usuario.PasswordHash!, cuenta.Contrasena);
-
-            if (result == PasswordVerificationResult.Success)
-            {
-                // Si la contraseña es correcta, genera el token JWT con los claims necesarios
-                var claims = new List<Claim> {
-                    new(ClaimTypes.Sid, usuario.Id!),
-                    new(ClaimTypes.Name, usuario.UserName!),
-                    new(ClaimTypes.Role, roles.First()) // Tomamos solo el primer rol del usuario
-                };
-
-                var jwt = _jwtTokenService.GeneraToken(claims);
-
-                // Devuelve información básica del usuario junto con el token JWT
-                return Ok(new
+                if (usuario is null)
                 {
-                    usuario.Id,
-                    usuario.Email,
-                    usuario.UserName,
-                    Rol = roles.First(),
-                    AccessToken = jwt
-                });
-            }
+                    // Si el usuario no existe, devuelve un error de usuario incorrecto
+                    return Unauthorized(new { mensaje = "Usuario incorrecto." });
+                }
 
-            // Si la contraseña es incorrecta, devuelve un error de contraseña incorrecta
-            return Unauthorized(new { mensaje = "Contraseña incorrecta." });
+                // Obtiene los roles del usuario
+                var roles = await _userManager.GetRolesAsync(usuario);
+
+                // Verifica la contraseña
+                var hasher = new PasswordHasher<Biologo>();
+                var result = hasher.VerifyHashedPassword(new Biologo(), usuario.PasswordHash!, cuenta.Contrasena);
+
+                if (result == PasswordVerificationResult.Success)
+                {
+                    // Si la contraseña es correcta, genera el token JWT con los claims necesarios
+                    var claims = new List<Claim> {
+                        new(ClaimTypes.Sid, usuario.Id!),
+                        new(ClaimTypes.Name, usuario.UserName!),
+                        new(ClaimTypes.Role, roles.First()) // Tomamos solo el primer rol del usuario
+                    };
+
+                    var jwt = _jwtTokenService.GeneraToken(claims);
+
+                    // Devuelve información básica del usuario junto con el token JWT
+                    return Ok(new
+                    {
+                        usuario.Id,
+                        usuario.Email,
+                        usuario.UserName,
+                        Rol = roles.First(),
+                        AccessToken = jwt
+                    });
+                }
+                return Unauthorized(new { mensaje = "Contraseña incorrecta." });
+            } catch(Exception e){
+                return Unauthorized(new { mensaje = "Error al ingresar a la cuenta"});
+            }
         }
     }
 }

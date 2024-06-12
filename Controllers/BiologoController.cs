@@ -15,50 +15,65 @@ namespace BettleHubCsharp.Controllers
         private readonly IdentityContext _context = context;
         private readonly UserManager<Biologo> _userManager = userManager;
 
-        // Método para obtener todos los biólogos
         [Authorize(Roles = "Biologo,Administrador")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Biologo>>> GetBiologos()
         {
-            return await _context.Biologo.AsNoTracking().ToListAsync();
+            try
+            {
+                return await _context.Biologo.AsNoTracking().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al obtener la lista de biólogos. Por favor, inténtelo de nuevo más tarde." });
+            }
         }
 
-        // Método para obtener un biólogo por su nombre de usuario
         [Authorize(Roles = "Biologo,Administrador")]
         [HttpGet("Email/{Email}")]
         public async Task<ActionResult<Biologo>> GetBiologoUserName(string Email)
         {
-            var biologo = await _context.Biologo.SingleOrDefaultAsync(b => b.Email == Email);
-            
-            if (biologo == null)
+            try
             {
-                return NotFound();
-            }
+                var biologo = await _context.Biologo.SingleOrDefaultAsync(b => b.Email == Email);
 
-            return biologo;
+                if (biologo == null)
+                {
+                    return NotFound(new { message = "Biólogo no encontrado" });
+                }
+
+                return biologo;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al buscar el biólogo por email. Por favor, inténtelo de nuevo más tarde." });
+            }
         }
 
-        // Método para obtener un biólogo por su ID
         [Authorize(Roles = "Biologo,Administrador")]
         [HttpGet("Id/{id}")]
         public async Task<ActionResult<Biologo>> GetBiologoId(string id)
         {
-            var biologo = await _context.Biologo.FindAsync(id);
-            if (biologo == null)
+            try
             {
-                return NotFound();
+                var biologo = await _context.Biologo.FindAsync(id);
+                if (biologo == null)
+                {
+                    return NotFound(new { message = "Biólogo no encontrado" });
+                }
+                return biologo;
             }
-            return biologo;
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al buscar el biólogo por ID. Por favor, inténtelo de nuevo más tarde." });
+            }
         }
 
-        // Método para insertar un nuevo biólogo
         [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<ActionResult<Biologo>> PostBiologo(BiologoDTO biologoDTO)
         {
             var idBiologo = Guid.NewGuid().ToString();
-
-            // if(biologoDTO.Contrasena < 8 || biologoDTO.Contrasena )
 
             Biologo biologo = new()
             {
@@ -73,10 +88,11 @@ namespace BettleHubCsharp.Controllers
             };
 
             _context.Biologo.Add(biologo);
-            await _context.SaveChangesAsync();
 
             try
             {
+                await _context.SaveChangesAsync();
+
                 if (biologoDTO.Administrador)
                 {
                     await _userManager.AddToRoleAsync(biologo, "Administrador");
@@ -85,13 +101,17 @@ namespace BettleHubCsharp.Controllers
                 {
                     await _userManager.AddToRoleAsync(biologo, "Biologo");
                 }
+
+                return CreatedAtAction(nameof(GetBiologoId), new { id = biologo.Id }, biologo);
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest("Error al asignar el rol al biólogo: " + ex.Message);
+                return BadRequest(new { message = "Error al asignar el rol al biólogo: " + ex.Message });
             }
-
-            return CreatedAtAction(nameof(GetBiologoId), new { id = biologo.Id }, biologo);
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al crear el biólogo. Por favor, inténtelo de nuevo más tarde." });
+            }
         }
 
         [HttpPut("email/{id}")]
@@ -100,7 +120,7 @@ namespace BettleHubCsharp.Controllers
             var biologo = await _context.Biologo.FindAsync(id);
             if (biologo == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Biólogo no encontrado" });
             }
 
             biologo.PasswordHash = new PasswordHasher<Biologo>().HashPassword(new Biologo(), contrasenaNueva);
@@ -108,15 +128,18 @@ namespace BettleHubCsharp.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                return NoContent();
             }
             catch (DbException)
             {
-                return BadRequest();
+                return BadRequest(new { message = "Error al actualizar la contraseña del biólogo. Por favor, inténtelo de nuevo más tarde." });
             }
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al actualizar la contraseña del biólogo. Por favor, inténtelo de nuevo más tarde." });
+            }
         }
-        
+
         [Authorize(Roles = "Administrador")]
         [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarContrasena(string id, BiologoDTO biologoDTO)
@@ -124,7 +147,7 @@ namespace BettleHubCsharp.Controllers
             var biologo = await _context.Biologo.FindAsync(id);
             if (biologo == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Biólogo no encontrado" });
             }
 
             biologo.Email = biologoDTO.Correo;
@@ -138,16 +161,18 @@ namespace BettleHubCsharp.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                return NoContent();
             }
             catch (DbException)
             {
-                return BadRequest();
+                return BadRequest(new { message = "Error al actualizar los datos del biólogo. Por favor, inténtelo de nuevo más tarde." });
             }
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al actualizar los datos del biólogo. Por favor, inténtelo de nuevo más tarde." });
+            }
         }
 
-        // Método para eliminar un biólogo por su ID
         [Authorize(Roles = "Administrador")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBiologo(string id)
@@ -155,18 +180,25 @@ namespace BettleHubCsharp.Controllers
             var biologo = await _context.Biologo.FindAsync(id);
             if (biologo == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Biólogo no encontrado" });
             }
 
             if (biologo.Protegida)
             {
-                return BadRequest();
+                return BadRequest(new { message = "No se puede eliminar un biólogo protegido." });
             }
 
             _context.Biologo.Remove(biologo);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
+            try
+            {
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error al eliminar el biólogo. Por favor, inténtelo de nuevo más tarde." });
+            }
         }
     }
 }

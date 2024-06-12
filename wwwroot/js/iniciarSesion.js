@@ -35,43 +35,44 @@ function iniciarSesion() {
         .then(async response => {
             if (response.ok) {
                 const result = await response.json();
-                const accessToken = await result["accessToken"];
-
+                const accessToken = result["accessToken"];
+        
                 if (!accessToken) {
                     console.error('El token de acceso no está presente en la respuesta.');
                     swal("Problema", "Tenemos problemas para conectarnos con el servidor. Intente de nuevo por favor.", "error", {
                         button: "Aceptar"
-                    })
+                    });
                     return;
                 }
-
-                const rol = result["rol"]
+        
+                const rol = result["rol"];
                 const tokenCookie = "userToken=" + accessToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
                 document.cookie = tokenCookie;
                 const rolCookie = "userRol=" + rol + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
                 document.cookie = rolCookie;
-                
-                if(getCookie('userRol') === "Administrador") {
+        
+                if (getCookie('userRol') === "Administrador") {
                     window.location.href = "paginaPrincipalA.html";
                 } else {
                     if (getCookie('userRol') === "Biologo") {
-                    window.location.href = "paginaPrincipalB.html";
+                        window.location.href = "paginaPrincipalB.html";
                     } else {
                         swal("Problema", "Tenemos problemas para asignarte un rol. Intente de nuevo por favor.", "error", {
                             button: "Aceptar"
-                        })
+                        });
                     }
                 }
             } else if (response.status === 401) {
                 swal("Problema", "Tu usuario y contraseña son incorrectos. Intente de nuevo por favor", "error", {
                     button: "Aceptar"
-                })
-                document.getElementById("btnIniciarSesion").classList.remove('is-loading')
+                });
+                document.getElementById("btnIniciarSesion").classList.remove('is-loading');
             } else {
-                swal("Problema", "Tenemos problemas para conectarnos con el servidor. Intente de nuevo por favor.", "error", {
+                const errorResult = await response.json();
+                swal("Problema", errorResult.message || "Tenemos problemas para conectarnos con el servidor. Intente de nuevo por favor.", "error", {
                     button: "Aceptar"
-                })
-                document.getElementById("btnIniciarSesion").classList.remove('is-loading')
+                });
+                document.getElementById("btnIniciarSesion").classList.remove('is-loading');
             }
         })
         .catch(error => {

@@ -7,6 +7,16 @@ GET https://localhost:7083/api/biologo/Nombre/Nombre1
 
 ###
 
+POST http://192.168.137.1:5001/api/cuenta
+Content-Type: application/json
+
+{
+    "Nombre": "Nombre2",
+    "Contrasena": "B12341234"
+}
+
+###
+
 GET https://localhost:7083/api/biologo/Id/4
 
 ###

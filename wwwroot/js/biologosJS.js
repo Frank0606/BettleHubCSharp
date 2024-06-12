@@ -55,6 +55,12 @@ async function fetchBiologos() {
                 'Authorization': 'Bearer ' + getCookie('userToken')
             }
         })
+        const newToken = response.headers.get('Set-Authorization');
+        if (newToken) {
+            console.log('Nuevo token:', newToken);
+            const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+            document.cookie = tokenCookie;
+        }
         const data = await response.json();
         if (getCookie('userRol') === 'Administrador') {
             biologos = data
@@ -198,7 +204,15 @@ function agregarBiologo() {
             },
             body: JSON.stringify(biologo)
         })
-            .then(response => response.json())
+            .then(response => {
+                const newToken = response.headers.get('Set-Authorization');
+                if (newToken) {
+                    console.log('Nuevo token:', newToken);
+                    const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                    document.cookie = tokenCookie;
+                }
+                return response.json()
+            })
             .then(() => {
                 obtenerBiologos()
                 nombre.value = ''
@@ -221,6 +235,15 @@ function eliminarBiologo(id) {
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(() => window.location.reload())
         .catch(error => alert("No se ha podido eliminar a este biologo"))
 }
@@ -259,6 +282,15 @@ function actualizarBiologo() {
         },
         body: JSON.stringify(biologo)
     })
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(() => window.location.reload())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
         .catch(error => alert("No se ha podido editar al biologo '" + biologo.Nombre + "'"))

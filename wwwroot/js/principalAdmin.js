@@ -15,7 +15,15 @@ function contarEscarabajos(){
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
-        .then(response => response.json())
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(data => {
             if (getCookie('userRol') === 'Administrador') {
                 cuentaEscarabajos.textContent = `El número de escarabajos actuales es de ${data.length}`
@@ -35,7 +43,15 @@ function contarBiologos(){
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
-        .then(response => response.json())
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(data => {
             if (getCookie('userRol') === 'Administrador') {
                 cuentaBiologos.textContent = `El número de biologos registrados es de ${data.length}`

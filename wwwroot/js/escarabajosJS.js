@@ -56,6 +56,12 @@ async function fetchEscarabajos() {
                 'Authorization': 'Bearer ' + getCookie('userToken')
             }
         },)
+        const newToken = response.headers.get('Set-Authorization');
+        if (newToken) {
+            console.log('Nuevo token:', newToken);
+            const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+            document.cookie = tokenCookie;
+        }
         const data = await response.json()
         if (getCookie('userRol') === 'Administrador') {
             escarabajos = data
@@ -236,7 +242,7 @@ function _mostrarEscarabajos(data) {
 }
 
 //          Agregar o POST
-function agregarEscarabajo() {
+async function agregarEscarabajo() {
     const especie = document.getElementById('especieEscarabajo')
     const familia = document.getElementById('familiaEscarabajo')
     const genero = document.getElementById('generoEscarabajo')
@@ -253,25 +259,30 @@ function agregarEscarabajo() {
     const coordenadas = document.getElementById('coordenadasEscarabajo')
 
     let coordenadasStr = coordenadas ? coordenadas.value.trim().toString() : "[]";
-    let audios
-    let imagenes
+    let audios;
+    let imagenes;
 
     try {
-        let rutaImagen = guardarImagenes()
-        let rutaAudio = guardarAudios()
-        imagenes = rutaImagen
-        audios = rutaAudio
-        if(imagenes === null || audios === null){
-            swal("Problema", "No se pudo guardar ninguno de los recursos", "error", {
+        let rutaImagen = await guardarImagenes();
+        let rutaAudio = await guardarAudios();
+        console.log(rutaImagen + ", " + rutaAudio);
+
+        if (!rutaImagen || !rutaAudio) {
+            swal("Problema", "No se pudo guardar alguno de los recursos", "error", {
                 button: "Aceptar"
-            })
-            return
+            });
+            return;
         }
+
+        imagenes = rutaImagen;
+        audios = rutaAudio;
+
     } catch (error) {
         swal("Problema", "No se pudo guardar ninguno de los recursos", "error", {
             button: "Aceptar"
-        })
+        });
     }
+
 
     const escarabajo = {
         Especie: especie.value.trim(),
@@ -302,7 +313,15 @@ function agregarEscarabajo() {
         },
         body: JSON.stringify(escarabajo)
     })
-        .then(response => response.json())
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(() => {
             obtenerEscarabajos()
             especie.value = ''
@@ -333,6 +352,15 @@ function eliminarEscarabajo(id) {
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(() => window.location.reload())
         .catch(error => alert("No se pudo eliminar al escarabajo"))
 }
@@ -397,6 +425,15 @@ function actualizarEscarabajo() {
         },
         body: JSON.stringify(escarabajo)
     })
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(() => obtenerEscarabajos())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
         .then(() => window.location.reload())
@@ -492,7 +529,7 @@ function mostrarDatosPDF() {
     doc.save('datos_escarabajos.pdf');
 }
 
-function guardarImagenes() {
+async function guardarImagenes() {
     const input = document.getElementById('imageInput');
     const file = input.files[0];
 
@@ -512,9 +549,17 @@ function guardarImagenes() {
         },
         body: formData,
     })
-        .then(response => response.json())
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(data => {
-            return data
+            return data['filePath']
         })
         .catch(error => {
             swal("Problema", "No se pudo guardar las imagenes.", "error", {
@@ -523,7 +568,7 @@ function guardarImagenes() {
         });
 }
 
-function guardarAudios() {
+async function guardarAudios() {
     const input = document.getElementById('audioInput');
     const file = input.files[0];
 
@@ -543,9 +588,17 @@ function guardarAudios() {
         },
         body: formData,
     })
-        .then(response => response.json())
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(data => {
-            return data
+            return data['filePath']
         })
         .catch(error => {
             swal("Problema", "No se pudo guardar los audios.", "error", {

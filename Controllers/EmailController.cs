@@ -39,25 +39,42 @@ namespace BettleHubCsharp.Controllers
         [HttpPost("verificarCodigo")]
         public IActionResult VerificarCodigo([FromBody] CodigoVerificacionRequest request)
         {
-            if (_verificationCodes.TryGetValue(request.Email, out string? savedCode))
+            try
             {
-                if (savedCode == request.Codigo)
+                if (_verificationCodes.TryGetValue(request.Email, out string? savedCode))
                 {
-                    _verificationCodes.TryRemove(request.Email, out _);
-                    return Ok();
+                    if (savedCode == request.Codigo)
+                    {
+                        _verificationCodes.TryRemove(request.Email, out _);
+                        return Ok();
+                    }
+                    return BadRequest("Código incorrecto");
                 }
-                return BadRequest("Código incorrecto");
+                return BadRequest("Código no encontrado para el email proporcionado");
             }
-            return BadRequest("Código no encontrado para el email proporcionado");
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al verificar el código: {ex.Message}");
+            }
         }
 
         [HttpPost("comprobarCorreo")]
-        public IActionResult ComprobarCorreo([FromBody] EmailRequest email){
-            if (_verificationCodes.TryGetValue(email.Email, out string? savedCode)){
-                return Ok();
+        public IActionResult ComprobarCorreo([FromBody] EmailRequest email)
+        {
+            try
+            {
+                if (_verificationCodes.TryGetValue(email.Email, out string? savedCode))
+                {
+                    return Ok();
+                }
+                return BadRequest("No está registrado el correo");
             }
-            return BadRequest("No esta registrado el correo");
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al comprobar el correo: {ex.Message}");
+            }
         }
+
         private static string GenerateRandomCode()
         {
             Random random = new();

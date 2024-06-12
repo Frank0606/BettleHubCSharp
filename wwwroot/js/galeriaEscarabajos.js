@@ -1,4 +1,3 @@
-
 let galleryImages = []
 let escarabajos
 // Obtén todas las imágenes de la galería
@@ -51,17 +50,31 @@ document.addEventListener('DOMContentLoaded', () => {
             'Authorization': 'Bearer ' + getCookie('userToken')
         }
     })
-        .then(response => response.json())
+        .then(response => {
+            const newToken = response.headers.get('Set-Authorization');
+            if (newToken) {
+                console.log('Nuevo token:', newToken);
+                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+                document.cookie = tokenCookie;
+            }
+            return response.json()
+        })
         .then(data => {
-            escarabajos = data
-            _mostrarEscarabajoGaleria(escarabajos)
-            galleryImages = document.querySelectorAll('.img')
-            cargarMetodoImagenesModal()
-            if(getCookie('especieBusqueda')){
-                const especie = getCookie('especieBusqueda')
-                mostrarDescripcion(especie)
-                openModal()
-                document.cookie = 'especieBusqueda=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            if(data.message){
+                swal("Problema - Escarabajos", data.message, "error", {
+                    button: "Aceptar"
+                });
+            } else {
+                escarabajos = data
+                _mostrarEscarabajoGaleria(escarabajos)
+                galleryImages = document.querySelectorAll('.img')
+                cargarMetodoImagenesModal()
+                if(getCookie('especieBusqueda')){
+                    const especie = getCookie('especieBusqueda')
+                    mostrarDescripcion(especie)
+                    openModal()
+                    document.cookie = 'especieBusqueda=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                }   
             }
         })
         .catch(error => {
