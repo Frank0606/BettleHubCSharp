@@ -260,7 +260,6 @@ function descargarRecursos(especie) {
     const techSheetCheckbox = document.getElementById("techSheetCheckbox")
 
     boolAudio = audioCheckbox.checked
-    // boolEspectogramas = spectrogramCheckbox.checked
     boolImagenes = imagesCheckbox.checked
     // boolTechSheet = techSheetCheckbox.checked
 
@@ -271,11 +270,6 @@ function descargarRecursos(especie) {
                     archivosSeleccionados.push({ ruta: audio, carpeta: "audios" })
                 })
             }
-            // if (spectrogramCheckbox.checked) {
-            //     escarabajo.espectogramas.forEach(espectograma => {
-            //         archivosSeleccionados.push({ ruta: espectograma, carpeta: "espectrogramas" })
-            //     })
-            // }
             if (boolImagenes) {
                 escarabajo.imagenes.forEach(imagen => {
                     archivosSeleccionados.push({ ruta: imagen, carpeta: "imagenes" })
@@ -285,24 +279,18 @@ function descargarRecursos(especie) {
 
             //     archivosSeleccionados.push({ ruta: "resources/ficha_tecnica.txt", carpeta: "fichas_tecnicas" })
             // }
-            // Uso la libreria de JSZIP para pasar de json a archivos zip
             const zip = new JSZip()
             const promesas = []
 
-            // Entra a cada uno de los datos que se quieren descargar
             archivosSeleccionados.forEach(archivo => {
-                // Se guardan los dos argumentos json en una constante ruta y otra carpeta
                 const { ruta, carpeta } = archivo
-                // Se obtiene el nombre dle archivo a partir de la ruta
                 const nombreArchivo = ruta.split("/").pop()
-                // Se crea el folder de cada una de los recursos
                 const folder = zip.folder(carpeta)
 
 
                 const promise = fetch(ruta)
                     .then(response => response.blob())
                     .then(blob => {
-                        // Agregar el archivo a la carpeta correspondiente dentro del ZIP
                         folder.file(nombreArchivo, blob)
                     })
 
@@ -346,12 +334,10 @@ function closeModalDescargas() {
 
     const modal = document.getElementById('downloadModal')
     const audioCheckbox = document.getElementById("audioCheckbox")
-    // const spectrogramCheckbox = document.getElementById("spectrogramCheckbox")
     const imagesCheckbox = document.getElementById("imagesCheckbox")
     // const techSheetCheckbox = document.getElementById("techSheetCheckbox")
 
     audioCheckbox.checked = false
-    // spectrogramCheckbox.checked = false
     imagesCheckbox.checked = false
     // techSheetCheckbox.checked = false
 
@@ -367,19 +353,15 @@ function descargarTxt(especie) {
         writeStream.write(`${atributo}`);
     });
 
-    console.log('Data written to file successfully!');
-
     return writeStream
 }
 
 function aplicarFiltros() {
-    // Recoger valores de los filtros
     const filtroFamilia = document.getElementById('filtroFamilia').value.toLowerCase();
     const filtroPatas = document.getElementById('filtroPatas').value;
     const filtroAntenas = document.getElementById('filtroAntenas').value;
     const filtroInvestigacion = document.getElementById('filtroInvestigacion').value;
 
-    // Filtrar los escarabajos según los criterios de los filtros
     const datosFiltrados = escarabajos.filter(item => {
         let coincideFamilia = true;
         let coincidePatas = true;
@@ -405,14 +387,11 @@ function aplicarFiltros() {
         return coincideFamilia && coincidePatas && coincideAntenas && coincideInvestigacion;
     });
 
-    // Mostrar la galería filtrada
     _mostrarEscarabajoGaleria(datosFiltrados);
-    // Hacer que se puedan abrir los modales de los escarabajos filtrados
     galleryImages = document.querySelectorAll('.img');
     cargarMetodoImagenesModal();
 }
 
-//Función para que la galeria pueda reestablecerse cuando se borre
 function configurarEventosModales() {
     const imagenes = document.querySelectorAll('.img');
     imagenes.forEach(imagen => {
@@ -434,7 +413,6 @@ function limpiarFiltros() {
     filtroAntenas.value = '';
     filtroInvestigacion.value = '';
 
-    // Realizar la petición de filtrado sin ningún filtro aplicado
     fetch("api/escarabajo/filtrar", {
         method: 'GET',
         headers: {

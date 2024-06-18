@@ -338,8 +338,11 @@ async function agregarEscarabajo() {
             document.getElementById('imageInput').value = ''
             document.getElementById('audioInput').value = ''
         })
-        .then(() => document.getElementById('agregarEscarabajo').classList.remove('is-active'))
-        .then(() => openModalMostrar())
+        .then(() => {
+            document.getElementById('agregarEscarabajo').classList.remove('is-active')
+            openModalMostrar()
+            window.location.reload()
+        })
         .catch(error => alert("No se pudo crear el escarabajo"))
 }
 
@@ -352,16 +355,28 @@ function eliminarEscarabajo(id) {
         }
     })
         .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
             const newToken = response.headers.get('Set-Authorization');
             if (newToken) {
                 console.log('Nuevo token:', newToken);
                 const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
                 document.cookie = tokenCookie;
             }
-            return response.json()
+            if (response.status === 204) {
+                return null;
+            } else {
+                return response.json();
+            }
         })
-        .then(() => window.location.reload())
-        .catch(error => alert("No se pudo eliminar al escarabajo"))
+        .then(data => {
+            window.location.reload();
+        })
+        .catch(error => {
+            alert("No se pudo eliminar al escarabajo");
+        });
+
 }
 
 //          Editar o UPDATE
@@ -431,12 +446,21 @@ function actualizarEscarabajo() {
                 const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
                 document.cookie = tokenCookie;
             }
-            return response.json()
+            if (response.status === 204) {
+                return null;
+            } else {
+                return response.json();
+            }
         })
-        .then(() => obtenerEscarabajos())
-        .then(() => document.getElementById('editarForm').classList.remove('is-active'))
-        .then(() => window.location.reload())
-        .catch(error => alert("No se pudo editar al escarabajo '" + escarabajo.Especie + "'"))
+        .then(data => {
+            obtenerEscarabajos();
+            document.getElementById('editarForm').classList.remove('is-active');
+            window.location.reload();
+        })
+        .catch(error => {
+            alert("No se pudo editar al escarabajo '" + escarabajo.Especie + "'");
+        });
+
 }
 
 function _displayCount(length) {

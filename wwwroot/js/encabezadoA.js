@@ -29,7 +29,7 @@ navbarBrand.appendChild(titleLink);
 let biologistsLink = document.createElement("a");
 biologistsLink.className = "navbar-item is-size-4 has-text-weight-medium has-text-light";
 biologistsLink.href = "crudBiologos.html";
-biologistsLink.textContent = "Biologos";
+biologistsLink.textContent = "Biólogos";
 navbarBrand.appendChild(biologistsLink);
 
 // Crear el enlace "Escarabajos"

@@ -54,7 +54,7 @@ function contarBiologos(){
         })
         .then(data => {
             if (getCookie('userRol') === 'Administrador') {
-                cuentaBiologos.textContent = `El número de biologos registrados es de ${data.length}`
+                cuentaBiologos.textContent = `El número de biólogos registrados es de ${data.length}`
             } else {
                 mostrarErrorServidor()
             }

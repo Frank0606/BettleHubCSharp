@@ -223,7 +223,7 @@ function agregarBiologo() {
             })
             .then(() => document.getElementById('agregarBiologo').classList.remove('is-active'))
             .then(() => window.location.reload())
-            .catch(error => alert("No se ha podido agregar al biologo"))
+            .catch(error => alert("No se ha podido agregar al biólogo"))
     }
 }
 
@@ -245,7 +245,7 @@ function eliminarBiologo(id) {
             return response.json()
         })
         .then(() => window.location.reload())
-        .catch(error => alert("No se ha podido eliminar a este biologo"))
+        .catch(error => alert("No se ha podido eliminar a este biólogo"))
 }
 
 //          Editar o UPDATE
@@ -293,7 +293,7 @@ function actualizarBiologo() {
         })
         .then(() => window.location.reload())
         .then(() => document.getElementById('editarForm').classList.remove('is-active'))
-        .catch(error => alert("No se ha podido editar al biologo '" + biologo.Nombre + "'"))
+        .catch(error => alert("No se ha podido editar al biólogo '" + biologo.Nombre + "'"))
 
 
 }
