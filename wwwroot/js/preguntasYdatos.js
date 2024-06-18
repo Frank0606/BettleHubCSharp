@@ -1,4 +1,4 @@
-const uri = 'http://192.168.56.104:5001/api/escarabajo'
+const uri = 'api/escarabajo'
 
 //Obtener a los escarabajos
 let escarabajos
@@ -53,7 +53,6 @@ async function fetchEscarabajos() {
         },)
         const newToken = response.headers.get('Set-Authorization');
         if (newToken) {
-            console.log('Nuevo token:', newToken);
             const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
             document.cookie = tokenCookie;
         }
@@ -72,7 +71,7 @@ async function fetchEscarabajos() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     await fetchEscarabajos()
-    fetch("http://192.168.56.104:5001/api/pregunta", {
+    fetch("api/pregunta", {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + getCookie('userToken')

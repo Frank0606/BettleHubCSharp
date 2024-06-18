@@ -248,6 +248,7 @@ public class EscarabajoController(IdentityContext context) : Controller
         }
     }
 
+    [Authorize(Roles = "Biologo,Administrador")]
     [HttpGet("filtrar")]
     public async Task<ActionResult<IEnumerable<Escarabajo>>> FiltrarEscarabajos(
         [FromQuery] string? familia,

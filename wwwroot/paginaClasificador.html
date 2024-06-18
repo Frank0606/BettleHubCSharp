@@ -24,7 +24,7 @@
         <div class="section">
             <div class="container">
                 <div class="columns">
-                    <div class="column is-half px-6">
+                    <div class="column is-half px-6 has-text-centered">
                         <!-- Titulo de cargar el audio -->
                         <div class="mb-5 has-text-centered">
                             <label class="is-size-3 has-text-weight-bold has-text-white">Cargar audio</label>
@@ -33,18 +33,18 @@
                         <div class="">
                             <label for="biologoClasificar" class="label py-2 m-0">Biologo</label>
                             <input type="text" name="biologoClasificar" id="biologoClasificar" class="input"
-                                style="width: 70%;" disabled>
+                                style="width: 90%;" disabled>
                         </div>
                         <!-- Input de coordenadas -->
-                        <div class="">
+                        <!-- <div class="">
                             <label for="coordenadasClasificar" class="label py-2 m-0">Coordenadas</label>
                             <input type="text" name="coordenadasClasificar" id="coordenadasClasificar"
                                 placeholder="Coordenadas" class="input" style="width: 70%;">
-                        </div>
+                        </div> -->
                         <!-- Input de audio a clasificar -->
                         <label class="label py-2 m-0">Audio</label>
-                        <div class="file has-name is-fullwidth pb-2 m-0">
-                            <label class="file-label" style="width: 70%;">
+                        <div class="file has-name is-fullwidth pb-2 m-0 is-flex is-justify-content-center is-align-items-center">
+                            <label class="file-label" style="width: 90%;">
                                 <input type="file" class="file-input" name="audio" id="audioInput">
                                 <span class="file-cta has-background-primary-soft">
                                     <span class="file-icon">
@@ -61,44 +61,30 @@
                         </div>
 
                         <div class="field mt-6 has-text-centered">
-                            <button class="button is-normal has-background-primary-soft"
+                            <button class="button is-medium has-background-primary-soft"
                                 id="btnClasificar">Clasificar</button>
                         </div>
                     </div>
 
-                    <div class="column is-hidden">
+                    <div class="column is-hidden" id="divClasificacion">
                         <div class="panel">
                             <p class="panel-heading is-size-3 p-4 has-text-centered" style="background-color: #006657;">
                                 Resultados</p>
                             <div class="panel-block">
-                                <img src="./css/resources/images/escarabajo1.webp" alt="Escarabajo"
-                                    class="image is-fullwidth">
+                                <img class="image is-fullwidth" id="imgClasificacion">
                             </div>
                             <div class="panel-block">
                                 <div class="columns" style="width: 100%;">
                                     <div class="column is-half">
-                                        <p>Guatematensis</p>
+                                        <p id="especieClasificacion">Guatematensis</p>
                                     </div>
                                     <div class="column is-half">
-                                        <p class="has-text-right">80%</p>
+                                        <p class="has-text-right" id="porcentajeClasificacion">80%</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="column is-two-thirds is-hidden">
-                        <div class="results-container">
-                            <h2 class="subtitle is-size-3 has-text-white has-text-weight-bold">Resultados</h2>
-                            <img src="imagen.jpg" alt="Imagen de escarabajo" id="imagen-resultado">
-                            <p id="porcentaje">Porcentaje de certeza:</p>
-                            <p id="tipo-escarabajo">Tipo de escarabajo:</p>
-                            <div class="buttons">
-                                <button class="button is-normal has-background-primary-soft"
-                                    id="btn-guardar">Guardar</button>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>

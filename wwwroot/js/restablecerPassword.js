@@ -1,4 +1,4 @@
-uri = "http://192.168.56.104:5001/api/biologo/Email"
+uri = "api/biologo/Email"
 
 function getCookie(name) {
     const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');

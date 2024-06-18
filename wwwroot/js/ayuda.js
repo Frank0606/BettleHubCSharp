@@ -1,4 +1,4 @@
-uri = "http://192.168.56.104:5001/api/ayuda"
+uri = "api/ayuda"
 let ayudas
 
 function getCookie(name) {

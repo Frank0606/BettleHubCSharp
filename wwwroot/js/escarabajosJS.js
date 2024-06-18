@@ -1,5 +1,5 @@
 //Seccion Escarabajos ------------------------------------------------------------------------------------------------------------- 
-const uri = 'http://192.168.56.104:5001/api/escarabajo'
+const uri = 'api/escarabajo'
 
 //Obtener a los escarabajos
 let escarabajos
@@ -265,7 +265,6 @@ async function agregarEscarabajo() {
     try {
         let rutaImagen = await guardarImagenes();
         let rutaAudio = await guardarAudios();
-        console.log(rutaImagen + ", " + rutaAudio);
 
         if (!rutaImagen || !rutaAudio) {
             swal("Problema", "No se pudo guardar alguno de los recursos", "error", {
@@ -299,8 +298,8 @@ async function agregarEscarabajo() {
         Elitros: elitros.value.trim(),
         Descripcion: descripcion.value.trim(),
         Estado_investigacion: false,
-        Audios: audios ? JSON.parse("[" + audios.value.trim() + "]") : JSON.parse("[null]"),
-        Imagenes: imagenes ? JSON.parse("[" + imagenes.value.trim() + "]") : JSON.parse("[null]"),
+        Audios: audios ? [audios] : [null],
+        Imagenes: imagenes ? [imagenes] : [null],
         Coordenadas: coordenadasStr ? JSON.parse('["' + coordenadasStr.replace(/,/g, '","') + '"]') : JSON.parse("[null]")
     }
 
@@ -541,31 +540,28 @@ async function guardarImagenes() {
     const formData = new FormData();
     formData.append('imagen', file);
 
-    fetch('http://192.168.56.104:5001/api/file/imagen', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getCookie('userToken')
-        },
-        body: formData,
-    })
-        .then(response => {
-            const newToken = response.headers.get('Set-Authorization');
-            if (newToken) {
-                console.log('Nuevo token:', newToken);
-                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
-                document.cookie = tokenCookie;
-            }
-            return response.json()
-        })
-        .then(data => {
-            return data['filePath']
-        })
-        .catch(error => {
-            swal("Problema", "No se pudo guardar las imagenes.", "error", {
-                button: "Aceptar"
-            })
+    try {
+        const response = await fetch('api/file/imagen', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + getCookie('userToken')
+            },
+            body: formData,
         });
+
+        const newToken = response.headers.get('Set-Authorization');
+        if (newToken) {
+            const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+            document.cookie = tokenCookie;
+        }
+
+        const data = await response.json();
+        return data.filePath;
+    } catch (error) {
+        swal("Problema", "No se pudo guardar las imagenes.", "error", {
+            button: "Aceptar"
+        });
+    }
 }
 
 async function guardarAudios() {
@@ -580,29 +576,26 @@ async function guardarAudios() {
     const formData = new FormData();
     formData.append('audio', file);
 
-    fetch('http://192.168.56.104:5001/api/file/audio', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + getCookie('userToken')
-        },
-        body: formData,
-    })
-        .then(response => {
-            const newToken = response.headers.get('Set-Authorization');
-            if (newToken) {
-                console.log('Nuevo token:', newToken);
-                const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
-                document.cookie = tokenCookie;
-            }
-            return response.json()
-        })
-        .then(data => {
-            return data['filePath']
-        })
-        .catch(error => {
-            swal("Problema", "No se pudo guardar los audios.", "error", {
-                button: "Aceptar"
-            })
+    try {
+        const response = await fetch('api/file/audi', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + getCookie('userToken')
+            },
+            body: formData,
         });
+
+        const newToken = response.headers.get('Set-Authorization');
+        if (newToken) {
+            const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
+            document.cookie = tokenCookie;
+        }
+
+        const data = await response.json();
+        return data.filePath;
+    } catch (error) {
+        swal("Problema", "No se pudo guardar los audios.", "error", {
+            button: "Aceptar"
+        });
+    }
 }

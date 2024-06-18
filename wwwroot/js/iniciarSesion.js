@@ -1,4 +1,4 @@
-const uri = 'http://192.168.56.104:5001/api/cuenta'
+const uri = 'api/cuenta'
 
 document.addEventListener("keyup", function (event) {
     const btnIniciarSesion = document.getElementById("btnIniciarSesion")

@@ -1,5 +1,5 @@
 let audioFile
-const uri = "http://192.168.56.104:5001/api/file"
+const uri = "api/file/audio"
 
 function mostrarErrorServidor() {
     const btnCerrarSesion = document.getElementById("cerrarSesion")
@@ -71,15 +71,41 @@ function getCookie(name) {
 
 function clasificarAudio() {
     if (audioFile) {
-        const fileAudio = new FormData(audioFile)
+        const formData = new FormData();
+        formData.append('audio', audioFile);
+        document.getElementById('btnClasificar').classList.add('is-loading')
+
         fetch(uri, {
             method: 'POST',
-            body: fileAudio
+            headers: {
+                'Authorization': 'Bearer ' + getCookie('userToken')
+            },
+            body: formData
         })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => alert("Error al clasificar el audio"))
+        .then(response => response.json())
+        .then(data => {
+            jsonObj = JSON.parse(data.message)
+            especie = jsonObj.especie
+            porcentaje = jsonObj.porcentaje
+            document.getElementById('btnClasificar').classList.remove('is-loading')
+            mostrarClasificacion(especie, porcentaje)
+        })
+        .catch(error => alert("Error al clasificar el audio"));
     } else {
-        alert("Por favor, selecciona un archivo de audio primero.")
+        alert("Por favor, selecciona un archivo de audio primero.");
     }
+}
+
+function mostrarClasificacion(especie, porcentaje){
+    imgClasificacion = document.getElementById('imgClasificacion')
+    imgClasificacion.setAttribute("src", `./css/resources/images/${especie}.webp`)
+
+    especieClasificacion = document.getElementById('especieClasificacion')
+    especieClasificacion.textContent = especie
+
+    porcentajeClasificacion = document.getElementById('porcentajeClasificacion')
+    porcentajeClasificacion.textContent = porcentaje.toFixed(2) + "%";
+
+    divClasificacion = document.getElementById("divClasificacion")
+    divClasificacion.classList.remove('is-hidden')
 }

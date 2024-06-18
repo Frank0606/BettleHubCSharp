@@ -40,7 +40,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://192.168.56.1:3306", "http://192.168.56.103", "http://localhost:5001", "http://192.168.56.104:5001", "http://localhost:80", "http://192.168.56.103:80")
+        policy.WithOrigins("http://localhost:3306", "https://localhost:5001", "http://localhost:3000", "https://localhost:3000")
         .AllowAnyHeader()
         .WithMethods("GET", "POST", "PUT", "DELETE");
     });
@@ -85,16 +85,16 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configuración para usar archivos estáticos
-// app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = ["index.html"] });
-// app.UseStaticFiles();
+app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = ["index.html"] });
+app.UseStaticFiles();
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors();
 //Primero se tiene que hacer el authentication y luego el authorization
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSlidingExpirationJwt();
 
-app.UseCors();
 app.MapControllers();
 app.Run();

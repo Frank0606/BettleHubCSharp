@@ -1,7 +1,7 @@
 let galleryImages = []
 let escarabajos
 // Obtén todas las imágenes de la galería
-const uri = 'http://192.168.56.104:5001/api/escarabajo'
+const uri = 'api/escarabajo'
 
 function getCookie(name) {
     const cookieValue = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
@@ -53,14 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => {
             const newToken = response.headers.get('Set-Authorization');
             if (newToken) {
-                console.log('Nuevo token:', newToken);
                 const tokenCookie = "userToken=" + newToken + "; expires=Mon, 01 Jul 2024 12:00:00 GMT; SameSite=strict";
                 document.cookie = tokenCookie;
             }
             return response.json()
         })
         .then(data => {
-            if(data.message){
+            if (data.message) {
                 swal("Problema - Escarabajos", data.message, "error", {
                     button: "Aceptar"
                 });
@@ -69,12 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 _mostrarEscarabajoGaleria(escarabajos)
                 galleryImages = document.querySelectorAll('.img')
                 cargarMetodoImagenesModal()
-                if(getCookie('especieBusqueda')){
+                if (getCookie('especieBusqueda')) {
                     const especie = getCookie('especieBusqueda')
                     mostrarDescripcion(especie)
                     openModal()
                     document.cookie = 'especieBusqueda=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                }   
+                }
             }
         })
         .catch(error => {
@@ -101,7 +100,14 @@ function _mostrarEscarabajoGaleria(data) {
         let divImag = divImagen.cloneNode(false)
         let num = Math.floor(Math.random() * item.imagenes.length)
 
-        divImag.setAttribute('src', `${item.imagenes[num]}`)
+        let fullPath = item.imagenes[num]
+        let pathParts = fullPath.split('/css/');
+        if (pathParts.length < 2) {
+            pathParts = fullPath.split('\\css\\');
+        }
+        let relativePath = '/css/' + pathParts[1];
+
+        divImag.setAttribute('src', relativePath);
         divImag.setAttribute('alt', `${item.especie}`)
         divImag.setAttribute('onClick', `mostrarDescripcion("${item.especie}")`)
         divImag.classList.add('image', 'is-fullwidth', 'img', `class${item.especie}`)
@@ -134,7 +140,7 @@ function mostrarDescripcion(especie) {
             parrafo.classList.add('mb-2', 'has-text-justified')
             divInfo.appendChild(parrafo)
 
-            for (let i = 0; i < Object.keys(escarabajo).length-6; i++) {
+            for (let i = 0; i < Object.keys(escarabajo).length - 6; i++) {
                 const atributo = Object.values(escarabajo)[i];
                 let labelAtributo = document.createElement('label')
                 labelAtributo.classList.add('has-text-weight-bold')
@@ -166,7 +172,15 @@ function mostrarImagenes(especie) {
                 pInner.classList.add("is-size-3", "has-text-white", "has-text-centered", "mb-5", "has-text-weight-bold")
                 pInner.textContent = `${escarabajo.especie}`
                 let imagenImg = img.cloneNode(false)
-                imagenImg.setAttribute('src', `${imagen}`)
+
+                let fullPath = imagen
+                let pathParts = fullPath.split('/css/');
+                if (pathParts.length < 2) {
+                    pathParts = fullPath.split('\\css\\');
+                }
+                let relativePath = '/css/' + pathParts[1];
+
+                imagenImg.setAttribute('src', relativePath)
                 imagenImg.setAttribute('id', 'modal-image')
                 imagenImg.style.width = "100%"
                 divFotos.appendChild(pInner)
@@ -190,7 +204,7 @@ function mostrarCoordenadas(especie) {
             let x = parseFloat(coordenadasArray[0])
             let y = parseFloat(coordenadasArray[1])
             let z = parseInt(coordenadasArray[2])
-            
+
             const script = document.createElement('script')
             script.classList.add('script_map')
             script.textContent = `
@@ -212,10 +226,10 @@ function mostrarCoordenadas(especie) {
 
 function mostrarGradoInvestigacion(especie) {
     escarabajos.forEach(escarabajo => {
-        if(escarabajo.especie === especie) {
+        if (escarabajo.especie === especie) {
             const barraProgress = document.getElementById("id_barra_investigacion")
             barraProgress.innerText = ''
-            if(escarabajo.Estado_investigacion) {
+            if (escarabajo.Estado_investigacion) {
                 barraProgress.setAttribute("value", "100")
                 barraProgress.innerText = '100%'
             } else {
@@ -251,7 +265,7 @@ function descargarRecursos(especie) {
     // boolTechSheet = techSheetCheckbox.checked
 
     escarabajos.forEach(escarabajo => {
-        if(escarabajo.especie === especie) {
+        if (escarabajo.especie === especie) {
             if (boolAudio) {
                 escarabajo.audios.forEach(audio => {
                     archivosSeleccionados.push({ ruta: audio, carpeta: "audios" })
@@ -268,7 +282,7 @@ function descargarRecursos(especie) {
                 })
             }
             // if (techSheetCheckbox.checked) {
-                
+
             //     archivosSeleccionados.push({ ruta: "resources/ficha_tecnica.txt", carpeta: "fichas_tecnicas" })
             // }
             // Uso la libreria de JSZIP para pasar de json a archivos zip
@@ -283,15 +297,15 @@ function descargarRecursos(especie) {
                 const nombreArchivo = ruta.split("/").pop()
                 // Se crea el folder de cada una de los recursos
                 const folder = zip.folder(carpeta)
-        
-                
+
+
                 const promise = fetch(ruta)
                     .then(response => response.blob())
                     .then(blob => {
                         // Agregar el archivo a la carpeta correspondiente dentro del ZIP
                         folder.file(nombreArchivo, blob)
                     })
-                
+
                 promesas.push(promise)
             })
 
@@ -394,16 +408,46 @@ function aplicarFiltros() {
     // Mostrar la galería filtrada
     _mostrarEscarabajoGaleria(datosFiltrados);
     // Hacer que se puedan abrir los modales de los escarabajos filtrados
-    configurarEventosModales();
+    galleryImages = document.querySelectorAll('.img');
+    cargarMetodoImagenesModal();
 }
 
 //Función para que la galeria pueda reestablecerse cuando se borre
 function configurarEventosModales() {
     const imagenes = document.querySelectorAll('.img');
     imagenes.forEach(imagen => {
-        imagen.addEventListener('click', function() {
+        imagen.addEventListener('click', function () {
             const especie = this.getAttribute('alt');
             mostrarDescripcion(especie);
         });
     });
+}
+
+function limpiarFiltros() {
+    const filtroFamilia = document.getElementById('filtroFamilia');
+    const filtroPatas = document.getElementById('filtroPatas');
+    const filtroAntenas = document.getElementById('filtroAntenas');
+    const filtroInvestigacion = document.getElementById('filtroInvestigacion');
+
+    filtroFamilia.value = '';
+    filtroPatas.value = '';
+    filtroAntenas.value = '';
+    filtroInvestigacion.value = '';
+
+    // Realizar la petición de filtrado sin ningún filtro aplicado
+    fetch("api/escarabajo/filtrar", {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + getCookie('userToken')
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            _mostrarEscarabajoGaleria(data);
+            galleryImages = document.querySelectorAll('.img');
+            cargarMetodoImagenesModal();
+        })
+        .catch(error => {
+            mostrarErrorServidor();
+        });
 }
